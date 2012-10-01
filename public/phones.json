@@ -1,0 +1,10 @@
+[
+	{"name" : "NExus S", "snippet": "The fast just got faster", "age": 3,"id": 1, "imageUrl": "nexus.gif"},
+	{"name" : "Motorola", "snippet" : "The next gen tablet", "age": 2, "id" : 2, "imageUrl": "motorola.gif"},
+	{"name" : "Surface", "snippet" : "The advanced tablet", "age": 1, "id": 3, "imageUrl": "surface.jpg"},
+	{"name" : "Nokia Lumia", "snippet" : "Windows 7 phone", "age": 2, "id": 4, "imageUrl": "lumia.jpg"},
+	{"name" : "HTC X One", "snippet" : "Andvanced Android Phone", "age": 1, "id": 5, "imageUrl": "htc.jpg"},
+	{"name" : "Samsung Galaxy S3", "snippet" : "The Best Android Phone", "age": 1, "id": 6, "imageUrl": "galaxy.jpg"},
+	{"name" : "LG asdasd", "snippet" : "The advanced tablet", "age": 3, "id": 7, "imageUrl": "surface.jpg"},
+	{"name" : "Sony Ericsson", "snippet" : "The advanced tablet", "age": 3, "id": 8, "imageUrl": "surface.jpg"}
+]

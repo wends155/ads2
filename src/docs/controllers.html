@@ -1,0 +1,55 @@
+<!DOCTYPE html>  <html> <head>   <title>controllers.coffee</title>   <meta http-equiv="content-type" content="text/html; charset=UTF-8">   <link rel="stylesheet" media="all" href="docco.css" /> </head> <body>   <div id="container">     <div id="background"></div>            <div id="jump_to">         Jump To &hellip;         <div id="jump_wrapper">           <div id="jump_page">                                           <a class="source" href="app.html">                 app.coffee               </a>                                           <a class="source" href="controllers.html">                 controllers.coffee               </a>                                           <a class="source" href="filters.html">                 filters.coffee               </a>                        </div>         </div>       </div>          <table cellpadding="0" cellspacing="0">       <thead>         <tr>           <th class="docs">             <h1>               controllers.coffee             </h1>           </th>           <th class="code">           </th>         </tr>       </thead>       <tbody>                               <tr id="section-1">             <td class="docs">               <div class="pilwrap">                 <a class="pilcrow" href="#section-1">&#182;</a>               </div>                            </td>             <td class="code">               <div class="highlight"><pre><span class="nv">PhoneListCtrl = </span><span class="p">[</span><span class="s1">&#39;$scope&#39;</span><span class="p">,</span><span class="s1">&#39;$http&#39;</span><span class="p">,</span><span class="s1">&#39;$filter&#39;</span><span class="p">,</span> <span class="nf">($scope,$http,$filter) -&gt;</span>
+  <span class="nx">$http</span><span class="p">.</span><span class="nx">get</span><span class="p">(</span><span class="s1">&#39;phones.json&#39;</span><span class="p">).</span><span class="nx">success</span> <span class="nf">(data)-&gt;</span>
+    <span class="nv">$scope.unfiltered = </span><span class="nx">data</span> 
+
+    <span class="nv">$scope.phones = </span><span class="nx">$filter</span><span class="p">(</span><span class="s1">&#39;filter&#39;</span><span class="p">)(</span><span class="nx">$scope</span><span class="p">.</span><span class="nx">unfiltered</span><span class="p">,</span><span class="nx">$scope</span><span class="p">.</span><span class="nx">query</span><span class="p">)</span>
+    
+    <span class="nv">$scope.numberOfPages = </span><span class="o">-&gt;</span>
+      <span class="nb">Math</span><span class="p">.</span><span class="nx">ceil</span><span class="p">(</span><span class="nx">$scope</span><span class="p">.</span><span class="nx">phones</span><span class="p">.</span><span class="nx">length</span><span class="err">/$scope.limit)</span>
+    
+    <span class="nv">$scope.isLastPage = </span><span class="o">-&gt;</span>
+      <span class="p">(</span><span class="nx">$scope</span><span class="p">.</span><span class="nx">currentPage</span> <span class="o">==</span> <span class="nx">$scope</span><span class="p">.</span><span class="nx">numberOfPages</span><span class="p">())</span> <span class="o">or</span> <span class="p">(</span><span class="nx">$scope</span><span class="p">.</span><span class="nx">numberOfPages</span><span class="p">()</span> <span class="o">==</span> <span class="mi">0</span><span class="p">)</span>
+    
+    <span class="err">@</span>
+
+  <span class="nv">$scope.orderProp = </span><span class="s1">&#39;id&#39;</span>
+  <span class="nv">$scope.currentPage = </span><span class="mi">1</span>
+  <span class="nv">$scope.limit = </span><span class="mi">1</span>
+  <span class="nv">$scope.start = </span><span class="mi">0</span>
+  <span class="nv">$scope.change = </span><span class="o">-&gt;</span>
+    <span class="nx">console</span><span class="p">.</span><span class="nx">log</span> <span class="s2">&quot;filtered: &quot;</span> <span class="o">+</span> <span class="nx">$scope</span><span class="p">.</span><span class="nx">phones</span>
+    <span class="nv">$scope.phones = </span><span class="nx">$filter</span><span class="p">(</span><span class="s1">&#39;filter&#39;</span><span class="p">)(</span><span class="nx">$scope</span><span class="p">.</span><span class="nx">unfiltered</span><span class="p">,</span><span class="nx">$scope</span><span class="p">.</span><span class="nx">query</span><span class="p">)</span>
+    <span class="nv">$scope.start = </span><span class="mi">0</span>
+    <span class="nv">$scope.currentPage = </span><span class="mi">1</span>
+
+  <span class="nv">$scope.nextPage = </span><span class="o">-&gt;</span>
+    <span class="nx">$scope</span><span class="p">.</span><span class="nx">currentPage</span><span class="o">++</span>
+    <span class="nx">console</span><span class="p">.</span><span class="nx">log</span> <span class="s2">&quot;currentPage: &quot;</span> <span class="o">+</span> <span class="nx">$scope</span><span class="p">.</span><span class="nx">currentPage</span>
+    <span class="nv">$scope.start = </span><span class="o">+</span><span class="nx">$scope</span><span class="p">.</span><span class="nx">start</span> <span class="o">+</span> <span class="o">+</span><span class="nx">$scope</span><span class="p">.</span><span class="nx">limit</span>
+    <span class="nx">console</span><span class="p">.</span><span class="nx">log</span> <span class="s2">&quot;start: &quot;</span> <span class="o">+</span> <span class="nx">$scope</span><span class="p">.</span><span class="nx">start</span>
+  <span class="nv">$scope.previousPage = </span><span class="o">-&gt;</span>
+    <span class="nx">$scope</span><span class="p">.</span><span class="nx">currentPage</span><span class="o">--</span>
+    <span class="nx">console</span><span class="p">.</span><span class="nx">log</span> <span class="s2">&quot;currentPage: &quot;</span> <span class="o">+</span> <span class="nx">$scope</span><span class="p">.</span><span class="nx">currentPage</span>
+    <span class="nv">$scope.start = </span><span class="o">+</span><span class="nx">$scope</span><span class="p">.</span><span class="nx">start</span> <span class="o">-</span> <span class="o">+</span><span class="nx">$scope</span><span class="p">.</span><span class="nx">limit</span>
+
+    <span class="k">if</span> <span class="nx">$scope</span><span class="p">.</span><span class="nx">start</span> <span class="o">&lt;</span> <span class="mi">0</span> 
+      <span class="nv">$scope.start = </span><span class="mi">0</span>
+
+    <span class="nx">console</span><span class="p">.</span><span class="nx">log</span> <span class="s2">&quot;start: &quot;</span> <span class="o">+</span> <span class="nx">$scope</span><span class="p">.</span><span class="nx">start</span>
+    <span class="kc">true</span>
+  <span class="nv">$scope.isFirstPage = </span><span class="o">-&gt;</span>
+    <span class="nx">$scope</span><span class="p">.</span><span class="nx">currentPage</span> <span class="o">==</span> <span class="mi">1</span>
+  
+  <span class="err">@</span>
+<span class="p">]</span>
+
+
+<span class="nv">PhoneDetailCtrl = </span><span class="p">[</span><span class="s1">&#39;$scope&#39;</span><span class="p">,</span><span class="s1">&#39;$routeParams&#39;</span><span class="p">,</span> <span class="nf">($scope,$routeParams) -&gt;</span>
+  <span class="nv">$scope.phoneId = </span><span class="nx">$routeParams</span><span class="p">.</span><span class="nx">phoneId</span>
+  <span class="nv">$scope.hello = </span><span class="nf">(name) -&gt;</span> 
+    <span class="nv">$scope.msg = </span><span class="s2">&quot;hello #{name}&quot;</span>
+    
+  <span class="err">@</span>
+<span class="p">]</span>
+
+</pre></div>             </td>           </tr>                </tbody>     </table>   </div> </body> </html> 
