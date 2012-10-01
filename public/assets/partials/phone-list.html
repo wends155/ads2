@@ -1,0 +1,23 @@
+Search: <input ng-model="query"	 ng-change="change()" />
+		Sort By: <select name="" id="" ng-model="orderProp">
+			<option value="name">Alphabetical</option>
+			<option value="age">Latest</option>
+			<option value="id">Id</option>
+		</select>
+		Show: <select ng-model="limit"> 
+			<option value="1">1</option>
+			<option value="2">2</option>
+			<option value="3">3</option>
+		</select>
+		<ul>
+			<li ng-repeat="phone in phones | filter: query | orderBy: orderProp | startFrom: start | limitTo: limit">
+				<a href="#/phones/{{phone.id}}"><img ng-src="{{phone.imageUrl}}"></a>
+				<a href="#/phones/{{phone.id}}">{{phone.name}}</a>
+				<p>{{phone.snippet}}</p>
+			</li>
+		</ul>
+		<button ng-disabled="isFirstPage()" ng-click="previousPage()">Prev</button> <button ng-disabled="isLastPage()" ng-click="nextPage()">Next</button>
+		<p> {{currentPage}}/{{numberOfPages()}}  </p>
+		<p>Your searched: {{query}}</p>
+		<p>Ordered by: {{orderProp}}</p>
+		

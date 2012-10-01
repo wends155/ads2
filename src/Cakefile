@@ -1,0 +1,41 @@
+{exec} = require 'child_process'
+path = require 'path'
+
+ASSETS_PATH = '../public/assets'
+PRODUCT = 'ads'
+
+JS_PATH = "#{ASSETS_PATH}/js"
+CSS_PATH = "#{ASSETS_PATH}/css"
+COFFEE_SRC = "coffee/"
+LESS_SRC = "less/"
+FILES = ['app','filters','controllers']
+IN_FILES = ("#{COFFEE_SRC}#{file}.coffee" for file in FILES).join ' '
+
+PATH = '/usr/local/bin'
+COFFEE ='/usr/local/bin/coffee'
+UGLIFY = '/usr/local/bin/uglifyjs'
+RECESS = '/usr/local/bin/recess'
+
+exerr  = (err, sout,  serr)->
+  process.stdout.write err  if err
+  process.stdout.write sout if sout
+  process.stdout.write serr if serr
+
+task 'doc', 'generate documentation for *.coffee files', ->
+  exec "docco #{COFFEE_SRC}*.coffee", exerr
+
+task "build", "builds #{PRODUCT}", ->
+	console.log "output in #{JS_PATH}"
+	console.log "building coffee files"
+	console.log "infiles: #{IN_FILES}"
+	exec "#{COFFEE} --compile --join #{PRODUCT}.js --output #{JS_PATH} #{IN_FILES}", exerr
+	console.log "output: #{JS_PATH}/#{PRODUCT}.js"
+
+task 'minify', "minify generated #{PRODUCT}.js", ->
+	console.log "minifying #{JS_PATH}/#{PRODUCT}.js"
+	exec "#{UGLIFY} --no-copyright --output #{JS_PATH}/#{PRODUCT}.min.js #{JS_PATH}/#{PRODUCT}.js",exerr
+	console.log "output: #{JS_PATH}/#{PRODUCT}.min.js"
+
+task "deploy", "builds and minifies #{PRODUCT}", ->
+	invoke 'build'
+	invoke 'minify'
