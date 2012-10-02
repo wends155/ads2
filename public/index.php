@@ -12,8 +12,14 @@ respond('/redirect', function($req,$res){
 	});
 respond('/login/[i:id]/[:name]', function($req,$res){
 	$res->header('Content-Type', 'text/plain');
+	$res->session('id',$req->id);
+	$res->redirect('/');
 	print_r($_SERVER);
 });
+respond('/logout', function($req,$res){
+	$res->session('id', null);
+	$res->redirect('/');
+	});
 
 respond('/twig', 'twig_test');
 
@@ -23,22 +29,21 @@ function twig_test(){
 	echo $tpl->render(array('content' => 'test content'));
 }
 
-function def($req,$res) {
-	//$res->title = 'WebApp Boilerplate';
-	//$res->message = 'additional message, could be from database or file.' . $GLOBALS['outside'];
-	try {
-	//$res->render('../templates/fluid.html');
-
-	$tpl = Template::load('index.html');
-	$data = array(
-		"title" => "WebApp Boilerplate",
-		"message" => "I'm using Twig with erb syntax"
-	); 
-	echo $tpl->render($data);
+function def($request,$response) {
+	if (!$request->session('id')){
+		$tpl = Template::load('login.html');
+		echo $tpl->render(array('title'=>'Login', 'message'=>$request->session('id')));
+	} else {
+		$tpl = Template::load('index.html');
+		$data = array(
+			"title" => "WebApp Boilerplate",
+			"message" => "I'm using Twig with erb syntax, id:" . $request->session('id')
+		);
+		
+		echo $tpl->render($data);
+	}
 	
-	} catch(Exception $e){
-		echo $e->getMessage();
-	} 
+	 
 }
 
 function profile($req,$res){
