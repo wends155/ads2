@@ -2,13 +2,7 @@
 $lib = '../lib';
 require "$lib/klein.php";
 require "$lib/database.php";
-require "$lib/rain.tpl.class.php";
 require "$lib/template.php";
-
-raintpl::configure("tpl_dir", "../templates/" );
-raintpl::configure("cache_dir", "../cache/" );
-$tpl = new RainTPL;
-
 
 respond('/','def');
 respond('/[i:id]','profile');
@@ -34,13 +28,13 @@ function def($req,$res) {
 	try {
 	//$res->render('../templates/fluid.html');
 	
-	$tpl = $GLOBALS["tpl"];
+	$tpl = Template::load('index.html');
 	$data = array(
 		"title" => "WebApp Boilerplate",
-		"message" => "I'm using RainTpl"
+		"message" => "I'm using Twig with erb syntax"
 	); 
-	$tpl->assign($data);
-	$tpl->draw("fluid");
+	echo $tpl->render($data);
+	
 	} catch(Exception $e){
 		echo $e->getMessage();
 	} 
