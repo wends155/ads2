@@ -3,7 +3,7 @@ $lib = '../lib';
 require "$lib/klein.php";
 require "$lib/database.php";
 require "$lib/rain.tpl.class.php";
-
+require "$lib/template.php";
 
 raintpl::configure("tpl_dir", "../templates/" );
 raintpl::configure("cache_dir", "../cache/" );
@@ -20,12 +20,20 @@ respond('/login/[i:id]/[:name]', function($req,$res){
 	$res->header('Content-Type', 'text/plain');
 	print_r($_SERVER);
 });
+respond('/twig', 'twig_test');
+
+function twig_test(){
+	//echo "hello";
+	$tpl = Template::load('test.html');
+	echo $tpl->render(array('content' => 'test content'));
+}
 
 function def($req,$res) {
 	//$res->title = 'WebApp Boilerplate';
 	//$res->message = 'additional message, could be from database or file.' . $GLOBALS['outside'];
 	try {
 	//$res->render('../templates/fluid.html');
+	
 	$tpl = $GLOBALS["tpl"];
 	$data = array(
 		"title" => "WebApp Boilerplate",
