@@ -1,39 +1,11 @@
 <?php
 $lib = '../lib';
 require "$lib/klein.php";
-require "$lib/database.php";
+//require "$lib/database.php";
 require "$lib/template.php";
+require "../db/general.php";
 
 respond('/','def');
-respond('/[i:id]','profile');
-respond('/[:name]/status.[html|csv|json:format]?','report');
-respond('/redirect', function($req,$res){
-		$res->redirect("/");
-	});
-respond('/login/[i:id]/[:name]', function($req,$res){
-	$res->header('Content-Type', 'text/plain');
-	$res->session('id',$req->id);
-	$res->redirect('/');
-	print_r($_SERVER);
-});
-respond('/logout', function($req,$res){
-	$res->session('id', null);
-	$res->redirect('/');
-	});
-respond('/register','register');
-respond('/twig', 'twig_test');
-
-function register(){
-	$tpl = Template::load('register.html');
-	echo $tpl->render(array('content' => 'test content'));
-}
-
-function twig_test(){
-	//echo "hello";
-	$tpl = Template::load('test.html');
-	echo $tpl->render(array('content' => 'test content'));
-}
-
 function def($request,$response) {
 	if (!$request->session('id')){
 		$tpl = Template::load('login.html');
@@ -51,41 +23,250 @@ function def($request,$response) {
 	 
 }
 
+respond('/profile/[i:id].json','profile');
 function profile($req,$res){
-	
-	try{
-		$id = $req->id;
-		$data = Database::sql("select * from students where id = $id");
-	}catch(Exception $e){
-		exit( $e->getMessage());
-	}
-	if(!$data){
-		$res->code(404);
-		echo 'Not Found';
+	$res->header('Content-Type', 'application/json; charset=utf-8');
+	if($req->method('POST')){
+		$data = json_decode( file_get_contents("php://input") );
+		$model = Profile::findById($req->id);
+		if($model){
+			
+			$model->fname = $data->fname;
+			$model->lname = $data->lname;
+			$model->mname = $data->mname;
+			$model->address = $data->address;
+			$model->birthday = $data->birthday;
+			$model->gender = $data->gender;
+			$model->nationality = $data->nationality;
+			$model->bio = $data->bio;
+			$model->status = $data->status;
+			$model->user_id = $req->id;
+			$model->mobile = $data->mobile;
+
+			$model->save();
+			
+			echo $model;
+		} else {
+			$res->code(404);
+		}
 	}else{
-		$res->header('Content-Type','application/json');
-		echo json_encode($data);
+		
+		$prof = Profile::findById($req->id);
+		if($prof){
+			echo $prof;
+		}else{
+			$res->code(404);
+		}
+
 	}
-	
 }
 
-function report($request, $response,$view) {
-	switch($request->format) {
-		case 'json': 
-			$response->header('Content-Type','application/json');
-			echo 'hello json: ' . $request->uri() . "\n";
-			var_dump( $request->params()) . "\n";
-			echo $request->param('year');
-			break;
-		case 'csv':
-			$response->header('Content-Type', 'text/plain');
-			echo 'hello csv';
-			break;
-		default: 
-			echo 'hello default';
-			//echo 'hello default ';
+respond('POST','/profile/new.json',function($req,$res){
+	$res->header('Content-Type', 'application/json; charset=utf-8');
+	$data = json_decode( file_get_contents("php://input") );
+	$model = new Profile();
+
+	$model->fname = $data->fname;
+	$model->lname = $data->lname;
+	$model->mname = $data->mname;
+	$model->address = $data->address;
+	$model->birthday = $data->birthday;
+	$model->gender = $data->gender;
+	$model->nationality = $data->nationality;
+	$model->bio = $data->bio;
+	$model->status = $data->status;
+	$model->user_id = $data->id;
+	$model->mobile = $data->mobile;
+
+	$model->save();
+	echo $model;
+
+});
+
+respond('/brand/[i:id].json',function($req,$res){
+	$res->header('Content-Type', 'application/json');
+	$model = Brand::findById($req->id);
+	if($model){
+		if($req->method('post')){
+			$data = json_decode( file_get_contents("php://input"));
+			$model->name = $data->name;
+			$model->description = $data->description;
+			
+			$model->save();
+			echo $model;
+		}else{
+			echo $model;
+		}
+		
+	} else {
+		$res->code(404);
 	}
-}
+});
+
+respond('GET','/brand/all.json',function($req,$res){
+	$res->header('Content-Type', 'application/json');
+	$models = Brand::all();
+	$all = array();
+	foreach ($models as $model) {
+		# code...
+		$all[] = $model->as_array();
+	}
+	echo json_encode($all);
+});
+
+respond('POST','/brand/new.json',function($req,$res){
+	$res->header('Content-Type', 'application/json; charset=utf-8');
+	$data = json_decode( file_get_contents("php://input") );
+	$model = new Brand();
+	$model->name = $data->name;
+	$model->description = $data->description;
+	
+	$model->save();
+	echo $model;
+
+});
+
+respond('/category/[i:id].json',function($req,$res){
+	$res->header('Content-Type', 'application/json');
+	$model = Category::findById($req->id);
+
+	if($model){
+		if($req->method('post')){
+			$data = json_decode( file_get_contents("php://input"));
+			$model->name = $data->name;
+			$model->description = $data->description;
+			
+			$model->save();
+			echo $model;
+		}else{
+			echo $model;
+		}
+		
+	} else {
+		$res->code(404);
+	}
+});
+
+respond('GET','/category/all.json',function($req,$res){
+	$res->header('Content-Type', 'application/json');
+	$models = Category::all();
+	$all = array();
+	foreach ($models as $model) {
+		# code...
+		$all[] = $model->as_array();
+	}
+	echo json_encode($all);
+});
+
+respond('POST','/category/new.json',function($req,$res){
+	$res->header('Content-Type', 'application/json; charset=utf-8');
+	$data = json_decode( file_get_contents("php://input") );
+	$model = new Category();
+	$model->name = $data->name;
+	$model->description = $data->description;
+	
+	$model->save();
+	echo $model;
+
+});
+
+respond('/company/[i:id].json', function($req,$res){
+	$res->header('Content-Type', 'application/json');
+	$model = Company::findById($req->id);
+
+	if($model){
+		if($req->method('post')){
+			$data = json_decode( file_get_contents("php://input"));
+			$model->name = $data->name;
+			$model->description = $data->description;
+			
+			$model->save();
+			echo $model;
+		}else{
+			echo $model;
+		}
+		
+	} else {
+		$res->code(404);
+	}
+});
+
+respond('POST','/company/new.json',function($req,$res){
+	$res->header('Content-Type', 'application/json; charset=utf-8');
+	$data = json_decode( file_get_contents("php://input") );
+	$model = new Company();
+	$model->name = $data->name;
+	$model->description = $data->description;
+	
+	$model->save();
+	echo $model;
+
+});
+
+respond('GET','/company/all.json',function($req,$res){
+	$res->header('Content-Type', 'application/json');
+	$models = Company::all();
+	$all = array();
+	foreach ($models as $model) {
+		# code...
+		$all[] = $model->as_array();
+	}
+	echo json_encode($all);
+});
+
+respond('/product/[i:id].json', function($req,$res){
+	$res->header('Content-Type', 'application/json');
+	$model = Product::findById($req->id);
+
+	if($model){
+		if($req->method('post')){
+			$data = json_decode( file_get_contents("php://input"));
+			
+			$model->brand_id = $data->brand_id;
+			$model->company_id = $data->company_id;
+			$model->category_id = $data->category_id;
+			$model->name = $data->name;
+			$model->description = $data->description;
+			$model->price = $data->price;
+			
+			$model->save();
+			echo $model->as_joined_json();
+		}else{
+			echo $model->as_joined_json();
+		}
+		
+	} else {
+		$res->code(404);
+	}
+});
+
+respond('POST','/product/new.json',function($req,$res){
+	$res->header('Content-Type', 'application/json; charset=utf-8');
+	$data = json_decode( file_get_contents("php://input") );
+	$model = new Product();
+	
+	$model->brand_id = $data->brand_id;
+	$model->company_id = $data->company_id;
+	$model->category_id = $data->category_id;
+	$model->name = $data->name;
+	$model->description = $data->description;
+	$model->price = $data->price;
+	
+	$model->save();		
+	echo $model->as_joined_json();
+
+});
+
+respond('GET','/product/all.json',function($req,$res){
+	$res->header('Content-Type', 'application/json');
+	$products = Product::all();
+	$all = array();
+	foreach ($products as $product) {
+		# code...
+		$all[] = $product->as_joined_array();
+	}
+	echo json_encode($all);
+});
 
 dispatch();
 ?>
