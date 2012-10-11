@@ -1,0 +1,27 @@
+<table class="table table-bordered">
+ <thead>
+  <tr>
+   <th>Product</th>
+   <th>Unit Price</th>
+   <th>Quantity</th>
+   <th>Size</th>
+   <th>Color</th>
+   <th>SubTotal</th>
+   <th></th>
+  </tr>
+ </thead>
+ <tbody>
+   {% for detail in order.details %}
+   <tr>
+   	<td>{{detail.prod_name}}</td>
+   	<td>{{detail.price}}</td>
+   	<td>{{detail.quantity}}</td>
+   	<td>{{detail.size}}</td>
+   	<td>{{detail.color}}</td>
+   	<td>{{detail.subtotal}}</td>
+        <td><a href="/ADS/order/return.php?order_item={{detail.id}}">exchange</a></td>
+   </tr>
+   {% endfor %}
+ </tbody>
+</table>
+

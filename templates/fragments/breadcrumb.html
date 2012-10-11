@@ -1,0 +1,13 @@
+
+<ul class="breadcrumb">
+	<li>
+	  <a href="/ADS/user/index.php">Home</a> <span class="divider">/</span>
+	</li>
+	{% for link in breadcrumbs %}
+	<li>
+	  <a href="{{link.url}}">{{link.name}}</a> <span class="divider">/</span>
+	</li>
+	{% endfor %}
+	<li class="active">{{title}}</li>
+</ul>
+

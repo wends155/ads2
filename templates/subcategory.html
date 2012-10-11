@@ -1,0 +1,23 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="row">	
+	
+<div class="span4">
+	{% include "cat.html" %}
+</div>
+<div class="span8">
+	<br /><br />
+	<div class="row">
+	  <img class="subcat_img" src="/ADS/img/subcat_{{subcat.sub_id}}.gif" alt="" />
+	 
+	</div>
+	<div class="row">
+
+	{% include "fragments/breadcrumb.html"%}
+
+	{% include "thumb_prod.html" %}
+
+</div>	
+</div>
+
+{% endblock %}

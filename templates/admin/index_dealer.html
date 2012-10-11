@@ -1,0 +1,87 @@
+<% extends "admin/base.html" %>
+<% block title %><%= title %><% endblock %>
+<% block content %> 
+<br><br>
+		<form class="form-search pull-right" action='search.php' method='GET'>        
+			<div class="clearfix">
+				<input class="input-xlarge" name='search' type="text" placeholder="Find Dealer">
+				<input type='submit' class="btn btn-primary" name='submit' value='Search'>
+			</div>
+		</form>
+      <div class="row-fluid">
+		 <div class="span12">
+		  <div class="well">
+			<table class="table table-striped">	
+					<th class="id">Dealer ID</th>
+					<th class="name">Name</th>
+					<th>Username</th>	
+					<th>Date Joined</th>
+					<th>More Details</th>
+					<th>Action <br>(Action kay View Dealer Profile and Delete ^^)</th>
+					<br>		
+			</table>
+		  </div>
+		</div>
+      </div><!--/row fluid outside-->
+	  <div class="wrapper">
+	  </div class="push"></div>
+	  
+     <div class="footer">
+				<div class="container-fluid">
+					<div class="pull-right">
+						<div class="span4">
+							<dl>
+								<dt><font color="gray">Phone</font></dt>
+								<dd>
+								<p><font color="white">09306673054</font></p>
+								</dd>
+								<dt><font color="gray">Email</font></dt>
+								<dd>
+								<a href="mailto:ariesmanian1990@gmail.com"><font color="white">adsell2012@gmail.com</font></a>
+								</dd>
+							</dl>
+						</div>
+						
+						<div class="span4">
+							<address>
+								<dl>
+								<dt><font color="gray">Address</font></dt>
+									<dd>
+										<a href="http://adsell.tk"><font color="white">
+											Cadelina Bldg., Quezon Street
+											<br>
+											New Pandan, Panabo City, 
+											<br>
+											Davao del Norte, Philippines
+											</font>
+										</a>
+									</dd>
+								</dl>
+							</address>
+						</div>
+					</div>
+					<div id="plusone">
+					<div class="g-plusone" data-size="tall"></div>
+					</div>
+					<p>
+					<a href="http://twitter.com">
+					<img alt="Twitter" height="64" src="../assets/img/twitter-logo.png" width="64">
+					</a>
+					<a href="http://www.facebook.com">
+					<img alt="Facebook" height="64" src="../assets/img/fb.png" width="64">
+					</a>
+					<a href="http://www.plus.google.com">
+					<img alt="Google" height="64" src="../assets/img/googleplus.png" width="64">
+					</a>
+					<a href="http://www.pinterest.com">
+					<img alt="Google" height="64" src="../assets/img/pin.png" width="64">
+					</a>
+					
+					</p>
+					<p><font color="gray">
+								&#169; 2012 Alima Direct Selling -</font>
+					<a href="/legal"><font color="white">Legal &amp; privacy stuff</font></a>
+					</p>
+				</div>	
+		</div>
+<% endblock %>

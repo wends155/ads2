@@ -1,0 +1,13 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="row">	
+{% include "order/order_nav_pill.html" %}
+</div>
+{% include "order/orders_table.html" %}
+
+<ul class="pager">
+<li class="previous"><a href="#">&larr; Newer</a></li>
+2/2
+<li class="next"><a href="#">Older &rarr;</a></li>
+</ul>
+{% endblock %}

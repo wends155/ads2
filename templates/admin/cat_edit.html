@@ -1,0 +1,115 @@
+<% extends "admin/base.html" %>
+<% block title %><%= title %><% endblock %>
+<% block content %> 
+<br><br>
+      <div class="row-fluid">
+        <div class="span3">
+		  <div class="well sidebar-nav">
+			<ul class="nav nav-list">
+			  <li class="nav-header"><h3>Search Product</h3></li>
+			    <br>
+				<div class="controls">
+					<form class="form-search" action=''>        
+							<div class="clearfix">
+								<input class="input-small" name='search' type="text" placeholder="Find Product">&nbsp;
+								<input type='submit' class="btn btn-primary" name='submit' value='Go'>
+							</div>
+					</form>
+				</div>
+            </ul>
+          </div><!--/.well -->
+        </div><!--/span4 end here!-->
+		<div class="span9">
+				<ul class="breadcrumb">
+					<li><a href="index.php">Catalog</a> <span class="divider">/</span></li>
+					<li class="active"><h4>Edit Brand (same lng pud ang 4mat xa form kung mag-edit ug category ug product ^^)</h4></li>
+				</ul>
+				<div class="well">
+				   <form class="form-horizontal" action="" name="myForm" id="myform">
+					<fieldset>
+					  <h2>Edit Brand</h2><hr>
+					  <p><code>Note:</code> All field mark with <code>*</code> are required.</p><br>
+					  <div class="control-group">
+						<label class="control-label">Brand  Name*:</label>
+						<div class="controls">
+						  <input name="category_name" type="text" id="category_name" value=""/>
+						</div>
+					  </div>
+					  <div class="control-group">
+						<label class="control-label">Brand Description*:</label>
+						<div class="controls">
+						  <textarea class="input-xlarge" id="details" rows="3" name="details"></textarea>
+						</div>
+					  </div>
+					  <div>
+					  <div class="form-actions">
+						<button type="submit" class="btn btn-medium btn-primary" name="thisID" value=""><b>Update Brand</b></button>
+						<button type="reset" class="btn btn-medium btn-danger"><b>Cancel</b></button>
+					  </div>					 
+					</fieldset>
+				  </form>
+				</div>
+	  </div>
+	</div>
+	  <div class="wrapper">
+	  </div class="push"></div>
+	  
+     <div class="footer">
+				<div class="container-fluid">
+					<div class="pull-right">
+						<div class="span4">
+							<dl>
+								<dt><font color="gray">Phone</font></dt>
+								<dd>
+								<p><font color="white">09306673054</font></p>
+								</dd>
+								<dt><font color="gray">Email</font></dt>
+								<dd>
+								<a href="mailto:ariesmanian1990@gmail.com"><font color="white">adsell2012@gmail.com</font></a>
+								</dd>
+							</dl>
+						</div>
+						
+						<div class="span4">
+							<address>
+								<dl>
+								<dt><font color="gray">Address</font></dt>
+									<dd>
+										<a href="http://adsell.tk"><font color="white">
+											Cadelina Bldg., Quezon Street
+											<br>
+											New Pandan, Panabo City, 
+											<br>
+											Davao del Norte, Philippines
+											</font>
+										</a>
+									</dd>
+								</dl>
+							</address>
+						</div>
+					</div>
+					<div id="plusone">
+					<div class="g-plusone" data-size="tall"></div>
+					</div>
+					<p>
+					<a href="http://twitter.com">
+					<img alt="Twitter" height="64" src="../assets/img/twitter-logo.png" width="64">
+					</a>
+					<a href="http://www.facebook.com">
+					<img alt="Facebook" height="64" src="../assets/img/fb.png" width="64">
+					</a>
+					<a href="http://www.plus.google.com">
+					<img alt="Google" height="64" src="../assets/img/googleplus.png" width="64">
+					</a>
+					<a href="http://www.pinterest.com">
+					<img alt="Google" height="64" src="../assets/img/pin.png" width="64">
+					</a>
+					
+					</p>
+					<p><font color="gray">
+								&#169; 2012 Alima Direct Selling -</font>
+					<a href="/legal"><font color="white">Legal &amp; privacy stuff</font></a>
+					</p>
+				</div>	
+		</div>
+<% endblock %>

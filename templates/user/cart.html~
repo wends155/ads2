@@ -1,0 +1,21 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="row">	
+{% include "order/order_nav_pill.html" %}
+</div>
+<p>Name: <strong>{{user.name}}</strong></p>
+<p>Address: {{user.street}}, {{user.city}}, {{user.province}} </p>
+{% if cart.items %}
+{% include "user/cart_table.html" %}	
+<br />
+<a href="/ADS/catalog/index.php" class="btn"><i class="icon-shopping-cart"></i> Continue Shopping</a>
+<a href="/ADS/order/orders.php?count={{cart.count}}" class="btn btn-primary"><i class="icon-tags icon-white"></i> Submit Order</a>
+
+{% else %}
+<h3>You dont have anything in your cart.</h3> <br />
+<a href="/ADS/catalog/index.php" class="btn">Continue Shopping</a>
+
+{% endif %}	
+
+
+{% endblock %}

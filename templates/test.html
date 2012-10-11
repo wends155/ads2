@@ -1,9 +1,13 @@
-<!DOCTYPE html>
-<html>
-<head>
-</head>
-<body>
-<%= content %>
-</body>
+{% extends "base.html" %}
+{% block content %}
+<div class="row">	
+<div class="span4">
+	{% include "cat.html" %}
+</div>
+<div class="span8">
+	{% include "thumb_prod.html" %}
 
-</html>
+</div>	
+</div>
+
+{% endblock %}

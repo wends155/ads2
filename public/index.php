@@ -8,7 +8,7 @@ require "../db/general.php";
 respond('/','def');
 function def($request,$response) {
 	if (!$request->session('id')){
-		$tpl = Template::load('login.html');
+		$tpl = Template::load('index.html');
 		echo $tpl->render(array('title'=>'Login', 'message'=>$request->session('id')));
 	} else {
 		$tpl = Template::load('index.html');
@@ -19,9 +19,16 @@ function def($request,$response) {
 		
 		echo $tpl->render($data);
 	}
-	
-	 
 }
+respond('/login',function($req,$res){
+	$tpl = Template::load('login.html');
+	echo $tpl->render(array());
+});
+
+respond('/admin',function($req,$res){
+	$tpl = Template::load('adminlogin.html');
+	echo $tpl->render(array());
+});
 
 respond('/profile/[i:id].json','profile');
 function profile($req,$res){

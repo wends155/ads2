@@ -1,71 +1,77 @@
 <% extends "base.html" %>
 <% block title %><%= title %><% endblock %>
 <% block content %>
+<br>
 <div class="row-fluid">
-        <div class="span3">
-          <div class="well sidebar-nav">
-            <ul class="nav nav-list">
-              <li class="nav-header">Sidebar</li>
-              <li class="active"><a href="#">Link</a></li>
-              <li><a href="#">Link</a></li>
-              <li><a href="#">Link</a></li>
-              <li><a href="#">Link</a></li>
-              <li class="nav-header">Sidebar</li>
-              <li><a href="#">Link</a></li>
-              <li><a href="#">Link</a></li>
-              <li><a href="#">Link</a></li>
-              <li><a href="#">Link</a></li>
-              <li><a href="#">Link</a></li>
-              <li><a href="#">Link</a></li>
-              <li class="nav-header">Sidebar</li>
-              <li><a href="#">Link</a></li>
-              <li><a href="#">Link</a></li>
-              <li><a href="#">Link</a></li>
-            </ul>
-          </div><!--/.well -->
-        </div><!--/span-->
-        <div class="span9">
-          <div class="hero-unit">
-            <h1>Please Login!</h1>
-            <p>This is a template for a simple marketing or informational website. It includes a large callout called the hero unit and three supporting pieces of content. Use it as a starting point to create something more unique.</p>
-            <p><%= message %> </p>
-            <p><a class="btn btn-primary btn-large">Learn more &raquo;</a></p>
-          </div>
-          <div class="row-fluid">
-            <div class="span4">
-              <h2>Heading</h2>
-              <p>Donec id elit non mi porta gravida at eget metus. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus. Etiam porta sem malesuada magna mollis euismod. Donec sed odio dui. </p>
-              <p><a class="btn" href="#">View details &raquo;</a></p>
-            </div><!--/span-->
-            <div class="span4">
-              <h2>Heading</h2>
-              <p>Donec id elit non mi porta gravida at eget metus. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus. Etiam porta sem malesuada magna mollis euismod. Donec sed odio dui. </p>
-              <p><a class="btn" href="#">View details &raquo;</a></p>
-            </div><!--/span-->
-            <div class="span4">
-              <h2>Heading</h2>
-              <p>Donec id elit non mi porta gravida at eget metus. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus. Etiam porta sem malesuada magna mollis euismod. Donec sed odio dui. </p>
-              <p><a class="btn" href="#">View details &raquo;</a></p>
-            </div><!--/span-->
-          </div><!--/row-->
-          <div class="row-fluid">
-            <div class="span4">
-              <h2>Heading</h2>
-              <p>Donec id elit non mi porta gravida at eget metus. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus. Etiam porta sem malesuada magna mollis euismod. Donec sed odio dui. </p>
-              <p><a class="btn" href="#">View details &raquo;</a></p>
-            </div><!--/span-->
-            <div class="span4">
-              <h2>Heading</h2>
-              <p>Donec id elit non mi porta gravida at eget metus. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus. Etiam porta sem malesuada magna mollis euismod. Donec sed odio dui. </p>
-              <p><a class="btn" href="#">View details &raquo;</a></p>
-            </div><!--/span-->
-            <div class="span4">
-              <h2>Heading</h2>
-              <p>Donec id elit non mi porta gravida at eget metus. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus. Etiam porta sem malesuada magna mollis euismod. Donec sed odio dui. </p>
-              <p><a class="btn" href="#">View details &raquo;</a></p>
-            </div><!--/span-->
-          </div><!--/row-->
-        </div><!--/span-->
+        <div class="span7">
+			<div id="myCarousel" class="carousel slide">
+				<div class="carousel-inner">
+				  <div class="item active">
+					<div class="thumbnail">
+						<img src="../assets/img/e.jpg" alt="">
+					</div>
+				  </div>
+				  <div class="item">
+					<div class="thumbnail">
+						<img src="../assets/img/ds.jpg" alt="">
+					</div>
+				  </div>
+				  <div class="item">
+					<div class="thumbnail">
+						<img src="../assets/img/d.jpg" alt="">
+					</div>
+				  </div>
+				  <div class="item">
+					<div class="thumbnail">
+						<img src="../assets/img/ADSELL.png" alt="">
+					</div>
+				  </div>
+				</div>
+				<a class="left carousel-control" href="#myCarousel" data-slide="prev">&lsaquo;</a>
+				<a class="right carousel-control" href="#myCarousel" data-slide="next">&rsaquo;</a>
+			</div>
+			<div>
+				<blockquote>
+				<p>ADSell is a direct selling service company which cater the number of dealers who sell products for their living and additional income as investors.</p>
+				<p>ADSell primarily supervise and monitor our valued dealers respectively, the service center help the people to economize and treasure the importance of being a dealer.</p>
+				</blockquote>
+			</div>
+		</div>
+        <div class="span5">				
+				<center>
+					<img src="../assets/img/ADSELL_png.png" height="70" width="130"><br><br>
+					<h3>Awesome inspiring products from selected direct selling store.</h3><br>
+					<a href="register.html" class="btn btn-large btn-primary"><b>Join Now!</b></a></p><hr>
+				</center>
+				
+			
+			
+			<!-- MODAL DEALER SIGN-IN -->
+			<div id="dealerlogin" >	
+				<form class="form-horizontal" action="" method="POST" name="logform" id="logform">
+					<div class="modal-header">
+					  <a class="close" data-dismiss="modal" >&times;</a>
+					  <h3>Sign in to ADSell as dealer</h3>
+					</div>
+					<br>
+					<div>
+						<div class="control-group">
+							<div class="controls">
+							  <input type='text' class='input-large' name='username' placeholder='Username'>
+							</div>
+						</div>
+						<div class="control-group">
+							<div class="controls">
+							  <input type='password' class='input-large' name='password' placeholder='Password'>
+							</div>
+						</div><hr>
+						<center>								
+						<button type='submit' class='btn btn-primary btn-large'><b>Sign in</b></button>
+						</center>
+					</div>			
+				</form>		
+			</div>
+		</div><!--/span-->
       </div><!--/row-->
 
       <hr>

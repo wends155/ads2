@@ -1,0 +1,10 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="row">	
+{% include "order/order_nav_pill.html" %}
+</div>
+<p>Exchange: </p>
+{% include "order/return_table.html" %}
+
+{% include "order/return_form.html" %}
+{% endblock %}

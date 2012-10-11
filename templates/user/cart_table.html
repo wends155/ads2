@@ -1,0 +1,33 @@
+<table class="table table-bordered">
+ <thead>
+  <tr>
+   <th>Product</th>
+   <th>Unit Price</th>
+   <th>Quantity</th>
+   <th>Size</th>
+   <th>Color</th>
+   <th>SubTotal</th>
+  </tr>
+ </thead>
+ <tbody>
+{% for item in cart.items %}
+<tr>
+<td>{{item.name}} <a class="del" href="cart.php?del={{item.key}}"><i class="icon-remove"></i></a></td>
+<td>{{item.price}}</td>
+<td>{{item.quantity}}</td>
+<td>{{item.size}}</td>
+<td>{{item.color}}</td>
+<td class="align-right">Php {{item.subtotal}}</td>
+</tr>
+{% endfor %}
+<tr>
+	<td class="align-right" colspan="5">Grand Total</td>
+	<td class="align-right"><strong class="total-price">Php {{cart.total}}</strong></td>
+</tr>
+<tr>
+	<td class="align-right" colspan="5">Downpayment(30%)</td>
+	<td class="align-right"><strong class="total-price">Php {{cart.downpayment}}</strong></td>
+</tr>
+ </tbody>
+</table>
+<p>Cart currently  has <strong id="count">{{cart.count}} {{cart.count>1 ? "items" : "item"}}.</strong></p>
