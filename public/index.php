@@ -20,8 +20,13 @@ respond('/logout', function($req,$res){
 	$res->session('id', null);
 	$res->redirect('/');
 	});
-
+respond('/register','register');
 respond('/twig', 'twig_test');
+
+function register(){
+	$tpl = Template::load('register.html');
+	echo $tpl->render(array('content' => 'test content'));
+}
 
 function twig_test(){
 	//echo "hello";
