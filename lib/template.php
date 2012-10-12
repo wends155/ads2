@@ -15,7 +15,7 @@
 			require_once 'Twig/Autoloader.php';
 			Twig_Autoloader::register();
 				
-			self::$loader = new Twig_Loader_Filesystem('../templates');
+			self::$loader = new Twig_Loader_Filesystem(dirname(dirname(__FILE__)) . '/templates');
 			self::$environment = new Twig_Environment(self::$loader);
 			
 			$lexer = new Twig_Lexer(self::$environment, array(

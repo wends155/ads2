@@ -9,6 +9,11 @@ class Admin extends Model{
 	protected function getId(){
 		return $this->_orm->id;
 	}
+
+	public function getUsername(){
+		return $this->_orm->username;
+	}
+
 	protected function getProfile(){
 		//self::configure();
 		$profile = ORM::for_table('profiles')->where('user_id',$this->id)->find_one();
@@ -27,7 +32,8 @@ class Admin extends Model{
 	}
 	
 	public function setUsername($value){
-		throw new Exception('setting username not allowed');
+		$this->_orm->username = $value;
+		
 	}
 	
 	public function validate($password){

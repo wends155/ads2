@@ -9,25 +9,72 @@ respond('/','def');
 function def($request,$response) {
 	if (!$request->session('id')){
 		$tpl = Template::load('index.html');
-		echo $tpl->render(array('title'=>'Login', 'message'=>$request->session('id')));
-	} else {
-		$tpl = Template::load('index.html');
+		echo $tpl->render(array('title'=>'Login'));
+	}
+
+	if($request->session('admin')){
+		try{
+		$tpl = Template::load('admin_index.html');
+		echo $tpl->render(array('title'=>'Admin', 'username'=>$request->session('username')));
+		}catch(Exception $e){
+			echo $e->getMessage();
+		}
+	}else {
+		$tpl = Template::load('user_index.html');
 		$data = array(
-			"title" => "WebApp Boilerplate",
-			"message" => "I'm using Twig with erb syntax, id:" . $request->session('id')
+			"title" => "Adsell",
+			"username" => $request->session('username')
 		);
 		
 		echo $tpl->render($data);
 	}
 }
 respond('/login',function($req,$res){
-	$tpl = Template::load('login.html');
-	echo $tpl->render(array());
+	if($req->method('post')){
+		$username = $req->param('username');
+		$password = $req->param('password');
+		$auth = User::validateUserPass($username,$password);
+		if ($auth) {
+			# code...
+			$user = User::findByUsername($username);
+			$res->session('id',$user->id);
+			$res->session('username',$user->username);
+			$res->redirect('/');
+			
+		} else {
+			$res->redirect('/login');
+		}
+		
+	}else{
+		$tpl = Template::load('login.html');
+		echo $tpl->render(array());	
+	}
+	
+});
+respond('/logout',function($req,$res){
+	$res->session('id',null);
+	$res->session('username',null);
+	$res->session('admin',null);
+	$res->redirect('/');
 });
 
 respond('/admin',function($req,$res){
-	$tpl = Template::load('adminlogin.html');
-	echo $tpl->render(array());
+	if($req->method('post')){
+		$username = $req->param('username');
+		$password = $req->param('password');
+		$user = User::findByUsername($username);
+		if($user->validate($password)){
+			$res->session('id',$user->id);
+			$res->session('username', $user->username);
+			$res->session('admin', true);
+			$res->redirect('/');
+		}else{
+			$res->redirect('/admin');
+		}
+	}else {
+		$tpl = Template::load('adminlogin.html');
+		echo $tpl->render(array());
+	}
 });
 
 respond('/profile/[i:id].json','profile');
