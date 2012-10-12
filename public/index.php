@@ -10,9 +10,7 @@ function def($request,$response) {
 	if (!$request->session('id')){
 		$tpl = Template::load('index.html');
 		echo $tpl->render(array('title'=>'Login'));
-	}
-
-	if($request->session('admin')){
+	}elseif($request->session('admin')){
 		try{
 		$tpl = Template::load('admin_index.html');
 		echo $tpl->render(array('title'=>'Admin', 'username'=>$request->session('username')));
@@ -77,6 +75,13 @@ respond('/admin',function($req,$res){
 	}
 });
 
+respond('/catalog',function($req,$res){
+	$tpl = Template::load('cat_index.html');
+	echo $tpl->render(array('title'=>'Catalog','username'=>$req->session('username')));
+});
+
+
+// AJAX FUNCTIONS
 respond('/profile/[i:id].json','profile');
 function profile($req,$res){
 	$res->header('Content-Type', 'application/json; charset=utf-8');

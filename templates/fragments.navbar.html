@@ -1,0 +1,35 @@
+<div class="navbar navbar-fixed-top">
+	<div class="navbar-inner">
+		<div class="container">
+			<a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse"></a>       
+			<div class="nav-collapse">
+			<ul class="nav">
+				<li>
+				<a class="brand" href="/"><img src="./assets/img/ADSELL_png.png" height="35" width="80"></a>
+				</li>
+				<li {{ catalog ? 'class="active"' : "" }}><a href="../catalog/index.php"><img src="/assets/img/catalog.png"><b> Catalog</b></a></li>
+				<li {{ order ? 'class="active"' : "" }}><a href="../order/orders.php"><img src="/assets/img/cart.png"><b> Orders</b></a></li>
+				<li><p class="navbar-text pull-right"><b>logged in as <%= username %>&nbsp;</b></p></li>
+			</ul>
+
+			<ul class="nav pull-right">
+				
+			<li id="fat-menu" class="dropdown">
+			<a href="" class="dropdown-toggle" data-toggle="dropdown"><img src="/assets/img/user.png"><b class="caret"></b></a>
+			<ul class="dropdown-menu">
+			<li>					  
+			<a href='/user/profile.php'><img src='/assets/user_image/{{ user.id }}.jpg' width='30px' height='30px'> View my profile page</a>
+								  
+			</li>
+			<li class="divider"></li>
+			<li class="nav-header">Other Menu</li>
+			<li><a href="/ADS/user/cart.php"><i class="icon-shopping-cart"></i> View Shopping Cart</a></li>
+			<li><a href="../user/profile.php"><i class="icon-cog"></i> Settings</a></li>
+			<li><a href="/logout"><i class="icon-off"></i> Sign out <%= user.name %></a></li>
+			</ul>
+			</li>
+			</ul>
+			</div>
+		</div>
+	</div>
+</div>
