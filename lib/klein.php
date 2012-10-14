@@ -375,6 +375,7 @@ class _Response extends StdClass {
     protected $_code = 200;
 
     static $_headers = null;
+    
 
     //Enable response chunking. See: http://bit.ly/hg3gHb
     public function chunk($str = null) {

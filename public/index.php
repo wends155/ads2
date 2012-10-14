@@ -3,7 +3,8 @@ $lib = '../lib';
 require "$lib/klein.php";
 //require "$lib/database.php";
 require "$lib/template.php";
-require "../db/general.php";
+require_once "../db/general.php";
+require_once "../controller/general.php";
 
 respond(function ($request, $response, $app) {
     // Handle exceptions => flash the message and redirect to the referrer
@@ -155,116 +156,19 @@ respond('POST','/profile/new.json',function($req,$res){
 
 });
 
-respond('/brand/[i:id].json',function($req,$res){
-	$res->header('Content-Type', 'application/json');
-	$model = Brand::findById($req->id);
-	if($model){
-		if($req->method('post')){
-			$data = json_decode( file_get_contents("php://input"));
-			$model->name = $data->name;
-			$model->description = $data->description;
-			
-			$model->save();
-			echo $model;
-		}else{
-			echo $model;
-		}
-		
-	} else {
-		$res->code(404);
-	}
-});
+respond('/brand/[i:id].json',BrandCtrl::get());
 
-respond('GET','/brand/all.json',function($req,$res){
-	$res->header('Content-Type', 'application/json');
-	$models = Brand::all();
-	$all = array();
-	foreach ($models as $model) {
-		# code...
-		$all[] = $model->as_array();
-	}
-	echo json_encode($all);
-});
+respond('GET','/brand/all.json',BrandCtrl::index());
 
-respond('POST','/brand/new.json',function($req,$res){
-	$res->header('Content-Type', 'application/json; charset=utf-8');
-	
-	$raw = file_get_contents("php://input");
-	$data = json_decode( $raw );
-	$model = new Brand();
-	$model->name = $data->name;
-	$model->description = $data->description;
-	
-	$model->save();
-	echo $model;	
-	//echo $data;
-	
-});
+respond('POST','/brand/new.json',BrandCtrl::add());
 
-respond('/category/[i:id].json',function($req,$res){
-	$res->header('Content-Type', 'application/json');
-	$model = Category::findById($req->id);
+respond('/category/[i:id].json',CategoryCtrl::get());
 
-	if($model){
-		if($req->method('post')){
-			$data = json_decode( file_get_contents("php://input"));
-			$model->name = $data->name;
-			$model->description = $data->description;
-			
-			$model->save();
-			echo $model;
-		}else{
-			echo $model;
-		}
-		
-	} else {
-		$res->code(404);
-	}
-});
+respond('GET','/category/all.json',CategoryCtrl::index());
 
-respond('GET','/category/all.json',function($req,$res){
-	$res->header('Content-Type', 'application/json');
-	$models = Category::all();
-	$all = array();
-	foreach ($models as $model) {
-		# code...
-		$all[] = $model->as_array();
-	}
-	echo json_encode($all);
-});
+respond('POST','/category/new.json',CategoryCtrl::add());
 
-respond('POST','/category/new.json',function($req,$res){
-	$res->header('Content-Type', 'application/json; charset=utf-8');
-	$data = json_decode( file_get_contents("php://input") );
-	$model = new Category();
-	$model->name = $data->name;
-	$model->description = $data->description;
-	
-	$model->save();
-	echo $model;
-
-});
-
-respond('/company/[i:id].json', function($req,$res){
-	$res->header('Content-Type', 'application/json');
-	$model = Company::findById($req->id);
-
-	if($model){
-		if($req->method('post')){
-			$data = json_decode( file_get_contents("php://input"));
-			$model->name = $data->name;
-			$model->description = $data->description;
-			
-			$model->save();
-			echo $model;
-		}else{
-			echo $model;
-		}
-		
-	} else {
-		$res->code(404);
-	}
-});
+respond('/company/[i:id].json', CompanyCtrl::get());
 
 respond('POST','/company/new.json',function($req,$res){
 	$res->header('Content-Type', 'application/json; charset=utf-8');
@@ -278,16 +182,7 @@ respond('POST','/company/new.json',function($req,$res){
 
 });
 
-respond('GET','/company/all.json',function($req,$res){
-	$res->header('Content-Type', 'application/json');
-	$models = Company::all();
-	$all = array();
-	foreach ($models as $model) {
-		# code...
-		$all[] = $model->as_array();
-	}
-	echo json_encode($all);
-});
+respond('GET','/company/all.json',CompanyCtrl::index());
 
 respond('/product/[i:id].json', function($req,$res){
 	$res->header('Content-Type', 'application/json');
@@ -342,6 +237,8 @@ respond('GET','/product/all.json',function($req,$res){
 	}
 	echo json_encode($all);
 });
+
+
 
 dispatch();
 ?>
