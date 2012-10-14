@@ -5,6 +5,19 @@ require "$lib/klein.php";
 require "$lib/template.php";
 require "../db/general.php";
 
+respond(function ($request, $response, $app) {
+    // Handle exceptions => flash the message and redirect to the referrer
+    $response->onError(function ($response, $err_msg) {
+        //$response->flash($err_msg);
+        echo $err_msg;
+    });
+
+    
+});
+respond('/error', function($req,$res){
+	throw new Exception('sample error');
+	});
+
 respond('/','def');
 function def($request,$response) {
 	if (!$request->session('id')){
@@ -175,14 +188,17 @@ respond('GET','/brand/all.json',function($req,$res){
 
 respond('POST','/brand/new.json',function($req,$res){
 	$res->header('Content-Type', 'application/json; charset=utf-8');
-	$data = json_decode( file_get_contents("php://input") );
+	
+	$raw = file_get_contents("php://input");
+	$data = json_decode( $raw );
 	$model = new Brand();
 	$model->name = $data->name;
 	$model->description = $data->description;
 	
 	$model->save();
-	echo $model;
-
+	echo $model;	
+	//echo $data;
+	
 });
 
 respond('/category/[i:id].json',function($req,$res){
