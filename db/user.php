@@ -25,6 +25,11 @@ class User extends Model{
 		return $profile;
 	}
 	
+	public function getOrders(){
+		$orders = Order::findByUser($this->id);
+		return $orders;
+	}
+
 	public function setPassword($value){
 		$pass = md5($value);
 		$this->_orm->password = $pass;

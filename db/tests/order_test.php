@@ -1,8 +1,9 @@
 <?php 
 require "../general.php";
 
-$order = Order::findById(1);
-
+$order = new Order();
+$order->user = 1;
+$order->save();
 print_r($order->as_array());
 $item = new OrderItem();
 $item->product = Product::findById(1);
@@ -12,7 +13,7 @@ $order->addItem($item);
 $order->save();
 
 $item = $order->addItem();
-$item->product = Product::findById(2);
+$item->product = 2;
 $item->quantity=2;
 $item->price=100;
 $item->save();

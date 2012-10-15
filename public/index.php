@@ -238,7 +238,7 @@ respond('GET','/product/all.json',function($req,$res){
 	echo json_encode($all);
 });
 
-
+respond('GET', '/user/[i:user]/orders/all.json', OrderCtrl::index());
 
 dispatch();
 ?>

@@ -58,6 +58,7 @@ class OrderItem extends Model{
 		$product = Product::findById($value);
 		if($product){
 			$this->_orm->product_id = $product->id;
+			return true;
 		}
 		throw new Exception("Product does not exist");
 		

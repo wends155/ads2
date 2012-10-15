@@ -76,6 +76,20 @@ class Order extends Model{
 		return $item;
 	}
 
+	public static function findByUser($user_id){
+		$orders = ORM::for_table(static::$_table)->where('user_id', $user_id)->find_many();
+		
+		if($orders){
+			$models = array();
+			foreach ($orders as $order) {
+				# code...
+				$models[] = new Order($order);
+			}
+			return new Collection($models);
+		}
+		return null;
+	}
+
 }
 
 ?>
