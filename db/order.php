@@ -20,8 +20,28 @@ class Order extends Model{
 	}
 
 	public function getBalance(){
-		return $this->_orm->balance;
+		$balance = $this->total - $this->downpayment;
+		return $balance;
 	}
+
+	public function getItems(){
+		$items = OrderItem::findByOrder($this->id);
+		if($items){
+			return $items;
+		}
+		return null;
+	}
+
+	public function getTotal(){
+		$items = $this->items;
+		$total = 0;
+		foreach ($items as $item) {
+			# code...
+			$total += $item->subtotal;
+		}
+		return $total;
+	}
+
 
 //Setters
 	public function setUser($value){
@@ -41,6 +61,19 @@ class Order extends Model{
 
 	public function setDownpayment($value){
 		$this->_orm->downpayment = $value;
+	}
+
+
+
+	public function addItem($item=null){
+		if($item instanceof OrderItem){
+			$item->order = $this->id;
+			$item->save();
+			return true;
+		}
+		$item = new OrderItem();
+		$item->order = $this->id;
+		return $item;
 	}
 
 }

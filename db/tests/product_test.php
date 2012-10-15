@@ -11,7 +11,8 @@ $prod->price = 97.50;
 $prod->save();
 print_r($prod->as_array());
 **/
-$prod = Product::findById(1);
+$prod = Product::findById(2);
+print_r($prod->as_array());
 //echo $prod;
 //var_dump($prod->as_joined_json());
 $products = Product::findByBrand(2);

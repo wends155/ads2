@@ -76,7 +76,7 @@ abstract class Model{
 		if($user){
 			return new static::$class($user);	
 		}
-		return false;
+		return null;
 		
 	}
 
