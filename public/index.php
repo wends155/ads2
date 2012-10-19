@@ -51,6 +51,7 @@ respond('/login',function($req,$res){
 			$user = User::findByUsername($username);
 			$res->session('id',$user->id);
 			$res->session('username',$user->username);
+			
 			$res->redirect('/');
 			
 		} else {
@@ -238,7 +239,8 @@ respond('GET','/product/all.json',function($req,$res){
 	echo json_encode($all);
 });
 
-respond('GET', '/user/[i:user]/orders/all.json', OrderCtrl::index());
+respond('GET', '/user/[i:user]/orders/all.json', OrderCtrl::admin_index());
+respond('GET', '/order/all.json', OrderCtrl::user_index());
 
 dispatch();
 ?>

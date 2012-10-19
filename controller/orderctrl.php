@@ -24,7 +24,7 @@ class OrderCtrl{
 		};
 	}
 
-	public static function index(){
+	public static function admin_index(){
 		return function($request, $response){
 			$user_id = $request->user;
 			$orders = Order::findByUser($user_id);
@@ -39,6 +39,26 @@ class OrderCtrl{
 				$response->code(404);
 			}
 
+			
+		};
+	}
+
+	public static function user_index(){
+		return function($request,$response){
+			$user_id = $request->session('id');
+			
+			
+			$orders = Order::findByUser($user_id);
+			if(!$user_id){
+				$response->code(403);
+
+			}else {
+				if($orders){
+					$response->json($orders->as_array());
+				}else{
+					$response->json(array());
+				}
+			}
 			
 		};
 	}

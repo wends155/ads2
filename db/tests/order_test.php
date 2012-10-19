@@ -1,22 +1,30 @@
 <?php 
-require "../general.php";
+require "../order.php";
 
-$order = new Order();
-$order->user = 1;
-$order->save();
-print_r($order->as_array());
-$item = new OrderItem();
-$item->product = Product::findById(1);
-$item->quantity = 1;
-$item->price = 123.3;
-$order->addItem($item);
-$order->save();
+class OrderTest extends PHPUnit_Framework_TestCase{
 
-$item = $order->addItem();
-$item->product = 2;
-$item->quantity=2;
-$item->price=100;
-$item->save();
-print_r($order->as_array());
-echo $order->total;
+	public function testInstanceType(){
+		$order = new Order();
+
+		$this->assertInstanceOf('Order',$order);
+
+
+	}
+
+	public function testAttribs(){
+		$order = Order::findById(1);
+
+		$this->assertInstanceOf('Order', $order);
+		$this->assertEquals(1, $order->id);
+		$this->assertInstanceOf('User', $order->user);
+		$this->assertNull($order->date);
+		$this->assertNull($order->date_paid);
+		$this->assertNull($order->date_claimed);
+		$this->assertNull($order->due);
+	}
+}
+
+
+
+
  ?>

@@ -32,6 +32,22 @@ class Order extends Model{
 		return null;
 	}
 
+	public function getDate(){
+		return $this->_orm->date;
+	}
+
+	public function getDate_paid(){
+		return $this->_orm->date_paid;
+	}
+
+	public function getDate_claimed(){
+		return $this->_orm->date_claimed;
+	}
+
+	public function getDue(){
+		return $this->_orm->due;
+	}
+
 	public function getTotal(){
 		$items = $this->items;
 		$total = 0;
