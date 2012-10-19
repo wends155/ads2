@@ -364,6 +364,22 @@ class _Request {
     public function uri() {
         return isset($_SERVER['REQUEST_URI']) ? $_SERVER['REQUEST_URI'] : '/';
     }
+
+    public function raw_input(){
+        return file_get_contents("php://input");
+    }
+
+    public function isAjax(){
+        $xhr = $this->header('X-Requested-With',false);
+        if ( $xhr  && $xhr == 'XMLHttpRequest'){
+            return true;
+        }
+        return false;
+    }
+
+    public function data(){
+        return json_decode($this->raw_input());
+    }
 }
 
 class _Response extends StdClass {

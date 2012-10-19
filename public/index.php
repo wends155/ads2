@@ -10,6 +10,7 @@ respond(function ($request, $response, $app) {
     // Handle exceptions => flash the message and redirect to the referrer
     $response->onError(function ($response, $err_msg) {
         //$response->flash($err_msg);
+        $response->code(500);
         echo $err_msg;
     });
 
@@ -18,6 +19,7 @@ respond(function ($request, $response, $app) {
 respond('/error', function($req,$res){
 	throw new Exception('sample error');
 	});
+
 
 respond('/','def');
 function def($request,$response) {
