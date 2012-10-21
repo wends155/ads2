@@ -1,5 +1,7 @@
 <?php
 require_once "idiorm.php";
+require_once 'collection.php';
+
 $db_path = 'sqlite:'.dirname(__FILE__) . DIRECTORY_SEPARATOR . 'ads.sqlite';
 ORM::configure($db_path);
 abstract class Model{
@@ -96,24 +98,10 @@ abstract class Model{
 		foreach ($all as $model) {
 			$models[] = new static::$class($model);
 		}
-		return $models;
+		return new Collection($models);
 	}
 
-	public static function all_as_array(){
-		$models = static::all();
-		$model_arr = array();
-		foreach ($models as $model) {
-			# code...
-			$model_arr[] = $model->as_array();
-		}
-		return $model_arr;
-	}
-
-	public static function all_as_json(){
-		$models = static::all_as_array();
-		return json_encode($models);
-	}
-
+	
 }
 
 

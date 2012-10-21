@@ -72,6 +72,17 @@ class OrderItem extends Model{
 		$this->_orm->quantity = $value;
 	}
 
+	public function as_array(){
+		$model = $this->_orm->as_array();
+		unset($model['product_id']);
+		
+		$model['product'] = array(
+			'id' => $this->product->id,
+			'name' => $this->product->name
+			);
+		$model['subtotal'] = $this->getSubtotal();
+		return $model;
+	}
 
 	public static function findByOrder($order_id){
 		$orders = ORM::for_table(static::$_table)->where('order_id', $order_id)->find_many();
@@ -82,7 +93,7 @@ class OrderItem extends Model{
 				# code...
 				$models[] = new OrderItem($order);
 			}
-			return $models;
+			return new Collection($models);
 		}
 		return false;
 	}

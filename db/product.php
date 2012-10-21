@@ -94,19 +94,15 @@ class Product extends Model{
 
 	//==utility funct===
 
-	public function as_joined_array(){
-		$model = $this->as_array();
-		$model['brand'] = $this->brand->name;
-		$model['company'] = $this->company->name;
-		$model['category'] = $this->category->name;
+	public function as_array(){
+		$model = $this->_orm->as_array();
+		$model['brand'] = array('id' => $this->brand->id, 'name' => $this->brand->name);
+		$model['company'] = array('id' => $this->company->id, 'name' => $this->company->name);
+		$model['category'] = array('id' => $this->category->id, 'name' => $this->category->name);
 		return $model;
 	}
 
-	public function as_joined_json(){
-		$arr =  $this->as_joined_array();
-		return json_encode($arr);
-	}
-
+	
 	//STATIC
 
 	public static function findByBrand($brand_id){
@@ -118,7 +114,7 @@ class Product extends Model{
 				# code...
 				$models[] = new Product($product);
 			}
-			return $models;
+			return new Collection($models);
 		}
 		return false;
 		
@@ -133,7 +129,7 @@ class Product extends Model{
 				# code...
 				$models[] = new Product($product);
 			}
-			return $models;
+			return new Collection($models);
 		}
 		return false;
 	}
@@ -147,7 +143,7 @@ class Product extends Model{
 				# code...
 				$models[] = new Product($product);
 			}
-			return $models;
+			return new Collection($models);
 		}
 		return false;
 	}

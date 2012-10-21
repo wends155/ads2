@@ -5,7 +5,7 @@ class OrderCtrl{
 
 	public static function get(){
 		return function($request,$response){
-
+			
 
 		};
 		

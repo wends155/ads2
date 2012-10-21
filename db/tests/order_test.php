@@ -21,6 +21,15 @@ class OrderTest extends PHPUnit_Framework_TestCase{
 		$this->assertNull($order->date_paid);
 		$this->assertNull($order->date_claimed);
 		$this->assertNull($order->due);
+		$this->assertInstanceOf('Collection', $order->items);
+	}
+
+	public function testItems(){
+		$order = Order::findById(1);
+		$items = $order->items;
+
+		$this->assertInstanceOf('Collection', $items);
+		$this->assertInstanceOf('OrderItem', $items[0]);
 	}
 }
 

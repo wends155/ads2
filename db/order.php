@@ -58,6 +58,18 @@ class Order extends Model{
 		return $total;
 	}
 
+	public function as_array(){
+		$model = $this->_orm->as_array();
+		unset($model['user_id']);
+		$model['items'] = $this->items->as_array();
+		$model['user'] = array(
+				'id' => $this->user->id,
+				'fullname' => $this->user->profile->fullname
+			);
+		$model['total'] = $this->total;
+
+		return $model;
+	}
 
 //Setters
 	public function setUser($value){
