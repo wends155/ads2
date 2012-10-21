@@ -71,6 +71,13 @@ class Order extends Model{
 		return $model;
 	}
 
+	public function delete(){
+		$items = $this->items;
+		$this->_orm->delete();
+		$items->delete();
+		return true;
+	}
+
 //Setters
 	public function setUser($value){
 		if($value instanceof User){

@@ -33,8 +33,6 @@ class Collection implements Iterator, Countable, ArrayAccess {
   public function offsetSet($offset, $value){
     if($offset){
       $this->myArray[$offset] = $value;
-    }else{
-      $this->myArray[] = $value;
     }
   } 
 
@@ -82,6 +80,14 @@ class Collection implements Iterator, Countable, ArrayAccess {
 
   public function __toString(){
     return $this->as_json();
+  }
+
+  public function delete(){
+    foreach ($this->myArray as $model) {
+      # code...
+      $model->delete();
+    }
+    return true;
   }
 }
 
