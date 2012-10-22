@@ -48,7 +48,7 @@
       }).when('/category/:id', {
         templateUrl: '/assets/partials/category-detail.html',
         controller: CategoryDetailCtrl
-      }).otherwise({
+      }).when('/catalog').when('/orders').when('/dealers').when('/reports').when('/sms').otherwise({
         redirectTo: '/'
       });
       return this;
@@ -218,7 +218,9 @@
         return $scope.company = data;
       });
       return $scope.submit = function() {
-        return $http.post('/company/' + $routeParams.id + '.json', JSON.stringify($scope.company));
+        return $http.post('/company/' + $routeParams.id + '.json', JSON.stringify($scope.company)).success(function() {
+          return $scope.company = {};
+        });
       };
     }
   ];

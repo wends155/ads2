@@ -82,7 +82,7 @@ BrandDetailCtrl = ['$scope','$http', '$routeParams', ($scope, $http, $routeParam
 	$http.get('/brand/'+$scope.id+'.json').success (data)->
 		$scope.brand = data
 	$scope.submit = ->
-		$http.post('/brand/'+$scope.id+'.json', JSON.stringify($scope.brand))
+		$http.post('/brand/' + $scope.id + '.json', JSON.stringify($scope.brand))
 ]
 
 CompanyCtrl = ['$scope','$http',($scope, $http)->
@@ -106,7 +106,8 @@ CompanyDetailCtrl = ['$scope','$routeParams','$http',($scope,$routeParams,$http)
 	$http.get('/company/'+ $routeParams.id + '.json').success (data)->
 		$scope.company = data
 	$scope.submit = ->
-		$http.post('/company/' + $routeParams.id + '.json', JSON.stringify($scope.company))
+		$http.post('/company/' + $routeParams.id + '.json', JSON.stringify($scope.company)).success ->
+			$scope.company = {}
 		
 ]
 

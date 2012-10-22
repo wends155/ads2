@@ -18,6 +18,11 @@ admin.config(['$routeProvider',($routeProvider) ->
 	.when('/company/:id', {templateUrl:'/assets/partials/company-detail.html' ,  controller: CompanyDetailCtrl})
 	.when('/category',{templateUrl: '/assets/partials/category.html', controller: CategoryCtrl})
 	.when('/category/:id',{templateUrl:'/assets/partials/category-detail.html', controller: CategoryDetailCtrl})
+	.when('/catalog')
+	.when('/orders')
+	.when('/dealers')
+	.when('/reports')
+	.when('/sms')
 	.otherwise({redirectTo:'/'})
 	@
 	])
