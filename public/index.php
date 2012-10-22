@@ -103,22 +103,13 @@ respond('/profile/[i:id].json','profile');
 function profile($req,$res){
 	$res->header('Content-Type', 'application/json; charset=utf-8');
 	if($req->method('POST')){
-		$data = json_decode( file_get_contents("php://input") );
+		$data = $req->data();
 		$model = Profile::findById($req->id);
 		if($model){
-			
-			$model->fname = $data->fname;
-			$model->lname = $data->lname;
-			$model->mname = $data->mname;
-			$model->address = $data->address;
-			$model->birthday = $data->birthday;
-			$model->gender = $data->gender;
-			$model->nationality = $data->nationality;
-			$model->bio = $data->bio;
-			$model->status = $data->status;
-			$model->user_id = $req->id;
-			$model->mobile = $data->mobile;
+						
+			$model->update($data);
 
+			$model->user_id = $req->id;
 			$model->save();
 			
 			echo $model;
@@ -129,7 +120,7 @@ function profile($req,$res){
 		
 		$prof = Profile::findById($req->id);
 		if($prof){
-			echo $prof;
+			$res->json($prof->as_array());
 		}else{
 			$res->code(404);
 		}
@@ -138,74 +129,44 @@ function profile($req,$res){
 }
 
 respond('POST','/profile/new.json',function($req,$res){
-	$res->header('Content-Type', 'application/json; charset=utf-8');
-	$data = json_decode( file_get_contents("php://input") );
-	$model = new Profile();
+	//$res->header('Content-Type', 'application/json; charset=utf-8');
+	$data = $req->data();
+	$model = Profile::create($data);
 
-	$model->fname = $data->fname;
-	$model->lname = $data->lname;
-	$model->mname = $data->mname;
-	$model->address = $data->address;
-	$model->birthday = $data->birthday;
-	$model->gender = $data->gender;
-	$model->nationality = $data->nationality;
-	$model->bio = $data->bio;
-	$model->status = $data->status;
-	$model->user_id = $data->id;
-	$model->mobile = $data->mobile;
-
-	$model->save();
-	echo $model;
+	$res->json($model->as_array());
 
 });
 
 respond('/brand/[i:id].json',BrandCtrl::get());
-
 respond('GET','/brand/all.json',BrandCtrl::index());
-
 respond('POST','/brand/new.json',BrandCtrl::add());
 
 respond('/category/[i:id].json',CategoryCtrl::get());
-
 respond('GET','/category/all.json',CategoryCtrl::index());
-
 respond('POST','/category/new.json',CategoryCtrl::add());
 
 respond('/company/[i:id].json', CompanyCtrl::get());
-
-respond('POST','/company/new.json',function($req,$res){
-	$res->header('Content-Type', 'application/json; charset=utf-8');
-	$data = json_decode( file_get_contents("php://input") );
-	$model = new Company();
-	$model->name = $data->name;
-	$model->description = $data->description;
-	
-	$model->save();
-	echo $model;
-
-});
-
+respond('POST','/company/new.json',CompanyCtrl::add());
 respond('GET','/company/all.json',CompanyCtrl::index());
 
 respond('/product/[i:id].json', function($req,$res){
-	$res->header('Content-Type', 'application/json');
+	//$res->header('Content-Type', 'application/json');
 	$model = Product::findById($req->id);
 
 	if($model){
 		if($req->method('post')){
-			$data = json_decode( file_get_contents("php://input"));
+			$data = $req->data();
 			
-			$model->brand_id = $data->brand_id;
-			$model->company_id = $data->company_id;
-			$model->category_id = $data->category_id;
-			$model->name = $data->name;
-			$model->description = $data->description;
-			$model->price = $data->price;
+			$model->update($data);
 			
 			$model->save();
-			echo $model->as_joined_json();
+			$res->json($model->as_array());
+
+		}if($req->method('delete')){
+			$model->delete();
+			$res->code(200);
 		}else{
-			echo $model->as_joined_json();
+			$res->json($model->as_array());
 		}
 		
 	} else {
@@ -214,31 +175,17 @@ respond('/product/[i:id].json', function($req,$res){
 });
 
 respond('POST','/product/new.json',function($req,$res){
-	$res->header('Content-Type', 'application/json; charset=utf-8');
-	$data = json_decode( file_get_contents("php://input") );
-	$model = new Product();
+	//$res->header('Content-Type', 'application/json; charset=utf-8');
+	$data = $req->data();
+	$model = Product::create($data);
 	
-	$model->brand_id = $data->brand_id;
-	$model->company_id = $data->company_id;
-	$model->category_id = $data->category_id;
-	$model->name = $data->name;
-	$model->description = $data->description;
-	$model->price = $data->price;
-	
-	$model->save();		
-	echo $model->as_joined_json();
+	$res->json($model->as_array());
 
 });
 
 respond('GET','/product/all.json',function($req,$res){
-	$res->header('Content-Type', 'application/json');
 	$products = Product::all();
-	$all = array();
-	foreach ($products as $product) {
-		# code...
-		$all[] = $product->as_joined_array();
-	}
-	echo json_encode($all);
+	$res->json($products->as_array());
 });
 
 respond('GET', '/user/[i:user]/orders/all.json', OrderCtrl::admin_index());

@@ -28,8 +28,8 @@ class CategoryCtrl{
 
 	public static function index(){
 		return function($request, $response){
-			$models = Category::all_as_array();
-			$response->json($models);
+			$models = Category::all();
+			$response->json($models->as_array());
 		};
 	}
 

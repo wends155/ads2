@@ -147,6 +147,30 @@ class Product extends Model{
 		}
 		return false;
 	}
+
+	//Shortcuts//
+	public function update($data){
+		$this->brand 		= $data->brand->id ? $data->brand->id : $this->brand;
+		$this->company 		= $data->company->id ? $data->company->id : $this->company;
+		$this->category 	= $data->category->id ? $data->category->id : $this->category;
+		$this->name 		= $data->name ? $data->name : $this->name;
+		$this->description 	= $data->description ? $data->description : $this->description;
+		$this->price 		= $data->price ? $data->price : $this->price;
+	}
+
+	public static function create($data){
+		$model = new Product();
+
+		$model->brand 		= $data->brand->id;
+		$model->company 	= $data->company->id;
+		$model->category 	= $data->category->id;
+		$model->name 		= $data->name;
+		$model->description = $data->description;
+		$model->price 		= $data->price;
+
+		$model->save();
+		return $model;
+	}
 }
 
 ?>

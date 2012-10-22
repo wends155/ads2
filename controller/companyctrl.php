@@ -31,14 +31,20 @@ class CompanyCtrl{
 	public static function add(){
 
 		return function($request,$response){
+			$data = $request->data();
+			$model 		 = new Company();
+			$model->name = $data->name;
+			$model->description = $data->description;
 
+			$model->save();
+			$response->json($model->as_array());
 		};
 	}
 
 	public static function index(){
 		return function($request, $response){
-			$models = Company::all_as_array();
-			$response->json($models);
+			$models = Company::all();
+			$response->json($models->as_array());
 		};
 	}
 }

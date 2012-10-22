@@ -95,6 +95,43 @@ class Profile extends Model{
 		return "{$this->_orm->lname}, {$this->_orm->fname} {$this->_orm->mname[0]}.";
 	}
 
+//***************************//
+//*******Utilities***********//
+//***************************//
+	public function update($data){
+
+		$this->fname 		= $data->fname ? $data->fname : $this->fname;
+		$this->lname 		= $data->lname ? $data->lname : $this->lname;
+		$this->mname 		= $data->mname ? $data->mname : $this->mname;
+		$this->address 		= $data->address ? $data->address : $this->address;
+		$this->birthday 	= $data->birthday ? $data->birthday : $this->birthday;
+		$this->gender 		= $data->gender ? $data->gender : $this->gender;
+		$this->nationality 	= $data->nationality ? $data->nationality : $this->nationality;
+		$this->bio 			= $data->bio ? $data->bio : $this->bio;
+		$this->status 		= $data->status ? $data->status : $this->status;
+		$this->mobile 		= $data->mobile ? $data->mobile : $this->mobile;
+
+	}
+
+	public static function create($data){
+		$model = new Profile();
+
+		$model->fname 		= $data->fname;
+		$model->lname 		= $data->lname;
+		$model->mname 		= $data->mname;
+		$model->address 	= $data->address;
+		$model->birthday 	= $data->birthday;
+		$model->gender 		= $data->gender;
+		$model->nationality = $data->nationality;
+		$model->bio 		= $data->bio;
+		$model->status 		= $data->status;
+		$model->user_id 	= $data->id;
+		$model->mobile 		= $data->mobile;
+
+		$model->save();
+		return $model;
+	}
+
 	//Static Functions====
 
 	public static function findByUsername($username){

@@ -4,97 +4,23 @@
 <br><br>
       <div class="row-fluid">
         <div class="span3">
-		<div class="well sidebar-nav"> 
-            <ul class="nav nav-list">
-			 <li class="nav-header"><h3>Find it here!</h3></li>
-			    <br>
-				<div class="controls">
-					<form class="form-search" action='' method='GET'>        
-							<div class="clearfix">
-								<input class="input-small" name='search' type="text" placeholder="Find Dealer...">
-								<input type='submit' class="btn btn-primary" name='submit' value='Go'>
-							</div>
-					</form>
-				</div>
-				<div class="controls">
-					<form class="form-search" action='' method='GET'>        
-							<div class="clearfix">
-								<input class="input-small" name='search' type="text" placeholder="Find Product...">
-								<input type='submit' class="btn btn-primary" name='submit' value='Go'>
-							</div>
-					</form>
-				</div>
-				<label>Date: </label>
-				<div class="input-append date" id="dp3" data-date="12-02-2012" data-date-format="dd-mm-yyyy">
-				<input class="input-small" type="text" value="12-02-2012" readonly>
-				<span class="add-on"><i class="icon-th"></i></span>
-			  </div>
-            </ul>
-          </div>		  
+			  
 		  <!-- side bar for share the love -->
 		  <div class="well sidebar-nav"> <!-- other side bar start here-->
             <ul class="nav nav-list">
 			
-              <li class="nav-header"><h3>Share the Love</h3></li>
-					<br>
-					<center>
-					<a href="http://twitter.com">
-					<img alt="Twitter" height="64" src="../assets/img/twitter-logo.png" width="64">
-					</a>
-					<a href="http://www.facebook.com">
-					<img alt="Facebook" height="64" src="../assets/img/fb.png" width="64">
-					</a><br>
-					<a href="http://www.plus.google.com">
-					<img alt="Google" height="64" src="../assets/img/googleplus.png" width="64">
-					</a>
-					<a href="http://www.pinterest.com">
-					<img alt="Google" height="64" src="../assets/img/pin.png" width="64">
-					</a>
-					</center>           
+              <li ><a href="#/products">Products</a></li>
+              <li><a href="#/brand">Brands</a></li>
+              <li><a href="#/company">Companies</a></li>
+              <li><a href="#/category">Categories</a></li>
+              <li class="divider"></li>      
             </ul>
           </div><!-- other side bar end here! -->
 		  
         </div><!--/span4 end here!-->
       
 		 <div class="span9">
-		    <div id="myCarousel" class="carousel slide">
-            <div class="carousel-inner">
-              <div class="item active">
-				<div class="thumbnail">
-					<img src="../assets/img/e.jpg" alt="">
-				</div>
-              </div>
-              <div class="item">
-				<div class="thumbnail">
-					<img src="../assets/img/d.jpg" alt="">
-				</div>
-              </div>
-              <div class="item">
-				<div class="thumbnail">
-					<img src="../assets/img/ds.jpg" alt="">
-				</div>
-              </div>
-			  <div class="item">
-				<div class="thumbnail">
-					<img src="../assets/img/ADSELL.png" alt="">
-				</div>
-			  </div>
-            </div>
-            <a class="left carousel-control" href="#myCarousel" data-slide="prev">&lsaquo;</a>
-            <a class="right carousel-control" href="#myCarousel" data-slide="next">&rsaquo;</a>
-          </div><br>
-				  <div class="well">
-				  <h1>To our valued dealers...</h1><br>
-				  <blockquote>
-				  <p>ADSell is a direct selling service company which cater the number of dealers who sell products for their living and additional income as investors.</p>
-				  <p>
-				  ADSell primarily supervise and monitor our valued dealers respectively, the service center help the people to economize and treasure the importance of being a dealer.</p>
-				  <p>
-				  ADSell share the trust, love and respect through their valued dealers all over the country.
-				  </p>
-				  <small>ADSell Team<cite title="Source Title"></cite></small>
-				  </blockquote>
-				</div>
+		    <div ng-view></div>
 		  </div><!--/row-->
 		
        
