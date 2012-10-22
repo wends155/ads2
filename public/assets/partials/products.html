@@ -1,0 +1,32 @@
+<div>
+	<ul class="breadcrumb">
+		<li><a href="#/">Home</a><span class="divider">/</span> </li>
+		<li class="active">Products</li>
+	</ul>
+	<input type="text" placeholder="Search Products" ng-model="query"> 
+	
+	<ul>
+		<li ng-repeat="product in products | filter: query">
+			<a ng-href="#/company/{{product.company.id}} "><span class="label">{{product.company.name}}</span> </a>
+			<a ng-href="#/category/{{product.category.id}} "><span class="label label-info">{{product.category.name}}</span> </a>
+			<a ng-href="#/brand/{{product.brand.id}}"><span class="label label-success">{{product.brand.name}}</span> </a>
+			<a ng-href="#/product/{{product.id}}"><span>{{product.name}} </span> - {{product.price | currency: "PhP"}} </a>
+			<a href=""><span class="label label-warning" ng-click="delete(product.id)">delete</span></a>
+		</li>
+
+	</ul>
+
+	<h3><a ng-click="showform()">Add Product</a></h3>
+	<form ng-submit="submit()" ng-show="show">
+		Name: <input type="text" ng-model="product.name" required> <br>
+		Description: <input type="text" ng-model="product.description"><br>
+		Company: <select ng-model="product.company" ng-options="company.name for company in companies" required></select><br>
+		Category: <select ng-model="product.category" ng-options="c.name for c in categories" required></select><br>
+		Brand: <select ng-model="product.brand" ng-options="c.name for c in brands" required></select><br>
+		Price: <input type="text" ng-model="product.price" required><br>
+
+		<input type="submit">
+
+	</form>
+
+</div>

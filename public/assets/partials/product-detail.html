@@ -1,0 +1,22 @@
+<div>
+<ul class="breadcrumb">
+		<li><a href="#/">Home</a><span class="divider">/</span> </li>
+		<li><a href="#/products">Products</a><span class="divider">/</span> </li>
+		<li class="active">{{product.name}} </li>
+</ul>
+<div class="alert alert-success" ng-show="saved">
+	<h4>Saved!</h4>
+</div>
+<form ng-submit="submit()">
+	Name: <input type="text" ng-model="product.name" required> <br>
+	Description: <textarea ng-model="product.description"
+		name="description"
+		required
+		ng-minlength="0"
+		ng-maxlength="20"
+		
+	></textarea> <br>
+	Price: <input type="text" ng-model="product.price" required> <br>
+	<input type="submit">
+</form>
+</div>
