@@ -4,6 +4,9 @@
 			<li><a href="#/category">Category</a><span class="divider">/</span> </li>
 			<li class="active">{{category.name}} </li>
 	</ul>
+	<div class="alert alert-success" ng-show="saved">
+		<h4>Saved!</h4>
+	</div>
 	<form ng-submit="submit()">
 		Name: <input type="text" ng-model="category.name" required> <br>
 		Description: <textarea ng-model="category.description"></textarea> <br>

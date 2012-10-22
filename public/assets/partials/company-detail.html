@@ -4,6 +4,9 @@
 			<li><a href="#/company">Company</a><span class="divider">/</span> </li>
 			<li class="active">{{company.name}} </li>
 	</ul>
+	<div class="alert alert-success" ng-show="saved">
+		<h4>Saved!</h4>
+	</div>
 	<form ng-submit="submit()">
 		Name: <input type="text" ng-model="company.name" required> <br>
 		Description: <textarea ng-model="company.description"></textarea> <br>

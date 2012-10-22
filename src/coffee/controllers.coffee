@@ -74,6 +74,7 @@ BrandCtrl = ['$scope','$http',($scope, $http)->
 	$scope.submit = ->
 		$http.post('/brand/new.json', JSON.stringify($scope.brand)).success (data)->
 			$scope.brands.push(data)
+			$scope.brand = {}
 	@
 ]
 
@@ -82,7 +83,8 @@ BrandDetailCtrl = ['$scope','$http', '$routeParams', ($scope, $http, $routeParam
 	$http.get('/brand/'+$scope.id+'.json').success (data)->
 		$scope.brand = data
 	$scope.submit = ->
-		$http.post('/brand/' + $scope.id + '.json', JSON.stringify($scope.brand))
+		$http.post('/brand/' + $scope.id + '.json', JSON.stringify($scope.brand)).success ->
+			$scope.saved = true
 ]
 
 CompanyCtrl = ['$scope','$http',($scope, $http)->
@@ -108,7 +110,7 @@ CompanyDetailCtrl = ['$scope','$routeParams','$http',($scope,$routeParams,$http)
 		$scope.company = data
 	$scope.submit = ->
 		$http.post('/company/' + $routeParams.id + '.json', JSON.stringify($scope.company)).success ->
-			$scope.company = {}
+			$scope.saved = true
 		
 ]
 
@@ -126,6 +128,7 @@ CategoryCtrl = ['$scope','$http',($scope, $http)->
 	$scope.submit = ->
 		$http.post('/category/new.json', JSON.stringify($scope.category)).success (data)->
 			$scope.categories.push(data)
+			$scope.category = {}
 			@
 ]
 
@@ -133,5 +136,6 @@ CategoryDetailCtrl = ['$scope','$routeParams','$http',($scope,$routeParams,$http
 	$http.get('/category/'+$routeParams.id+'.json').success (data)->
 		$scope.category = data
 	$scope.submit = ->
-		$http.post('/category/'+$routeParams.id+'.json', JSON.stringify($scope.category))
+		$http.post('/category/'+$routeParams.id+'.json', JSON.stringify($scope.category)).success ->
+			$scope.saved = true
 ]

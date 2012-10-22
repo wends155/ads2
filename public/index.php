@@ -163,7 +163,7 @@ respond('/product/[i:id].json', function($req,$res){
 			$model->save();
 			$res->json($model->as_array());
 
-		}if($req->method('delete')){
+		}elseif($req->method('delete')){
 			$model->delete();
 			$res->code(200);
 		}else{

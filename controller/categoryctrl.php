@@ -16,7 +16,7 @@ class CategoryCtrl{
 					
 					$model->save();
 					echo $model;
-				}if($req->method('delete')){
+				}elseif($req->method('delete')){
 					$model->delete();
 					$res->code(200);
 				}else{

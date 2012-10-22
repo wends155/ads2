@@ -168,7 +168,8 @@
       };
       $scope.submit = function() {
         return $http.post('/brand/new.json', JSON.stringify($scope.brand)).success(function(data) {
-          return $scope.brands.push(data);
+          $scope.brands.push(data);
+          return $scope.brand = {};
         });
       };
       return this;
@@ -182,7 +183,9 @@
         return $scope.brand = data;
       });
       return $scope.submit = function() {
-        return $http.post('/brand/' + $scope.id + '.json', JSON.stringify($scope.brand));
+        return $http.post('/brand/' + $scope.id + '.json', JSON.stringify($scope.brand)).success(function() {
+          return $scope.saved = true;
+        });
       };
     }
   ];
@@ -220,7 +223,7 @@
       });
       return $scope.submit = function() {
         return $http.post('/company/' + $routeParams.id + '.json', JSON.stringify($scope.company)).success(function() {
-          return $scope.company = {};
+          return $scope.saved = true;
         });
       };
     }
@@ -245,6 +248,7 @@
       return $scope.submit = function() {
         return $http.post('/category/new.json', JSON.stringify($scope.category)).success(function(data) {
           $scope.categories.push(data);
+          $scope.category = {};
           return this;
         });
       };
@@ -257,7 +261,9 @@
         return $scope.category = data;
       });
       return $scope.submit = function() {
-        return $http.post('/category/' + $routeParams.id + '.json', JSON.stringify($scope.category));
+        return $http.post('/category/' + $routeParams.id + '.json', JSON.stringify($scope.category)).success(function() {
+          return $scope.saved = true;
+        });
       };
     }
   ];

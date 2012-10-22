@@ -3,17 +3,34 @@
 		<li><a href="#/">Home</a><span class="divider">/</span> </li>
 		<li class="active">Brands</li>
 	</ul>
-	<ul>
-		<li ng-repeat="brand in brands">
-			<a ng-href="#/brand/{{brand.id}}">{{brand.name}} - {{brand.description}} </a>
-			<a href=""><span class="label label-warning" ng-click="delete(brand.id)">delete</span></a>
-		</li>
-	</ul>
-	<h4>Add new Brand</h4>
-	<form ng-submit="submit()">
-		Name: <input type="text" ng-model="brand.name" required><br>
-		Description: <input type="text" ng-model="brand.description"><br>
-		<input type="submit">
+	
+	<table class="table table-hover">
+		<thead>
+			<tr>
+				<th>ID</th>
+				<th>Name</th>
+				<th>Description</th>
+				<th></th>
+			</tr>
+		</thead>
+		<tbody>
+			<tr ng-repeat="brand in brands">
+				<td><a ng-href="#/brand/{{brand.id}}">{{brand.id}}</a></td>
+				<td><a ng-href="#/brand/{{brand.id}}">{{brand.name}}</a> </td>
+				<td>{{brand.description}} </td>
+				<td><button class="btn btn-small" ng-click="delete(brand.id)"><i class="icon-remove"></i>Delete</button>
+					<a ng-href="#/brand/{{brand.id}}" class="btn btn-small"><i class="icon-edit"></i>Edit</a>
+				</td>
+			</tr>
+		</tbody>
+	</table>
+
+	<form class="well form-inline" ng-submit="submit()">
+		
+		<input type="text" ng-model="brand.name" placeholder="Name" required>
+		<input type="text" ng-model="brand.description" placeholder="Description" >
+		<button type="submit" class="btn btn-primary">Add New Brand</button>
+		
 	</form>
 
 </div>
