@@ -149,6 +149,7 @@ respond('/company/[i:id].json', CompanyCtrl::get());
 respond('POST','/company/new.json',CompanyCtrl::add());
 respond('GET','/company/all.json',CompanyCtrl::index());
 
+
 respond('/product/[i:id].json', function($req,$res){
 	//$res->header('Content-Type', 'application/json');
 	$model = Product::findById($req->id);

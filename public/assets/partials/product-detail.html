@@ -16,6 +16,9 @@
 		ng-maxlength="20"
 		
 	></textarea> <br>
+	Company: <select ng-model="product.company_id" ng-options="c.id as c.name for c in companies"></select><br>
+	Category: <select ng-model="product.category_id" ng-options="c.id as c.name for c in categories"></select><br>
+	Brand: <select ng-model="product.brand_id" ng-options="c.id as c.name for c in brands"></select><br>
 	Price: <input type="text" ng-model="product.price" required> <br>
 	<input type="submit">
 </form>

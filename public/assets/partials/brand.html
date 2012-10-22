@@ -1,3 +1,19 @@
 <div>
-	brands
+	<ul class="breadcrumb">
+		<li><a href="#/">Home</a><span class="divider">/</span> </li>
+		<li class="active">Brands</li>
+	</ul>
+	<ul>
+		<li ng-repeat="brand in brands">
+			<a ng-href="#/brand/{{brand.id}}">{{brand.name}} - {{brand.description}} </a>
+			<a href=""><span class="label label-warning" ng-click="delete(brand.id)">delete</span></a>
+		</li>
+	</ul>
+	<h4>Add new Brand</h4>
+	<form ng-submit="submit()">
+		Name: <input type="text" ng-model="brand.name" required><br>
+		Description: <input type="text" ng-model="brand.description"><br>
+		<input type="submit">
+	</form>
+
 </div>

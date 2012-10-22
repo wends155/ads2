@@ -150,9 +150,9 @@ class Product extends Model{
 
 	//Shortcuts//
 	public function update($data){
-		$this->brand 		= $data->brand->id ? $data->brand->id : $this->brand;
-		$this->company 		= $data->company->id ? $data->company->id : $this->company;
-		$this->category 	= $data->category->id ? $data->category->id : $this->category;
+		$this->brand 		= $data->brand_id ? $data->brand_id : $this->brand;
+		$this->company 		= $data->company_id ? $data->company_id : $this->company;
+		$this->category 	= $data->category_id ? $data->category_id : $this->category;
 		$this->name 		= $data->name ? $data->name : $this->name;
 		$this->description 	= $data->description ? $data->description : $this->description;
 		$this->price 		= $data->price ? $data->price : $this->price;

@@ -1,0 +1,13 @@
+<div>
+	<ul class="breadcrumb">
+			<li><a href="#/">Home</a><span class="divider">/</span> </li>
+			<li><a href="#/brand">Brands</a><span class="divider">/</span> </li>
+			<li class="active">{{brand.name}} </li>
+	</ul>
+	<form ng-submit="submit()">
+		Name: <input type="text" ng-model="brand.name" required> <br>
+		Description: <textarea ng-model="brand.description"></textarea> <br>
+		
+		<input type="submit">
+	</form>
+</div>

@@ -1,3 +1,19 @@
 <div>
-	Categories
+	<ul class="breadcrumb">
+		<li><a href="#/">Home</a><span class="divider">/</span> </li>
+		<li class="active">Categories</li>
+	</ul>
+	<ul>
+		<li ng-repeat="category in categories">
+			<a ng-href="#/category/{{category.id}}">{{category.name}} - {{category.description}} </a>
+			<a href=""><span class="label label-warning" ng-click="delete(category.id)">delete</span></a>
+		</li>
+	</ul>
+	<h4>Add new Category</h4>
+	<form ng-submit="submit()">
+		Name: <input type="text" ng-model="category.name" required><br>
+		Description: <input type="text" ng-model="category.description"><br>
+		<input type="submit">
+	</form>
+
 </div>
