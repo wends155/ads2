@@ -99,6 +99,7 @@ CompanyCtrl = ['$scope','$http',($scope, $http)->
 	$scope.submit = ->
 		$http.post('/company/new.json', JSON.stringify($scope.company)).success (data)->
 			$scope.companies.push(data)
+			$scope.company = {}
 			@
 ]
 

@@ -206,6 +206,7 @@
       return $scope.submit = function() {
         return $http.post('/company/new.json', JSON.stringify($scope.company)).success(function(data) {
           $scope.companies.push(data);
+          $scope.company = {};
           return this;
         });
       };
