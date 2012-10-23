@@ -4,13 +4,21 @@
 			<li><a href="#/brand">Brands</a><span class="divider">/</span> </li>
 			<li class="active">{{brand.name}} </li>
 	</ul>
+
 	<div class="alert alert-success" ng-show="saved">
 		<h4>Saved!</h4>
 	</div>
 	<form ng-submit="submit()">
-		Name: <input type="text" ng-model="brand.name" required> <br>
-		Description: <textarea ng-model="brand.description"></textarea> <br>
+		<legend>Edit {{brand.name}}</legend>
+		<label for="">Name</label>
+		<input type="text" ng-model="brand.name" required>
+		<label for="">Description</label>
+		<textarea ng-model="brand.description"></textarea>
 		
-		<input type="submit">
+		<div class="form-actions">
+			<button type="submit" class="btn btn-primary">Save Brand</button>
+			<a href="#/brand" class="btn">{{caption}} </a>	
+		</div>
 	</form>
+	
 </div>

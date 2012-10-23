@@ -1,13 +1,35 @@
-phonecat = angular.module('ads',['phonecatFilters'])
+ads = angular.module('ads',['phonecatFilters','restService'])
 
-phonecat.config([
+ads.config([
 	'$routeProvider', ($routeProvider) ->
-		$routeProvider.when('/products',{templateUrl: '/assets/partials/product-list.html', controller: ProductListCtrl})
-		.when('/product/:phoneId', {templateUrl:'/assets/partials/phone-detail.html', controller: PhoneDetailCtrl})
-		.otherwise({redirectTo: '/products'})
+		user = "/assets/partials/user"
+		$routeProvider
+		.when('/',{
+			templateUrl: "#{user}/index.html",
+			controller: UserIndexCtrl
+			})
+		.when('/products',{
+			templateUrl: '/assets/partials/product-list.html', 
+			controller: ProductListCtrl})
+		.when('/product/:phoneId', {
+			templateUrl:'/assets/partials/phone-detail.html', 
+			controller: PhoneDetailCtrl})
+		.when('/catalog',{
+			templateUrl: "#{user}/catalog.html",
+			controller: UserCatalogCtrl
+			})
+		.when('/cart',{
+			templateUrl: "#{user}/cart.html",
+			controller: UserCartCtrl
+			})
+		.when('/profile',{
+			templateUrl: "#{user}/profile.html",
+			controller: UserProfileCtrl
+			})
+		.otherwise({redirectTo: '/'})
 		])
 
-admin = angular.module('admin',[])
+admin = angular.module('admin',['restService'])
 admin.config(['$routeProvider',($routeProvider) -> 
 	$routeProvider.when('/',{templateUrl: '/assets/partials/admin-index.html'})
 	.when('/products', {templateUrl:'/assets/partials/products.html', controller: ProductCtrl})

@@ -1,16 +1,22 @@
 <div>
 	<ul class="breadcrumb">
 			<li><a href="#/">Home</a><span class="divider">/</span> </li>
-			<li><a href="#/company">Company</a><span class="divider">/</span> </li>
+			<li><a href="#/company">Companies</a><span class="divider">/</span> </li>
 			<li class="active">{{company.name}} </li>
 	</ul>
 	<div class="alert alert-success" ng-show="saved">
 		<h4>Saved!</h4>
 	</div>
-	<form ng-submit="submit()">
-		Name: <input type="text" ng-model="company.name" required> <br>
-		Description: <textarea ng-model="company.description"></textarea> <br>
+	<form  ng-submit="submit()">
+		<legend>Edit {{company.name}} </legend>
+		<label>Name</label>
+		<input type="text" ng-model="company.name" required autofocus>
+		<label for="">Description</label>
+		<textarea ng-model="company.description"></textarea>
+		<div class="form-actions">
+			<button type="submit" class="btn btn-primary">Save Company</button>
+			<a href="#/company" class="btn">{{caption}} </a>	
+		</div>
 		
-		<input type="submit">
 	</form>
 </div>

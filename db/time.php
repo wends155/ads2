@@ -1,7 +1,7 @@
 <?php
 
 class Time{
-	static $format = "M d Y";
+	static $format = "m/d/Y";
 	
 	public static function getMinute($minute = 1){
 		return $minute * 60;

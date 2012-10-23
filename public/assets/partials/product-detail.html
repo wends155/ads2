@@ -8,18 +8,29 @@
 	<h4>Saved!</h4>
 </div>
 <form ng-submit="submit()">
-	Name: <input type="text" ng-model="product.name" required> <br>
-	Description: <textarea ng-model="product.description"
+	<legend>Edit {{product.name}} </legend>
+	<label for="">Name</label>
+	<input type="text" ng-model="product.name" required>
+	<label for="">Description</label>
+	<textarea ng-model="product.description"
 		name="description"
 		required
 		ng-minlength="0"
 		ng-maxlength="20"
 		
-	></textarea> <br>
-	Company: <select ng-model="product.company_id" ng-options="c.id as c.name for c in companies"></select><br>
-	Category: <select ng-model="product.category_id" ng-options="c.id as c.name for c in categories"></select><br>
-	Brand: <select ng-model="product.brand_id" ng-options="c.id as c.name for c in brands"></select><br>
-	Price: <input type="text" ng-model="product.price" required> <br>
-	<input type="submit">
+	></textarea>
+	<label for="">Company</label>
+	<select ng-model="product.company_id" ng-options="c.id as c.name for c in companies"></select>
+	<label for="">Category</label>
+	<select ng-model="product.category_id" ng-options="c.id as c.name for c in categories"></select>
+	<label for="">Brand</label>
+	<select ng-model="product.brand_id" ng-options="c.id as c.name for c in brands"></select>
+	<label for="">Price</label>
+	<input type="text" ng-model="product.price" required>
+	
+	<div class="form-actions">
+		<button type="submit" class="btn btn-primary">Save Product</button>
+		<a href="#/products" class="btn">Cancel</a>	
+	</div>
 </form>
 </div>

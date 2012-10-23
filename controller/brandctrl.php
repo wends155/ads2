@@ -69,6 +69,13 @@ class BrandCtrl{
 			echo $brand;
 		};
 	}
+
+	public static function products(){
+		return function($request, $response){
+			$products = Product::findByBrand($request->id);
+			$response->json($products->as_array());
+		};
+	}
 }
 
  ?>

@@ -1,8 +1,6 @@
 ProductListCtrl = ['$scope','$http','$filter', ($scope,$http,$filter) ->
 	$http.get('/product/all.json').success (data)->
 		$scope.products = data
-			
-
 	@
 ]
 
@@ -24,11 +22,11 @@ ProductCtrl = ['$scope','$http',($scope, $http)->
 		$scope.categories = data
 	$http.get('/brand/all.json').success (data)->
 		$scope.brands = data
+
 	$scope.limit = 20
-	$scope.show = false
 	$scope.saved = false
-	$scope.showform = ->
-		$scope.show = true
+	$scope.cancel = ->
+		$scope.product = {}
 	$scope.submit = ->
 		console.log JSON.stringify($scope.product)
 		$http.post('/product/new.json', JSON.stringify($scope.product)).success (data)->
@@ -37,7 +35,7 @@ ProductCtrl = ['$scope','$http',($scope, $http)->
 			$scope.product = {}
 			@
 	$scope.delete = (id)->
-		$http.delete('/product/' + id + '.json').success ->
+		$http.delete("/product/#{id}.json").success ->
 			$http.get('/product/all.json').success (data)->
 				$scope.products = data
 				@
@@ -78,13 +76,17 @@ BrandCtrl = ['$scope','$http',($scope, $http)->
 	@
 ]
 
-BrandDetailCtrl = ['$scope','$http', '$routeParams', ($scope, $http, $routeParams) ->
+BrandDetailCtrl = ['$scope','$http', '$routeParams','Brand', ($scope, $http, $routeParams,Brand) ->
 	$scope.id = $routeParams.id
 	$http.get('/brand/'+$scope.id+'.json').success (data)->
 		$scope.brand = data
+	$scope.caption = "Cancel"
+	$scope.products = Brand.products({id:$scope.id})
+	
 	$scope.submit = ->
 		$http.post('/brand/' + $scope.id + '.json', JSON.stringify($scope.brand)).success ->
 			$scope.saved = true
+			$scope.caption = "Back"
 ]
 
 CompanyCtrl = ['$scope','$http',($scope, $http)->
@@ -108,9 +110,11 @@ CompanyCtrl = ['$scope','$http',($scope, $http)->
 CompanyDetailCtrl = ['$scope','$routeParams','$http',($scope,$routeParams,$http)->
 	$http.get('/company/'+ $routeParams.id + '.json').success (data)->
 		$scope.company = data
+	$scope.caption = "Cancel"
 	$scope.submit = ->
 		$http.post('/company/' + $routeParams.id + '.json', JSON.stringify($scope.company)).success ->
 			$scope.saved = true
+			$scope.caption = "Back"
 		
 ]
 
@@ -135,7 +139,9 @@ CategoryCtrl = ['$scope','$http',($scope, $http)->
 CategoryDetailCtrl = ['$scope','$routeParams','$http',($scope,$routeParams,$http)->
 	$http.get('/category/'+$routeParams.id+'.json').success (data)->
 		$scope.category = data
+	$scope.caption = "Cancel"
 	$scope.submit = ->
 		$http.post('/category/'+$routeParams.id+'.json', JSON.stringify($scope.category)).success ->
 			$scope.saved = true
+			$scope.caption = "Back"
 ]

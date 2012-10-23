@@ -3,29 +3,78 @@
 		<li><a href="#/">Home</a><span class="divider">/</span> </li>
 		<li class="active">Products</li>
 	</ul>
-	<input type="text" placeholder="Search Products" ng-model="query"> 
-	
-	<ul>
-		<li ng-repeat="product in products | filter: query">
-			<a ng-href="#/company/{{product.company.id}} "><span class="label">{{product.company.name}}</span> </a>
-			<a ng-href="#/category/{{product.category.id}} "><span class="label label-info">{{product.category.name}}</span> </a>
-			<a ng-href="#/brand/{{product.brand.id}}"><span class="label label-success">{{product.brand.name}}</span> </a>
-			<a ng-href="#/product/{{product.id}}"><span>{{product.name}} </span> - {{product.price | currency: "PhP"}} </a>
-			<a href=""><span class="label label-warning" ng-click="delete(product.id)">delete</span></a>
-		</li>
+	<input type="search" class="span5 search-query" placeholder="Search Products" ng-model="query"> 
+		
+	<table class="table table-hover">
+		<thead>
+			<tr>
+				<th>ID</th>
+				<th>Name</th>
+				<th>Brand</th>
+				<th>Category</th>
+				<th>Company</th>
+				<th>Price</th>
+				<th></th>
+			</tr>
+		</thead>
+		<tbody>
+			<tr ng-repeat="product in products | filter: query">
+				<td>{{product.id}} </td>
+				<td>{{product.name}} </td>
+				<td>{{product.brand.name}} </td>
+				<td>{{product.category.name}} </td>
+				<td>{{product.company.name}} </td>
+				<td>{{product.price | currency:"PhP "}} </td>
+				<td>
+					<button class="btn btn-small" ng-click="delete(product.id)"><i class="icon-remove"></i>Delete</button>
+					<a ng-href="#/product/{{product.id}}" class="btn btn-small"><i class="icon-edit"></i>Edit</a>
+				</td>
+			</tr>
+		</tbody>
+	</table>
 
-	</ul>
-
-	<h3><a ng-click="showform()">Add Product</a></h3>
-	<form class="well" ng-submit="submit()" ng-show="show">
-		Name: <input type="text" ng-model="product.name" required> <br>
-		Description: <input type="text" ng-model="product.description"><br>
-		Company: <select ng-model="product.company" ng-options="company.name for company in companies" required></select><br>
-		Category: <select ng-model="product.category" ng-options="c.name for c in categories" required></select><br>
-		Brand: <select ng-model="product.brand" ng-options="c.name for c in brands" required></select><br>
-		Price: <input type="text" ng-model="product.price" required><br>
-
-		<input type="submit">
+	<form class="form-horizontal well" ng-submit="submit()">
+		<legend>Add new Product</legend>
+		<div class="control-group">
+			<label for="" class="control-label">Name</label>
+			<div class="controls">
+				<input type="text"  ng-model="product.name" required>	
+			</div>
+		</div>
+		<div class="control-group">
+			<label for="" class="control-label">Description</label>
+			<div class="controls">
+				<input type="text" ng-model="product.description">
+			</div>
+		</div>
+		<div class="control-group">
+			<label for="" class="control-label">Company</label>
+			<div class="controls">
+				<select ng-model="product.company" ng-options="company.name for company in companies" required></select>
+			</div>
+		</div>
+		<div class="control-group">
+			<label for="" class="control-label">Category</label>
+			<div class="controls">
+				<select ng-model="product.category" ng-options="c.name for c in categories" required></select>
+			</div>
+		</div>
+		<div class="control-group">
+			<label for="" class="control-label">Brand</label>
+			<div class="controls">
+				<select ng-model="product.brand" ng-options="c.name for c in brands" required></select>
+			</div>
+		</div>
+		<div class="control-group">
+			<label for="" class="control-label">Price(Php)</label>
+			<div class="controls">
+				<input type="text" ng-model="product.price" required>
+			</div>
+		</div>
+		<div class="form-actions">
+			<button type="submit" class="btn btn-primary">Add Product</button>
+			<button type="button" class="btn" ng-click="cancel()">Clear</button>	
+		</div>
 
 	</form>
 

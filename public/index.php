@@ -185,12 +185,17 @@ respond('POST','/product/new.json',function($req,$res){
 });
 
 respond('GET','/product/all.json',function($req,$res){
+
 	$products = Product::all();
-	$res->json($products->as_array());
+	$res->json($products->as_array());	
+	
 });
 
 respond('GET', '/user/[i:user]/orders/all.json', OrderCtrl::admin_index());
 respond('GET', '/order/all.json', OrderCtrl::user_index());
 
+respond('GET', '/brand/[i:id].json/products', BrandCtrl::products());
+respond('GET', '/profile', ProfileCtrl::profile());
+respond('POST', '/profile', ProfileCtrl::update());
 dispatch();
 ?>

@@ -95,6 +95,14 @@ class Profile extends Model{
 		return "{$this->_orm->lname}, {$this->_orm->fname} {$this->_orm->mname[0]}.";
 	}
 
+	public function as_array(){
+		$model = $this->_orm->as_array();
+		$model['birthday'] = $this->birthday;
+		$model['unix'] = $this->_orm->birthday * 1000;
+		$model['fullname'] = $this->fullname;
+		return $model;
+	}
+
 //***************************//
 //*******Utilities***********//
 //***************************//
