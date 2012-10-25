@@ -1,8 +1,7 @@
 <?php 
 require "../admin.php";
 
-$admin = new Admin();
-$admin->username = 'admin';
-$admin->password = 'admin';
-$admin->save();
+$admin = Admin::findById(1);
+$auth = $admin->validate('admin');
+var_dump($auth);
  ?>

@@ -81,8 +81,8 @@ respond('/admin',function($req,$res){
 	if($req->method('post')){
 		$username = $req->param('username');
 		$password = $req->param('password');
-		$user = User::findByUsername($username);
-		$auth = User::validateUserPass($username,$password);
+		$user = Admin::findByUsername($username);
+		$auth = Admin::validateUserPass($username,$password);
 		if($auth){
 			$res->session('id',$user->id);
 			$res->session('username', $user->username);
