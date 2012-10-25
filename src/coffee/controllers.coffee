@@ -17,6 +17,7 @@ PhoneDetailCtrl = ['$scope','$routeParams', ($scope,$routeParams) ->
 ProductCtrl = ['$scope','$http',($scope, $http)->
 	$http.get('/product/all.json').success (data)->
 		$scope.products = data
+		$scope.spinner = false
 	$http.get('/company/all.json').success (data)->
 		$scope.companies = data
 	$http.get('/category/all.json').success (data)->
@@ -26,6 +27,7 @@ ProductCtrl = ['$scope','$http',($scope, $http)->
 
 	$scope.limit = 20
 	$scope.saved = false
+	$scope.spinner = true
 	$scope.cancel = ->
 		$scope.product = {}
 	$scope.submit = ->
@@ -47,6 +49,7 @@ ProductCtrl = ['$scope','$http',($scope, $http)->
 ProductDetailCtrl = ['$scope','$routeParams','$http',($scope,$routeParams,$http) -> 
 	$http.get('/product/' + $routeParams.id + '.json').success (data)->
 		$scope.product = data
+		$scope.spinner = false
 	$http.get('/company/all.json').success (data)->
 		$scope.companies = data
 	$http.get('/category/all.json').success (data)->
@@ -54,6 +57,7 @@ ProductDetailCtrl = ['$scope','$routeParams','$http',($scope,$routeParams,$http)
 	$http.get('/brand/all.json').success (data)->
 		$scope.brands = data
 	$scope.id = $routeParams.id
+	$scope.spinner = true
 	$scope.saved = false;
 	$scope.submit = ->
 		console.log JSON.stringify($scope.product)

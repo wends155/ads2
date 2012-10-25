@@ -20,6 +20,10 @@ respond('/error', function($req,$res){
 	throw new Exception('sample error');
 	});
 
+respond('/test', function($req,$res){
+	$res->header('Content-Type','text/plain');
+	print_r($_SERVER);
+});
 
 respond('/','def');
 function def($request,$response) {
@@ -78,7 +82,8 @@ respond('/admin',function($req,$res){
 		$username = $req->param('username');
 		$password = $req->param('password');
 		$user = User::findByUsername($username);
-		if($user->validate($password)){
+		$auth = User::validateUserPass($username,$password);
+		if($auth){
 			$res->session('id',$user->id);
 			$res->session('username', $user->username);
 			$res->session('admin', true);

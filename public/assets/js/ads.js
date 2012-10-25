@@ -104,7 +104,8 @@
   ProductCtrl = [
     '$scope', '$http', function($scope, $http) {
       $http.get('/product/all.json').success(function(data) {
-        return $scope.products = data;
+        $scope.products = data;
+        return $scope.spinner = false;
       });
       $http.get('/company/all.json').success(function(data) {
         return $scope.companies = data;
@@ -117,6 +118,7 @@
       });
       $scope.limit = 20;
       $scope.saved = false;
+      $scope.spinner = true;
       $scope.cancel = function() {
         return $scope.product = {};
       };
@@ -145,7 +147,8 @@
   ProductDetailCtrl = [
     '$scope', '$routeParams', '$http', function($scope, $routeParams, $http) {
       $http.get('/product/' + $routeParams.id + '.json').success(function(data) {
-        return $scope.product = data;
+        $scope.product = data;
+        return $scope.spinner = false;
       });
       $http.get('/company/all.json').success(function(data) {
         return $scope.companies = data;
@@ -157,6 +160,7 @@
         return $scope.brands = data;
       });
       $scope.id = $routeParams.id;
+      $scope.spinner = true;
       $scope.saved = false;
       $scope.submit = function() {
         console.log(JSON.stringify($scope.product));

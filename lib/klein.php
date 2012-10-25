@@ -380,6 +380,14 @@ class _Request {
     public function data(){
         return json_decode($this->raw_input());
     }
+
+    public function query(){
+        $uri = $this->uri();
+        $url = parse_url($uri);
+        $query = array();
+        parse_str($url['query'], $query);
+        return $query;
+    }
 }
 
 class _Response extends StdClass {
@@ -552,8 +560,8 @@ class _Response extends StdClass {
     public function code($code = null) {
         if(null !== $code) {
             $this->_code = $code;
-            $msg = self::$messages[$code];
             $protocol = isset($_SERVER['SERVER_PROTOCOL']) ? $_SERVER['SERVER_PROTOCOL'] : 'HTTP/1.0';
+            $msg = static::$messages[$code];
             $this->header("$protocol $msg");
         }
         return $this->_code;
