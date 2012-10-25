@@ -7,9 +7,10 @@ ProductListCtrl = ['$scope','$http','$filter', ($scope,$http,$filter) ->
 
 PhoneDetailCtrl = ['$scope','$routeParams', ($scope,$routeParams) ->
 	$scope.phoneId = $routeParams.phoneId
+	$scope.spinner = true
 	$scope.hello = (name) -> 
 		$scope.msg = "hello #{name}"
-		
+		$scope.spinner = false
 	@
 ]
 

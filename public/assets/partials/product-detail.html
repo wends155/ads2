@@ -4,9 +4,11 @@
 		<li><a href="#/products">Products</a><span class="divider">/</span> </li>
 		<li class="active">{{product.name}} </li>
 </ul>
+<img src="/assets/img/spinner.gif" alt="">
 <div class="alert alert-success" ng-show="saved">
 	<h4>Saved!</h4>
 </div>
+
 <form ng-submit="submit()">
 	<legend>Edit {{product.name}} </legend>
 	<label for="">Name</label>

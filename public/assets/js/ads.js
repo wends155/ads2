@@ -92,8 +92,10 @@
   PhoneDetailCtrl = [
     '$scope', '$routeParams', function($scope, $routeParams) {
       $scope.phoneId = $routeParams.phoneId;
+      $scope.spinner = true;
       $scope.hello = function(name) {
-        return $scope.msg = "hello " + name;
+        $scope.msg = "hello " + name;
+        return $scope.spinner = false;
       };
       return this;
     }
