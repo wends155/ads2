@@ -97,6 +97,9 @@ respond('/admin',function($req,$res){
 	}
 });
 
+respond('/register',RegisterCtrl::index());
+respond('/check/[:user]', RegisterCtrl::check());
+respond('POST', '/user', RegisterCtrl::new_user());
 respond('/catalog',function($req,$res){
 	$tpl = Template::load('cat_index.html');
 	echo $tpl->render(array('title'=>'Catalog','username'=>$req->session('username')));
