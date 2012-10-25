@@ -1,0 +1,26 @@
+<legend>Change Password</legend>
+<form class="form-inline" ng-submit="verify()" ng-show="!verified">
+	<input type="password" ng-model="user.password" placeholder="Enter Current Password" required autofocus>
+	<button type="submit">Verify</button>
+</div>
+</form>
+
+<form class="form-horizontal" ng-submit="change()" ng-show="verified">
+	<div class="control-group {{status}}">
+		<label for="" class="control-label">New Password</label>
+		<div class="controls">
+			<input type="password" ng-model="new.password" placeholder="Enter New Password" required>		
+		</div>
+	</div>
+	<div class="control-group {{status}}">
+		<label for="" class="control-label">Confirm New Password</label>
+		<div class="controls">
+			<input type="password" ng-model="new.password_conf" placeholder="Confirm New Password" required>
+		</div>
+	</div>
+	<div class="form-actions">
+		<button type="submit" class="btn btn-primary">Change Password</button>
+		<a href="#/" class="btn">Cancel</a>	
+	</div>
+	
+</form>

@@ -1,31 +1,73 @@
 UserCatalogCtrl = ['$scope','Brand', ($scope,Brand)->
-	@
+	
 ]
 
 UserIndexCtrl = ['$scope','$http', ($scope,$http)->
+	#humane.log('welcome')
 	
-	@
 ]
 
 UserCartCtrl = ['$scope', ($scope)->
-	@
+	
 ]
 
 UserProfileCtrl = ['$scope','$http',($scope,$http)->
 	$http.get('/profile').success (data)->
 		$scope.profile = data
-	@
+	
 	$scope.submit = ->
 		$http.post('/profile', JSON.stringify($scope.profile)).success (data)->
 			$scope.profile = data
 			$scope.saved=true
+			humane.log('Profile Saved')
 			console.log(data)
-		@
+		
 ]
 
 MenuCtrl = ['$scope', ($scope)->
 	$scope.order = 3
-	@
+	
+]
+
+ChangePassCtrl = ['$scope','$http',($scope,$http)->
+	$ = $scope
+	$.verified = false	
+
+	$scope.verify = ->
+		$http.post('/verify_password',JSON.stringify($scope.user)).success(->
+			console.log JSON.stringify $.user
+			$.verified = true
+			#humane.log('password correct!')
+		)
+		.error(->
+			$.fail = true
+			console.log JSON.stringify $.user
+			$.user.password = ""
+			humane.log('wrong password!')
+		)
+	$.change = ->
+		$.status = ""
+		p1 = $.new.password
+		p2 = $.new.password_conf
+		pack = 
+			password: $.user.password
+			new_password: p1
+			new_password_confirm: p2
+		pack = JSON.stringify pack
+		if(p1 == p2)
+			$http.post('/change_password', pack).success(->
+				humane.log('Password Changed Successfully')
+				$.new = {}
+				$.verified = false
+				$.user = {}
+			).error(->
+				humane.log("Password error")
+			)
+		else
+			$.status = "error"
+			humane.log('Passwords do not match')
+			$.new = {}
+		console.log pack
 ]
 
 RegisterCtrl = ['$scope','$http',($scope,$http)->

@@ -1,55 +1,149 @@
-<!DOCTYPE html>  <html> <head>   <title>controllers.coffee</title>   <meta http-equiv="content-type" content="text/html; charset=UTF-8">   <link rel="stylesheet" media="all" href="docco.css" /> </head> <body>   <div id="container">     <div id="background"></div>            <div id="jump_to">         Jump To &hellip;         <div id="jump_wrapper">           <div id="jump_page">                                           <a class="source" href="app.html">                 app.coffee               </a>                                           <a class="source" href="controllers.html">                 controllers.coffee               </a>                                           <a class="source" href="filters.html">                 filters.coffee               </a>                        </div>         </div>       </div>          <table cellpadding="0" cellspacing="0">       <thead>         <tr>           <th class="docs">             <h1>               controllers.coffee             </h1>           </th>           <th class="code">           </th>         </tr>       </thead>       <tbody>                               <tr id="section-1">             <td class="docs">               <div class="pilwrap">                 <a class="pilcrow" href="#section-1">&#182;</a>               </div>                            </td>             <td class="code">               <div class="highlight"><pre><span class="nv">PhoneListCtrl = </span><span class="p">[</span><span class="s1">&#39;$scope&#39;</span><span class="p">,</span><span class="s1">&#39;$http&#39;</span><span class="p">,</span><span class="s1">&#39;$filter&#39;</span><span class="p">,</span> <span class="nf">($scope,$http,$filter) -&gt;</span>
-  <span class="nx">$http</span><span class="p">.</span><span class="nx">get</span><span class="p">(</span><span class="s1">&#39;phones.json&#39;</span><span class="p">).</span><span class="nx">success</span> <span class="nf">(data)-&gt;</span>
-    <span class="nv">$scope.unfiltered = </span><span class="nx">data</span> 
+<!DOCTYPE html>  <html> <head>   <title>controllers.coffee</title>   <meta http-equiv="content-type" content="text/html; charset=UTF-8">   <link rel="stylesheet" media="all" href="docco.css" /> </head> <body>   <div id="container">     <div id="background"></div>            <div id="jump_to">         Jump To &hellip;         <div id="jump_wrapper">           <div id="jump_page">                                           <a class="source" href="app.html">                 app.coffee               </a>                                           <a class="source" href="controllers.html">                 controllers.coffee               </a>                                           <a class="source" href="filters.html">                 filters.coffee               </a>                                           <a class="source" href="services.html">                 services.coffee               </a>                                           <a class="source" href="user_controllers.html">                 user_controllers.coffee               </a>                        </div>         </div>       </div>          <table cellpadding="0" cellspacing="0">       <thead>         <tr>           <th class="docs">             <h1>               controllers.coffee             </h1>           </th>           <th class="code">           </th>         </tr>       </thead>       <tbody>                               <tr id="section-1">             <td class="docs">               <div class="pilwrap">                 <a class="pilcrow" href="#section-1">&#182;</a>               </div>               <h1>Admin Pages Controllers</h1>
 
-    <span class="nv">$scope.phones = </span><span class="nx">$filter</span><span class="p">(</span><span class="s1">&#39;filter&#39;</span><span class="p">)(</span><span class="nx">$scope</span><span class="p">.</span><span class="nx">unfiltered</span><span class="p">,</span><span class="nx">$scope</span><span class="p">.</span><span class="nx">query</span><span class="p">)</span>
-    
-    <span class="nv">$scope.numberOfPages = </span><span class="o">-&gt;</span>
-      <span class="nb">Math</span><span class="p">.</span><span class="nx">ceil</span><span class="p">(</span><span class="nx">$scope</span><span class="p">.</span><span class="nx">phones</span><span class="p">.</span><span class="nx">length</span><span class="err">/$scope.limit)</span>
-    
-    <span class="nv">$scope.isLastPage = </span><span class="o">-&gt;</span>
-      <span class="p">(</span><span class="nx">$scope</span><span class="p">.</span><span class="nx">currentPage</span> <span class="o">==</span> <span class="nx">$scope</span><span class="p">.</span><span class="nx">numberOfPages</span><span class="p">())</span> <span class="o">or</span> <span class="p">(</span><span class="nx">$scope</span><span class="p">.</span><span class="nx">numberOfPages</span><span class="p">()</span> <span class="o">==</span> <span class="mi">0</span><span class="p">)</span>
-    
-    <span class="err">@</span>
+<p>These are controllers used in the admin pages</p>             </td>             <td class="code">               <div class="highlight"><pre></pre></div>             </td>           </tr>                               <tr id="section-2">             <td class="docs">               <div class="pilwrap">                 <a class="pilcrow" href="#section-2">&#182;</a>               </div>               <h2>Product List Controller</h2>
 
-  <span class="nv">$scope.orderProp = </span><span class="s1">&#39;id&#39;</span>
-  <span class="nv">$scope.currentPage = </span><span class="mi">1</span>
-  <span class="nv">$scope.limit = </span><span class="mi">1</span>
-  <span class="nv">$scope.start = </span><span class="mi">0</span>
-  <span class="nv">$scope.change = </span><span class="o">-&gt;</span>
-    <span class="nx">console</span><span class="p">.</span><span class="nx">log</span> <span class="s2">&quot;filtered: &quot;</span> <span class="o">+</span> <span class="nx">$scope</span><span class="p">.</span><span class="nx">phones</span>
-    <span class="nv">$scope.phones = </span><span class="nx">$filter</span><span class="p">(</span><span class="s1">&#39;filter&#39;</span><span class="p">)(</span><span class="nx">$scope</span><span class="p">.</span><span class="nx">unfiltered</span><span class="p">,</span><span class="nx">$scope</span><span class="p">.</span><span class="nx">query</span><span class="p">)</span>
-    <span class="nv">$scope.start = </span><span class="mi">0</span>
-    <span class="nv">$scope.currentPage = </span><span class="mi">1</span>
-
-  <span class="nv">$scope.nextPage = </span><span class="o">-&gt;</span>
-    <span class="nx">$scope</span><span class="p">.</span><span class="nx">currentPage</span><span class="o">++</span>
-    <span class="nx">console</span><span class="p">.</span><span class="nx">log</span> <span class="s2">&quot;currentPage: &quot;</span> <span class="o">+</span> <span class="nx">$scope</span><span class="p">.</span><span class="nx">currentPage</span>
-    <span class="nv">$scope.start = </span><span class="o">+</span><span class="nx">$scope</span><span class="p">.</span><span class="nx">start</span> <span class="o">+</span> <span class="o">+</span><span class="nx">$scope</span><span class="p">.</span><span class="nx">limit</span>
-    <span class="nx">console</span><span class="p">.</span><span class="nx">log</span> <span class="s2">&quot;start: &quot;</span> <span class="o">+</span> <span class="nx">$scope</span><span class="p">.</span><span class="nx">start</span>
-  <span class="nv">$scope.previousPage = </span><span class="o">-&gt;</span>
-    <span class="nx">$scope</span><span class="p">.</span><span class="nx">currentPage</span><span class="o">--</span>
-    <span class="nx">console</span><span class="p">.</span><span class="nx">log</span> <span class="s2">&quot;currentPage: &quot;</span> <span class="o">+</span> <span class="nx">$scope</span><span class="p">.</span><span class="nx">currentPage</span>
-    <span class="nv">$scope.start = </span><span class="o">+</span><span class="nx">$scope</span><span class="p">.</span><span class="nx">start</span> <span class="o">-</span> <span class="o">+</span><span class="nx">$scope</span><span class="p">.</span><span class="nx">limit</span>
-
-    <span class="k">if</span> <span class="nx">$scope</span><span class="p">.</span><span class="nx">start</span> <span class="o">&lt;</span> <span class="mi">0</span> 
-      <span class="nv">$scope.start = </span><span class="mi">0</span>
-
-    <span class="nx">console</span><span class="p">.</span><span class="nx">log</span> <span class="s2">&quot;start: &quot;</span> <span class="o">+</span> <span class="nx">$scope</span><span class="p">.</span><span class="nx">start</span>
-    <span class="kc">true</span>
-  <span class="nv">$scope.isFirstPage = </span><span class="o">-&gt;</span>
-    <span class="nx">$scope</span><span class="p">.</span><span class="nx">currentPage</span> <span class="o">==</span> <span class="mi">1</span>
+<p>deprecated function</p>             </td>             <td class="code">               <div class="highlight"><pre><span class="nv">ProductListCtrl = </span><span class="p">[</span><span class="s1">&#39;$scope&#39;</span><span class="p">,</span><span class="s1">&#39;$http&#39;</span><span class="p">,</span><span class="s1">&#39;$filter&#39;</span><span class="p">,</span> <span class="nf">($scope,$http,$filter) -&gt;</span>
+  <span class="nx">$http</span><span class="p">.</span><span class="nx">get</span><span class="p">(</span><span class="s1">&#39;/product/all.json&#39;</span><span class="p">).</span><span class="nx">success</span> <span class="nf">(data)-&gt;</span>
+    <span class="nv">$scope.products = </span><span class="nx">data</span>
   
-  <span class="err">@</span>
+<span class="p">]</span></pre></div>             </td>           </tr>                               <tr id="section-3">             <td class="docs">               <div class="pilwrap">                 <a class="pilcrow" href="#section-3">&#182;</a>               </div>               <h2>Phone Details Controller</h2>
+
+<p>todo</p>             </td>             <td class="code">               <div class="highlight"><pre><span class="nv">PhoneDetailCtrl = </span><span class="p">[</span><span class="s1">&#39;$scope&#39;</span><span class="p">,</span><span class="s1">&#39;$routeParams&#39;</span><span class="p">,</span> <span class="nf">($scope,$routeParams) -&gt;</span>
+  <span class="nv">$scope.phoneId = </span><span class="nx">$routeParams</span><span class="p">.</span><span class="nx">phoneId</span>
+  <span class="nv">$scope.spinner = </span><span class="kc">true</span></pre></div>             </td>           </tr>                               <tr id="section-4">             <td class="docs">               <div class="pilwrap">                 <a class="pilcrow" href="#section-4">&#182;</a>               </div>               <p>change the spinner</p>             </td>             <td class="code">               <div class="highlight"><pre>  <span class="nv">$scope.hello = </span><span class="nf">(name) -&gt;</span> 
+    <span class="nv">$scope.msg = </span><span class="s2">&quot;hello #{name}&quot;</span>
+    <span class="nv">$scope.spinner = </span><span class="kc">false</span>
+  
 <span class="p">]</span>
 
+<span class="nv">ProductCtrl = </span><span class="p">[</span><span class="s1">&#39;$scope&#39;</span><span class="p">,</span><span class="s1">&#39;$http&#39;</span><span class="p">,</span><span class="nf">($scope, $http)-&gt;</span>
+  <span class="nx">$http</span><span class="p">.</span><span class="nx">get</span><span class="p">(</span><span class="s1">&#39;/product/all.json&#39;</span><span class="p">).</span><span class="nx">success</span> <span class="nf">(data)-&gt;</span>
+    <span class="nv">$scope.products = </span><span class="nx">data</span>
+    <span class="nv">$scope.spinner = </span><span class="kc">false</span>
+  <span class="nx">$http</span><span class="p">.</span><span class="nx">get</span><span class="p">(</span><span class="s1">&#39;/company/all.json&#39;</span><span class="p">).</span><span class="nx">success</span> <span class="nf">(data)-&gt;</span>
+    <span class="nv">$scope.companies = </span><span class="nx">data</span>
+  <span class="nx">$http</span><span class="p">.</span><span class="nx">get</span><span class="p">(</span><span class="s1">&#39;/category/all.json&#39;</span><span class="p">).</span><span class="nx">success</span> <span class="nf">(data)-&gt;</span>
+    <span class="nv">$scope.categories = </span><span class="nx">data</span>
+  <span class="nx">$http</span><span class="p">.</span><span class="nx">get</span><span class="p">(</span><span class="s1">&#39;/brand/all.json&#39;</span><span class="p">).</span><span class="nx">success</span> <span class="nf">(data)-&gt;</span>
+    <span class="nv">$scope.brands = </span><span class="nx">data</span>
 
-<span class="nv">PhoneDetailCtrl = </span><span class="p">[</span><span class="s1">&#39;$scope&#39;</span><span class="p">,</span><span class="s1">&#39;$routeParams&#39;</span><span class="p">,</span> <span class="nf">($scope,$routeParams) -&gt;</span>
-  <span class="nv">$scope.phoneId = </span><span class="nx">$routeParams</span><span class="p">.</span><span class="nx">phoneId</span>
-  <span class="nv">$scope.hello = </span><span class="nf">(name) -&gt;</span> 
-    <span class="nv">$scope.msg = </span><span class="s2">&quot;hello #{name}&quot;</span>
+  <span class="nv">$scope.limit = </span><span class="mi">20</span>
+  <span class="nv">$scope.saved = </span><span class="kc">false</span>
+  <span class="nv">$scope.spinner = </span><span class="kc">true</span>
+  <span class="nv">$scope.cancel = </span><span class="o">-&gt;</span>
+    <span class="nv">$scope.product = </span><span class="p">{}</span>
+  <span class="nv">$scope.submit = </span><span class="o">-&gt;</span>
+    <span class="nx">console</span><span class="p">.</span><span class="nx">log</span> <span class="nx">JSON</span><span class="p">.</span><span class="nx">stringify</span><span class="p">(</span><span class="nx">$scope</span><span class="p">.</span><span class="nx">product</span><span class="p">)</span>
+    <span class="nx">$http</span><span class="p">.</span><span class="nx">post</span><span class="p">(</span><span class="s1">&#39;/product/new.json&#39;</span><span class="p">,</span> <span class="nx">JSON</span><span class="p">.</span><span class="nx">stringify</span><span class="p">(</span><span class="nx">$scope</span><span class="p">.</span><span class="nx">product</span><span class="p">)).</span><span class="nx">success</span> <span class="nf">(data)-&gt;</span>
+      <span class="nv">$scope.saved = </span><span class="kc">true</span>
+      <span class="nx">$scope</span><span class="p">.</span><span class="nx">products</span><span class="p">.</span><span class="nx">push</span><span class="p">(</span><span class="nx">data</span><span class="p">)</span>
+      <span class="nv">$scope.product = </span><span class="p">{}</span>
+      
+  <span class="nv">$scope.delete = </span><span class="nf">(id)-&gt;</span>
+    <span class="nx">$http</span><span class="p">.</span><span class="k">delete</span><span class="p">(</span><span class="s2">&quot;/product/#{id}.json&quot;</span><span class="p">).</span><span class="nx">success</span> <span class="o">-&gt;</span>
+      <span class="nx">$http</span><span class="p">.</span><span class="nx">get</span><span class="p">(</span><span class="s1">&#39;/product/all.json&#39;</span><span class="p">).</span><span class="nx">success</span> <span class="nf">(data)-&gt;</span>
+        <span class="nv">$scope.products = </span><span class="nx">data</span>
+  
+<span class="p">]</span>
+
+<span class="nv">ProductDetailCtrl = </span><span class="p">[</span><span class="s1">&#39;$scope&#39;</span><span class="p">,</span><span class="s1">&#39;$routeParams&#39;</span><span class="p">,</span><span class="s1">&#39;$http&#39;</span><span class="p">,</span><span class="nf">($scope,$routeParams,$http) -&gt;</span> 
+  <span class="nx">$http</span><span class="p">.</span><span class="nx">get</span><span class="p">(</span><span class="s1">&#39;/product/&#39;</span> <span class="o">+</span> <span class="nx">$routeParams</span><span class="p">.</span><span class="nx">id</span> <span class="o">+</span> <span class="s1">&#39;.json&#39;</span><span class="p">).</span><span class="nx">success</span> <span class="nf">(data)-&gt;</span>
+    <span class="nv">$scope.product = </span><span class="nx">data</span>
+    <span class="nv">$scope.spinner = </span><span class="kc">false</span>
+  <span class="nx">$http</span><span class="p">.</span><span class="nx">get</span><span class="p">(</span><span class="s1">&#39;/company/all.json&#39;</span><span class="p">).</span><span class="nx">success</span> <span class="nf">(data)-&gt;</span>
+    <span class="nv">$scope.companies = </span><span class="nx">data</span>
+  <span class="nx">$http</span><span class="p">.</span><span class="nx">get</span><span class="p">(</span><span class="s1">&#39;/category/all.json&#39;</span><span class="p">).</span><span class="nx">success</span> <span class="nf">(data)-&gt;</span>
+    <span class="nv">$scope.categories = </span><span class="nx">data</span>
+  <span class="nx">$http</span><span class="p">.</span><span class="nx">get</span><span class="p">(</span><span class="s1">&#39;/brand/all.json&#39;</span><span class="p">).</span><span class="nx">success</span> <span class="nf">(data)-&gt;</span>
+    <span class="nv">$scope.brands = </span><span class="nx">data</span>
+  <span class="nv">$scope.id = </span><span class="nx">$routeParams</span><span class="p">.</span><span class="nx">id</span>
+  <span class="nv">$scope.spinner = </span><span class="kc">true</span>
+  <span class="nv">$scope.saved = </span><span class="kc">false</span><span class="p">;</span>
+  <span class="nv">$scope.submit = </span><span class="o">-&gt;</span>
+    <span class="nx">console</span><span class="p">.</span><span class="nx">log</span> <span class="nx">JSON</span><span class="p">.</span><span class="nx">stringify</span><span class="p">(</span><span class="nx">$scope</span><span class="p">.</span><span class="nx">product</span><span class="p">)</span>
+    <span class="nx">$http</span><span class="p">.</span><span class="nx">post</span><span class="p">(</span><span class="s1">&#39;/product/&#39;</span> <span class="o">+</span> <span class="nx">$scope</span><span class="p">.</span><span class="nx">id</span> <span class="o">+</span> <span class="s1">&#39;.json&#39;</span><span class="p">,</span><span class="nx">JSON</span><span class="p">.</span><span class="nx">stringify</span><span class="p">(</span><span class="nx">$scope</span><span class="p">.</span><span class="nx">product</span><span class="p">)).</span><span class="nx">success</span> <span class="o">-&gt;</span>
+      <span class="nv">$scope.saved = </span><span class="kc">true</span>
+  
+<span class="p">]</span>
+
+<span class="nv">BrandCtrl = </span><span class="p">[</span><span class="s1">&#39;$scope&#39;</span><span class="p">,</span><span class="s1">&#39;$http&#39;</span><span class="p">,</span><span class="nf">($scope, $http)-&gt;</span>
+  <span class="nx">$http</span><span class="p">.</span><span class="nx">get</span><span class="p">(</span><span class="s1">&#39;/brand/all.json&#39;</span><span class="p">).</span><span class="nx">success</span> <span class="nf">(data)-&gt;</span>
+    <span class="nv">$scope.brands = </span><span class="nx">data</span>
+  <span class="nv">$scope.delete = </span><span class="nf">(id) -&gt;</span>
+    <span class="nx">$http</span><span class="p">.</span><span class="k">delete</span><span class="p">(</span><span class="s1">&#39;/brand/&#39;</span><span class="o">+</span><span class="nx">id</span><span class="o">+</span><span class="s1">&#39;.json&#39;</span><span class="p">).</span><span class="nx">success</span> <span class="o">-&gt;</span>
+      <span class="nx">$http</span><span class="p">.</span><span class="nx">get</span><span class="p">(</span><span class="s1">&#39;/brand/all.json&#39;</span><span class="p">).</span><span class="nx">success</span> <span class="nf">(data)-&gt;</span>
+        <span class="nv">$scope.brands = </span><span class="nx">data</span>
+  <span class="nv">$scope.submit = </span><span class="o">-&gt;</span>
+    <span class="nx">$http</span><span class="p">.</span><span class="nx">post</span><span class="p">(</span><span class="s1">&#39;/brand/new.json&#39;</span><span class="p">,</span> <span class="nx">JSON</span><span class="p">.</span><span class="nx">stringify</span><span class="p">(</span><span class="nx">$scope</span><span class="p">.</span><span class="nx">brand</span><span class="p">)).</span><span class="nx">success</span> <span class="nf">(data)-&gt;</span>
+      <span class="nx">$scope</span><span class="p">.</span><span class="nx">brands</span><span class="p">.</span><span class="nx">push</span><span class="p">(</span><span class="nx">data</span><span class="p">)</span>
+      <span class="nv">$scope.brand = </span><span class="p">{}</span>
+  
+<span class="p">]</span>
+
+<span class="nv">BrandDetailCtrl = </span><span class="p">[</span><span class="s1">&#39;$scope&#39;</span><span class="p">,</span><span class="s1">&#39;$http&#39;</span><span class="p">,</span> <span class="s1">&#39;$routeParams&#39;</span><span class="p">,</span><span class="s1">&#39;Brand&#39;</span><span class="p">,</span> <span class="nf">($scope, $http, $routeParams,Brand) -&gt;</span>
+  <span class="nv">$scope.id = </span><span class="nx">$routeParams</span><span class="p">.</span><span class="nx">id</span>
+  <span class="nx">$http</span><span class="p">.</span><span class="nx">get</span><span class="p">(</span><span class="s1">&#39;/brand/&#39;</span><span class="o">+</span><span class="nx">$scope</span><span class="p">.</span><span class="nx">id</span><span class="o">+</span><span class="s1">&#39;.json&#39;</span><span class="p">).</span><span class="nx">success</span> <span class="nf">(data)-&gt;</span>
+    <span class="nv">$scope.brand = </span><span class="nx">data</span>
+  <span class="nv">$scope.caption = </span><span class="s2">&quot;Cancel&quot;</span>
+  <span class="nv">$scope.products = </span><span class="nx">Brand</span><span class="p">.</span><span class="nx">products</span><span class="p">({</span><span class="nx">id</span><span class="o">:</span><span class="nx">$scope</span><span class="p">.</span><span class="nx">id</span><span class="p">})</span>
+  
+  <span class="nv">$scope.submit = </span><span class="o">-&gt;</span>
+    <span class="nx">$http</span><span class="p">.</span><span class="nx">post</span><span class="p">(</span><span class="s1">&#39;/brand/&#39;</span> <span class="o">+</span> <span class="nx">$scope</span><span class="p">.</span><span class="nx">id</span> <span class="o">+</span> <span class="s1">&#39;.json&#39;</span><span class="p">,</span> <span class="nx">JSON</span><span class="p">.</span><span class="nx">stringify</span><span class="p">(</span><span class="nx">$scope</span><span class="p">.</span><span class="nx">brand</span><span class="p">)).</span><span class="nx">success</span> <span class="o">-&gt;</span>
+      <span class="nv">$scope.saved = </span><span class="kc">true</span>
+      <span class="nv">$scope.caption = </span><span class="s2">&quot;Back&quot;</span>
+<span class="p">]</span>
+
+<span class="nv">CompanyCtrl = </span><span class="p">[</span><span class="s1">&#39;$scope&#39;</span><span class="p">,</span><span class="s1">&#39;$http&#39;</span><span class="p">,</span><span class="nf">($scope, $http)-&gt;</span>
+  <span class="nx">$http</span><span class="p">.</span><span class="nx">get</span><span class="p">(</span><span class="s1">&#39;/company/all.json&#39;</span><span class="p">).</span><span class="nx">success</span> <span class="nf">(data)-&gt;</span>
+    <span class="nv">$scope.companies = </span><span class="nx">data</span>
+
+  <span class="nv">$scope.delete = </span><span class="nf">(id)-&gt;</span>
+    <span class="nx">$http</span><span class="p">.</span><span class="k">delete</span><span class="p">(</span><span class="s1">&#39;/company/&#39;</span><span class="o">+</span><span class="nx">id</span><span class="o">+</span><span class="s1">&#39;.json&#39;</span><span class="p">).</span><span class="nx">success</span> <span class="o">-&gt;</span>
+      <span class="nx">$http</span><span class="p">.</span><span class="nx">get</span><span class="p">(</span><span class="s1">&#39;/company/all.json&#39;</span><span class="p">).</span><span class="nx">success</span> <span class="nf">(data)-&gt;</span>
+        <span class="nv">$scope.companies = </span><span class="nx">data</span>
+  
+  <span class="nv">$scope.submit = </span><span class="o">-&gt;</span>
+    <span class="nx">$http</span><span class="p">.</span><span class="nx">post</span><span class="p">(</span><span class="s1">&#39;/company/new.json&#39;</span><span class="p">,</span> <span class="nx">JSON</span><span class="p">.</span><span class="nx">stringify</span><span class="p">(</span><span class="nx">$scope</span><span class="p">.</span><span class="nx">company</span><span class="p">)).</span><span class="nx">success</span> <span class="nf">(data)-&gt;</span>
+      <span class="nx">$scope</span><span class="p">.</span><span class="nx">companies</span><span class="p">.</span><span class="nx">push</span><span class="p">(</span><span class="nx">data</span><span class="p">)</span>
+      <span class="nv">$scope.company = </span><span class="p">{}</span>
+  
+<span class="p">]</span>
+
+<span class="nv">CompanyDetailCtrl = </span><span class="p">[</span><span class="s1">&#39;$scope&#39;</span><span class="p">,</span><span class="s1">&#39;$routeParams&#39;</span><span class="p">,</span><span class="s1">&#39;$http&#39;</span><span class="p">,</span><span class="nf">($scope,$routeParams,$http)-&gt;</span>
+  <span class="nx">$http</span><span class="p">.</span><span class="nx">get</span><span class="p">(</span><span class="s1">&#39;/company/&#39;</span><span class="o">+</span> <span class="nx">$routeParams</span><span class="p">.</span><span class="nx">id</span> <span class="o">+</span> <span class="s1">&#39;.json&#39;</span><span class="p">).</span><span class="nx">success</span> <span class="nf">(data)-&gt;</span>
+    <span class="nv">$scope.company = </span><span class="nx">data</span>
+  <span class="nv">$scope.caption = </span><span class="s2">&quot;Cancel&quot;</span>
+  <span class="nv">$scope.submit = </span><span class="o">-&gt;</span>
+    <span class="nx">$http</span><span class="p">.</span><span class="nx">post</span><span class="p">(</span><span class="s1">&#39;/company/&#39;</span> <span class="o">+</span> <span class="nx">$routeParams</span><span class="p">.</span><span class="nx">id</span> <span class="o">+</span> <span class="s1">&#39;.json&#39;</span><span class="p">,</span> <span class="nx">JSON</span><span class="p">.</span><span class="nx">stringify</span><span class="p">(</span><span class="nx">$scope</span><span class="p">.</span><span class="nx">company</span><span class="p">)).</span><span class="nx">success</span> <span class="o">-&gt;</span>
+      <span class="nv">$scope.saved = </span><span class="kc">true</span>
+      <span class="nv">$scope.caption = </span><span class="s2">&quot;Back&quot;</span>
     
-  <span class="err">@</span>
+<span class="p">]</span>
+
+<span class="nv">CategoryCtrl = </span><span class="p">[</span><span class="s1">&#39;$scope&#39;</span><span class="p">,</span><span class="s1">&#39;$http&#39;</span><span class="p">,</span><span class="nf">($scope, $http)-&gt;</span>
+  <span class="nx">$http</span><span class="p">.</span><span class="nx">get</span><span class="p">(</span><span class="s1">&#39;/category/all.json&#39;</span><span class="p">).</span><span class="nx">success</span> <span class="nf">(data)-&gt;</span>
+    <span class="nv">$scope.categories = </span><span class="nx">data</span>
+
+  <span class="nv">$scope.delete = </span><span class="nf">(id)-&gt;</span>
+    <span class="nx">$http</span><span class="p">.</span><span class="k">delete</span><span class="p">(</span><span class="s1">&#39;/category/&#39;</span><span class="o">+</span><span class="nx">id</span><span class="o">+</span><span class="s1">&#39;.json&#39;</span><span class="p">).</span><span class="nx">success</span> <span class="o">-&gt;</span>
+      <span class="nx">$http</span><span class="p">.</span><span class="nx">get</span><span class="p">(</span><span class="s1">&#39;/category/all.json&#39;</span><span class="p">).</span><span class="nx">success</span> <span class="nf">(data)-&gt;</span>
+        <span class="nv">$scope.categories = </span><span class="nx">data</span>
+  
+  <span class="nv">$scope.submit = </span><span class="o">-&gt;</span>
+    <span class="nx">$http</span><span class="p">.</span><span class="nx">post</span><span class="p">(</span><span class="s1">&#39;/category/new.json&#39;</span><span class="p">,</span> <span class="nx">JSON</span><span class="p">.</span><span class="nx">stringify</span><span class="p">(</span><span class="nx">$scope</span><span class="p">.</span><span class="nx">category</span><span class="p">)).</span><span class="nx">success</span> <span class="nf">(data)-&gt;</span>
+      <span class="nx">$scope</span><span class="p">.</span><span class="nx">categories</span><span class="p">.</span><span class="nx">push</span><span class="p">(</span><span class="nx">data</span><span class="p">)</span>
+      <span class="nv">$scope.category = </span><span class="p">{}</span>
+  
+<span class="p">]</span>
+
+<span class="nv">CategoryDetailCtrl = </span><span class="p">[</span><span class="s1">&#39;$scope&#39;</span><span class="p">,</span><span class="s1">&#39;$routeParams&#39;</span><span class="p">,</span><span class="s1">&#39;$http&#39;</span><span class="p">,</span><span class="nf">($scope,$routeParams,$http)-&gt;</span>
+  <span class="nx">$http</span><span class="p">.</span><span class="nx">get</span><span class="p">(</span><span class="s1">&#39;/category/&#39;</span><span class="o">+</span><span class="nx">$routeParams</span><span class="p">.</span><span class="nx">id</span><span class="o">+</span><span class="s1">&#39;.json&#39;</span><span class="p">).</span><span class="nx">success</span> <span class="nf">(data)-&gt;</span>
+    <span class="nv">$scope.category = </span><span class="nx">data</span>
+  <span class="nv">$scope.caption = </span><span class="s2">&quot;Cancel&quot;</span>
+  <span class="nv">$scope.submit = </span><span class="o">-&gt;</span>
+    <span class="nx">$http</span><span class="p">.</span><span class="nx">post</span><span class="p">(</span><span class="s1">&#39;/category/&#39;</span><span class="o">+</span><span class="nx">$routeParams</span><span class="p">.</span><span class="nx">id</span><span class="o">+</span><span class="s1">&#39;.json&#39;</span><span class="p">,</span> <span class="nx">JSON</span><span class="p">.</span><span class="nx">stringify</span><span class="p">(</span><span class="nx">$scope</span><span class="p">.</span><span class="nx">category</span><span class="p">)).</span><span class="nx">success</span> <span class="o">-&gt;</span>
+      <span class="nv">$scope.saved = </span><span class="kc">true</span>
+      <span class="nv">$scope.caption = </span><span class="s2">&quot;Back&quot;</span>
 <span class="p">]</span>
 
 </pre></div>             </td>           </tr>                </tbody>     </table>   </div> </body> </html> 

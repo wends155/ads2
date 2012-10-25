@@ -205,5 +205,7 @@ respond('GET', '/order/all.json', OrderCtrl::user_index());
 respond('GET', '/brand/[i:id].json/products', BrandCtrl::products());
 respond('GET', '/profile', ProfileCtrl::profile());
 respond('POST', '/profile', ProfileCtrl::update());
+respond('POST', '/verify_password', ProfileCtrl::verify_password());
+respond('POST', '/change_password', ProfileCtrl::change_password());
 dispatch();
 ?>

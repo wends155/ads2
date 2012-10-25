@@ -1,17 +1,30 @@
+#Admin Pages Controllers
+#======================
+#These are controllers used in the admin pages
+#
+
+#Product List Controller
+#----------------------
+#deprecated function
+#
 ProductListCtrl = ['$scope','$http','$filter', ($scope,$http,$filter) ->
 	$http.get('/product/all.json').success (data)->
 		$scope.products = data
-	@
+	
 ]
 
-
+#Phone Details Controller
+#-----------------------
+#
+#todo
 PhoneDetailCtrl = ['$scope','$routeParams', ($scope,$routeParams) ->
 	$scope.phoneId = $routeParams.phoneId
 	$scope.spinner = true
+	# change the spinner
 	$scope.hello = (name) -> 
 		$scope.msg = "hello #{name}"
 		$scope.spinner = false
-	@
+	
 ]
 
 ProductCtrl = ['$scope','$http',($scope, $http)->
@@ -36,14 +49,12 @@ ProductCtrl = ['$scope','$http',($scope, $http)->
 			$scope.saved = true
 			$scope.products.push(data)
 			$scope.product = {}
-			@
+			
 	$scope.delete = (id)->
 		$http.delete("/product/#{id}.json").success ->
 			$http.get('/product/all.json').success (data)->
 				$scope.products = data
-				@
-		@
-	@
+	
 ]
 
 ProductDetailCtrl = ['$scope','$routeParams','$http',($scope,$routeParams,$http) -> 
@@ -63,8 +74,7 @@ ProductDetailCtrl = ['$scope','$routeParams','$http',($scope,$routeParams,$http)
 		console.log JSON.stringify($scope.product)
 		$http.post('/product/' + $scope.id + '.json',JSON.stringify($scope.product)).success ->
 			$scope.saved = true
-			@
-	@
+	
 ]
 
 BrandCtrl = ['$scope','$http',($scope, $http)->
@@ -78,7 +88,7 @@ BrandCtrl = ['$scope','$http',($scope, $http)->
 		$http.post('/brand/new.json', JSON.stringify($scope.brand)).success (data)->
 			$scope.brands.push(data)
 			$scope.brand = {}
-	@
+	
 ]
 
 BrandDetailCtrl = ['$scope','$http', '$routeParams','Brand', ($scope, $http, $routeParams,Brand) ->
@@ -102,14 +112,12 @@ CompanyCtrl = ['$scope','$http',($scope, $http)->
 		$http.delete('/company/'+id+'.json').success ->
 			$http.get('/company/all.json').success (data)->
 				$scope.companies = data
-				@
-			@
-	@
+	
 	$scope.submit = ->
 		$http.post('/company/new.json', JSON.stringify($scope.company)).success (data)->
 			$scope.companies.push(data)
 			$scope.company = {}
-			@
+	
 ]
 
 CompanyDetailCtrl = ['$scope','$routeParams','$http',($scope,$routeParams,$http)->
@@ -131,14 +139,12 @@ CategoryCtrl = ['$scope','$http',($scope, $http)->
 		$http.delete('/category/'+id+'.json').success ->
 			$http.get('/category/all.json').success (data)->
 				$scope.categories = data
-			@
-		@
-	@
+	
 	$scope.submit = ->
 		$http.post('/category/new.json', JSON.stringify($scope.category)).success (data)->
 			$scope.categories.push(data)
 			$scope.category = {}
-			@
+	
 ]
 
 CategoryDetailCtrl = ['$scope','$routeParams','$http',($scope,$routeParams,$http)->

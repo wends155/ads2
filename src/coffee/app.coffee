@@ -1,5 +1,14 @@
+#ads module
+#--------
+#	the main user module
+#Dependencies:
+#
+# * phonecatFilters
+# * restService
 ads = angular.module('ads',['phonecatFilters','restService'])
 
+#location configuration for ng-view
+#
 ads.config([
 	'$routeProvider', ($routeProvider) ->
 		user = "/assets/partials/user"
@@ -26,9 +35,17 @@ ads.config([
 			templateUrl: "#{user}/profile.html",
 			controller: UserProfileCtrl
 			})
+		.when('/change',{
+			templateUrl: "#{user}/change.html",
+			controller: ChangePassCtrl
+			})
 		.otherwise({redirectTo: '/'})
 		])
-
+#admin module
+#------------
+#
+#module used for administration pages
+#
 admin = angular.module('admin',['restService'])
 admin.config(['$routeProvider',($routeProvider) -> 
 	$routeProvider.when('/',{templateUrl: '/assets/partials/admin-index.html'})
