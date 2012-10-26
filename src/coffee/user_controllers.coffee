@@ -1,5 +1,10 @@
-UserCatalogCtrl = ['$scope','Brand', ($scope,Brand)->
-	
+UserCatalogCtrl = ['$scope','Company','Category','Product', ($scope,Company, Category,Product)->
+	$scope.companies = Company.query()
+	$scope.categories = Category.query()
+	$scope.products = Product.query()
+	console.log $scope.categories
+	console.log $scope.companies
+	console.log $scope.products
 ]
 
 UserIndexCtrl = ['$scope','$http', ($scope,$http)->
@@ -7,8 +12,8 @@ UserIndexCtrl = ['$scope','$http', ($scope,$http)->
 	
 ]
 
-UserCartCtrl = ['$scope', ($scope)->
-	
+UserCartCtrl = ['$scope','Cart', ($scope,Cart)->
+	window.cart = Cart
 ]
 
 UserProfileCtrl = ['$scope','$http',($scope,$http)->

@@ -1,1 +1,41 @@
-<h3>Cart</h3>
+<legend>My Cart</legend>
+<table class="table table-hover">
+	<thead>
+		<tr>
+			<th>Product ID</th>
+			<th>Description</th>
+			<th>Unit Price</th>
+			<th>Quantity</th>
+			<th>Subtotal</th>
+			<th></th>
+		</tr>
+	</thead>
+	<tbody>
+		<tr>
+			<td>2</td>
+			<td>test</td>
+			<td style="text-align:right">{{289.5 | currency: " "}}</td>
+			<td>1</td>
+			<td style="text-align:right">{{189.5 | currency: "Php "}} </td>
+			<td>
+				<button class="btn btn-small"><i class="icon-remove"></i>Delete</button>
+				<button class="btn btn-small"><i class="icon-edit"></i>Edit</button>
+			</td>
+		</tr>
+		<tr>
+			<td>2</td>
+			<td>test</td>
+			<td style="text-align:right">{{289.5 | currency: " "}}</td>
+			<td >1</td>
+			<td style="text-align:right">{{189.5 | currency: "Php "}} </td>
+			<td>
+				<button class="btn btn-small"><i class="icon-remove"></i>Delete</button>
+				<button class="btn btn-small"><i class="icon-edit"></i>Edit</button>
+			</td>
+		</tr>
+		<tr>
+			<td colspan="4" style="text-align:right">Total</td>
+			<td>{{289.5 | currency: "Php "}}</td>
+		</tr>
+	</tbody>
+</table>

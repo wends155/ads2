@@ -280,11 +280,24 @@
     }
   ];
 
-  UserCatalogCtrl = ['$scope', 'Brand', function($scope, Brand) {}];
+  UserCatalogCtrl = [
+    '$scope', 'Company', 'Category', 'Product', function($scope, Company, Category, Product) {
+      $scope.companies = Company.query();
+      $scope.categories = Category.query();
+      $scope.products = Product.query();
+      console.log($scope.categories);
+      console.log($scope.companies);
+      return console.log($scope.products);
+    }
+  ];
 
   UserIndexCtrl = ['$scope', '$http', function($scope, $http) {}];
 
-  UserCartCtrl = ['$scope', function($scope) {}];
+  UserCartCtrl = [
+    '$scope', 'Cart', function($scope, Cart) {
+      return window.cart = Cart;
+    }
+  ];
 
   UserProfileCtrl = [
     '$scope', '$http', function($scope, $http) {
@@ -423,39 +436,209 @@
 
   rest = angular.module('restService', ['ngResource']);
 
-  rest.factory('Product', function($resource) {
-    return $resource('/product/:id.json', {
-      id: '@id'
-    }, {
-      query: {
-        method: 'GET',
-        params: {
-          id: 'all'
-        },
-        isArray: true
-      }
-    });
-  });
+  rest.factory('Product', [
+    '$resource', function($resource) {
+      return $resource('/product/:id.json', {
+        id: '@id'
+      }, {
+        query: {
+          method: 'GET',
+          params: {
+            id: 'all'
+          },
+          isArray: true
+        }
+      });
+    }
+  ]);
 
-  rest.factory('Brand', function($resource) {
-    return $resource('/brand/:id.json/:products', {
-      id: '@id'
-    }, {
-      query: {
-        method: 'GET',
-        params: {
-          id: 'all'
+  rest.factory('Brand', [
+    '$resource', function($resource) {
+      return $resource('/brand/:id.json/:products', {
+        id: '@id'
+      }, {
+        query: {
+          method: 'GET',
+          params: {
+            id: 'all'
+          },
+          isArray: true
         },
-        isArray: true
-      },
-      products: {
-        method: 'GET',
-        params: {
-          products: 'products'
+        products: {
+          method: 'GET',
+          params: {
+            products: 'products'
+          },
+          isArray: true
+        }
+      });
+    }
+  ]);
+
+  rest.factory('Company', [
+    '$resource', function($resource) {
+      return $resource('/company/:id.json/:products', {
+        id: '@id'
+      }, {
+        query: {
+          method: 'GET',
+          params: {
+            id: 'all'
+          },
+          isArray: true
         },
-        isArray: true
-      }
-    });
-  });
+        products: {
+          method: 'GET',
+          params: {
+            products: 'products'
+          },
+          isArray: true
+        }
+      });
+    }
+  ]);
+
+  rest.factory('Category', [
+    '$resource', function($resource) {
+      return $resource('/category/:id.json/:products', {
+        id: '@id'
+      }, {
+        query: {
+          method: 'GET',
+          params: {
+            id: 'all'
+          },
+          isArray: true
+        },
+        products: {
+          method: 'GET',
+          params: {
+            products: 'products'
+          },
+          isArray: true
+        }
+      });
+    }
+  ]);
+
+  rest.service('localStorageService', [
+    function() {
+      return {
+        prefix: 'ads.',
+        isSupported: function() {
+          try {
+            return 'localStorage' in window && (window['localStorage'] != null);
+          } catch (e) {
+            return false;
+          }
+        },
+        add: function(key, value) {
+          try {
+            return localStorage.setItem(this.prefix + key, value);
+          } catch (e) {
+            console.error(e.Description);
+            return -1;
+          }
+        },
+        get: function(key) {
+          return localStorage.getItem(this.prefix + key);
+        },
+        remove: function(key) {
+          return localStorage.removeItem(this.prefix + key);
+        },
+        clearAll: function() {
+          var i, keys, prefixLength, q, _i, _len, _results;
+          prefixLength = this.prefix.length;
+          keys = (function() {
+            var _results;
+            _results = [];
+            for (i in localStorage) {
+              if (i.substr(0, prefixLength) === this.prefix) {
+                _results.push(i);
+              }
+            }
+            return _results;
+          }).call(this);
+          _results = [];
+          for (_i = 0, _len = keys.length; _i < _len; _i++) {
+            q = keys[_i];
+            _results.push((function(q) {
+              return localStorage.removeItem(q);
+            })(q));
+          }
+          return _results;
+        }
+      };
+    }
+  ]);
+
+  rest.factory('Cart', [
+    'localStorageService', function(localStorageService) {
+      var cart, getCartItems;
+      getCartItems = function() {
+        var strCart;
+        if (localStorageService.get('cart') != null) {
+          strCart = localStorageService.get('cart');
+          return JSON.parse(strCart);
+        } else {
+          localStorageService.add('cart', '');
+          strCart = localStorageService.get('cart');
+          return JSON.parse(strCart);
+        }
+      };
+      return cart = {
+        persist: function() {
+          return localStorageService.add('cart', JSON.stringify(this.items));
+        },
+        items: getCartItems(),
+        add: function(obj) {
+          var key, str;
+          key = this.items.push(obj);
+          str = JSON.stringify(this.items);
+          localStorageService.add('cart', str);
+          console.log(localStorageService.get('cart'));
+          return key;
+        },
+        get: function(key) {
+          return this.items[key];
+        },
+        set: function(key, value) {
+          this.items[key] = value;
+          this.persist();
+          return value;
+        },
+        remove: function(key) {
+          this.items.splice(key, 1);
+          return this.persist();
+        },
+        removeItem: function(obj) {
+          var key;
+          key = this.items.indexOf(obj);
+          return this.remove(key);
+        },
+        removeById: function(id) {
+          var i, obj;
+          obj = (function() {
+            var _i, _len, _ref, _results;
+            _ref = this.items;
+            _results = [];
+            for (_i = 0, _len = _ref.length; _i < _len; _i++) {
+              i = _ref[_i];
+              if (i.id === id) {
+                _results.push(i);
+              }
+            }
+            return _results;
+          }).call(this);
+          console.log(obj);
+          return obj;
+        },
+        clear: function() {
+          this.items = [];
+          return this.persist();
+        }
+      };
+    }
+  ]);
 
 }).call(this);

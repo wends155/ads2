@@ -11,7 +11,7 @@ class ProfileCtrl{
 				$profile = $user->profile;
 				$response->json($profile->as_array());	
 			}else{
-				echo $id;
+				$response->code(403);
 			}
 			
 		};
@@ -34,7 +34,7 @@ class ProfileCtrl{
 				}
 
 			}else{
-				$response->code(404);
+				$response->code(403);
 			}
 			
 		};

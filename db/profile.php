@@ -99,7 +99,6 @@ class Profile extends Model{
 		$model = $this->_orm->as_array();
 		$model['birthday'] = $this->birthday;
 		$model['unix'] = $this->_orm->birthday * 1000;
-		$model['fullname'] = $this->fullname;
 		return $model;
 	}
 

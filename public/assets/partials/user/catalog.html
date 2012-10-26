@@ -1,1 +1,32 @@
-<h3>Catalog</h3>
+<legend>Catalog</legend>
+
+
+	<div class="controls controls-row">
+		<input type="search" ng-model="search" class="span6"  placeholder="search product" />	
+	</div>
+	
+	<div class="controls controls-row">
+		<select ng-model="option.company" ng-options="c.name for c in companies" >
+			<option value="">Filter By Company</option>
+		</select>
+		<select ng-model="option.category" ng-options="c.name for c in categories"  >
+			<option value="">Filter By Category</option>
+		</select>
+	</div>
+	
+<div>
+	<table class="table table-condensed">
+		<thead>
+			<tr>
+				<th>Product</th>
+			</tr>
+		</thead>
+		<tbody>
+			<tr ng-repeat="product in products | filter: search">
+				<td>{{product.name}} </td>
+			</tr>
+		</tbody>
+	</table>
+</div>
+		
+	
