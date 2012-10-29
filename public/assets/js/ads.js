@@ -581,7 +581,7 @@
           strCart = localStorageService.get('cart');
           return JSON.parse(strCart);
         } else {
-          localStorageService.add('cart', '');
+          localStorageService.add('cart', '[]');
           strCart = localStorageService.get('cart');
           return JSON.parse(strCart);
         }

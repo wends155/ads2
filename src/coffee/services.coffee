@@ -69,7 +69,7 @@ rest.factory('Cart',['localStorageService',(localStorageService)->
 			strCart = localStorageService.get('cart')
 			JSON.parse strCart
 		else
-			localStorageService.add('cart','')
+			localStorageService.add('cart','[]')
 			strCart = localStorageService.get('cart')
 			JSON.parse strCart
 	cart = {
