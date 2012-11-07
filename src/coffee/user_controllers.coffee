@@ -42,6 +42,9 @@ UserCartCtrl = ['$scope','Cart','$location', ($scope,Cart,$location)->
 		humane.log("Cart cleared.")
 	$scope.order = ->
 		$location.path('/orders')
+	$scope.$on('logout',(event)->
+		$scope.clear()
+		)
 ]
 
 UserOrderCtrl = ['$scope',($scope)->
@@ -61,14 +64,15 @@ UserProfileCtrl = ['$scope','$http',($scope,$http)->
 		
 ]
 
-MenuCtrl = ['$scope','Cart','$location', ($scope,Cart,$location)->
+MenuCtrl = ['$scope','Cart','$location','$rootScope', ($scope,Cart,$location,$rootScope)->
 	$scope.order = 3
 	$scope.count = ->
 		Cart.items.length
 	$scope.logout = ->
-		Cart.clear()
-		$location.path('/')
+		#$location.path('/')
+		$rootScope.$broadcast('logout',{})
 		$location.path('/logout')
+		Cart.clear()
 ]
 
 ChangePassCtrl = ['$scope','$http',($scope,$http)->

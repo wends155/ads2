@@ -333,9 +333,12 @@
         Cart.clear();
         return humane.log("Cart cleared.");
       };
-      return $scope.order = function() {
+      $scope.order = function() {
         return $location.path('/orders');
       };
+      return $scope.$on('logout', function(event) {
+        return $scope.clear();
+      });
     }
   ];
 
@@ -358,15 +361,15 @@
   ];
 
   MenuCtrl = [
-    '$scope', 'Cart', '$location', function($scope, Cart, $location) {
+    '$scope', 'Cart', '$location', '$rootScope', function($scope, Cart, $location, $rootScope) {
       $scope.order = 3;
       $scope.count = function() {
         return Cart.items.length;
       };
       return $scope.logout = function() {
-        Cart.clear();
-        $location.path('/');
-        return $location.path('/logout');
+        $rootScope.$broadcast('logout', {});
+        $location.path('/logout');
+        return Cart.clear();
       };
     }
   ];
