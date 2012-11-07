@@ -83,11 +83,21 @@ rest.factory('Cart',['localStorageService',(localStorageService)->
 			console.log localStorageService.get('cart')
 			key
 		get: (key)->
-			@items[key];
+			@items[key]
+		getItem: (obj) ->
+			key = @items.indexOf(obj)
+			if (key >= 0)
+				return key
+			else
+				return false
+
 		set: (key,value)->
 			@items[key] = value
 			@persist()
 			value
+		replace: (obj) ->
+			@items = obj
+			@persist()
 		remove: (key)->
 			@items.splice(key,1)
 			@persist()

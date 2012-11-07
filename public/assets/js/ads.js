@@ -295,7 +295,55 @@
 
   UserCartCtrl = [
     '$scope', 'Cart', function($scope, Cart) {
-      return window.cart = Cart;
+      var item, subt, test_items, _i, _len, _ref;
+      subt = function(item) {
+        return item.subtotal = item.price * item.quantity;
+      };
+      test_items = [
+        {
+          id: 1,
+          name: 'wewe',
+          price: 240.5,
+          quantity: 2
+        }, {
+          id: 2,
+          name: 'imari',
+          price: 120,
+          quantity: 1
+        }, {
+          id: 4,
+          name: 'test',
+          price: 150,
+          quantity: 3
+        }
+      ];
+      Cart.replace(test_items);
+      _ref = Cart.items;
+      for (_i = 0, _len = _ref.length; _i < _len; _i++) {
+        item = _ref[_i];
+        subt(item);
+      }
+      $scope.items = Cart.items;
+      window.cartitems = $scope.items;
+      $scope.total = function() {
+        var t, _j, _len1, _ref1;
+        t = 0;
+        _ref1 = $scope.items;
+        for (_j = 0, _len1 = _ref1.length; _j < _len1; _j++) {
+          item = _ref1[_j];
+          t += item.subtotal;
+        }
+        console.log(t);
+        return t;
+      };
+      $scope.remove = function(item) {
+        return Cart.removeItem(item);
+      };
+      return $scope.clear = function() {
+        $scope.items = [];
+        Cart.clear();
+        return humane.log("Cart cleared.");
+      };
     }
   ];
 
@@ -602,10 +650,23 @@
         get: function(key) {
           return this.items[key];
         },
+        getItem: function(obj) {
+          var key;
+          key = this.items.indexOf(obj);
+          if (key >= 0) {
+            return key;
+          } else {
+            return false;
+          }
+        },
         set: function(key, value) {
           this.items[key] = value;
           this.persist();
           return value;
+        },
+        replace: function(obj) {
+          this.items = obj;
+          return this.persist();
         },
         remove: function(key) {
           this.items.splice(key, 1);

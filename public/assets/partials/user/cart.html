@@ -11,31 +11,25 @@
 		</tr>
 	</thead>
 	<tbody>
-		<tr>
-			<td>2</td>
-			<td>test</td>
-			<td style="text-align:right">{{289.5 | currency: " "}}</td>
-			<td>1</td>
-			<td style="text-align:right">{{189.5 | currency: "Php "}} </td>
+		<tr ng-repeat="item in items">
+			<td>{{item.id}} </td>
+			<td>{{item.name}} </td>
+			<td style="text-align:right">{{item.price | currency: " "}}</td>
+			<td>{{item.quantity}} </td>
+			<td style="text-align:right">{{item.subtotal | currency: "Php "}} </td>
 			<td>
-				<button class="btn btn-small"><i class="icon-remove"></i>Delete</button>
+				<button class="btn btn-small" ng-click="remove(item)" ><i class="icon-remove"></i>Delete</button>
 				<button class="btn btn-small"><i class="icon-edit"></i>Edit</button>
 			</td>
 		</tr>
-		<tr>
-			<td>2</td>
-			<td>test</td>
-			<td style="text-align:right">{{289.5 | currency: " "}}</td>
-			<td >1</td>
-			<td style="text-align:right">{{189.5 | currency: "Php "}} </td>
-			<td>
-				<button class="btn btn-small"><i class="icon-remove"></i>Delete</button>
-				<button class="btn btn-small"><i class="icon-edit"></i>Edit</button>
-			</td>
-		</tr>
+		
 		<tr>
 			<td colspan="4" style="text-align:right">Total</td>
-			<td>{{289.5 | currency: "Php "}}</td>
+			<td><strong>{{total() | currency: "Php "}}</strong></td>
 		</tr>
 	</tbody>
 </table>
+<div class="form-actions">
+	<button type="submit" class="btn btn-primary" ng-disabled="total()==0">Submit Order</button>
+	<button class="btn btn-danger" ng-click="clear()">Clear All</button>
+</div>
