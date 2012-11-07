@@ -284,13 +284,18 @@
   ];
 
   UserCatalogCtrl = [
-    '$scope', 'Company', 'Category', 'Product', function($scope, Company, Category, Product) {
+    '$scope', 'Company', 'Category', 'Product', 'Cart', '$location', function($scope, Company, Category, Product, Cart, $location) {
       $scope.companies = Company.query();
       $scope.categories = Category.query();
       $scope.products = Product.query();
       console.log($scope.categories);
       console.log($scope.companies);
-      return console.log($scope.products);
+      console.log($scope.products);
+      return $scope.add = function(product) {
+        product.quantity = 1;
+        Cart.add(product);
+        return $location.path('/cart');
+      };
     }
   ];
 
@@ -299,7 +304,6 @@
   UserCartCtrl = [
     '$scope', 'Cart', '$location', function($scope, Cart, $location) {
       $scope.items = Cart.items;
-      window.cartitems = $scope.items;
       window.cart = Cart;
       $scope.total = function() {
         var item, st, subtotal, t, _i, _len;
@@ -354,10 +358,15 @@
   ];
 
   MenuCtrl = [
-    '$scope', 'Cart', function($scope, Cart) {
+    '$scope', 'Cart', '$location', function($scope, Cart, $location) {
       $scope.order = 3;
-      return $scope.count = function() {
+      $scope.count = function() {
         return Cart.items.length;
+      };
+      return $scope.logout = function() {
+        Cart.clear();
+        $location.path('/');
+        return $location.path('/logout');
       };
     }
   ];

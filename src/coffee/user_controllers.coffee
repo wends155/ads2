@@ -1,10 +1,18 @@
-UserCatalogCtrl = ['$scope','Company','Category','Product', ($scope,Company, Category,Product)->
+UserCatalogCtrl = ['$scope','Company','Category','Product','Cart','$location', 
+($scope,Company, Category,Product,Cart,$location)->
 	$scope.companies = Company.query()
 	$scope.categories = Category.query()
 	$scope.products = Product.query()
+
 	console.log $scope.categories
 	console.log $scope.companies
 	console.log $scope.products
+
+	$scope.add = (product)->
+		product.quantity = 1
+		Cart.add(product)
+		$location.path('/cart')
+
 ]
 
 UserIndexCtrl = ['$scope','$http', ($scope,$http)->
@@ -13,9 +21,9 @@ UserIndexCtrl = ['$scope','$http', ($scope,$http)->
 ]
 
 UserCartCtrl = ['$scope','Cart','$location', ($scope,Cart,$location)->
-			
+	
 	$scope.items = Cart.items
-	window.cartitems = $scope.items
+	#window.cartitems = $scope.items
 	window.cart = Cart
 	$scope.total = ->
 		st = (item.price*item.quantity for item in $scope.items)
@@ -53,10 +61,14 @@ UserProfileCtrl = ['$scope','$http',($scope,$http)->
 		
 ]
 
-MenuCtrl = ['$scope','Cart', ($scope,Cart)->
+MenuCtrl = ['$scope','Cart','$location', ($scope,Cart,$location)->
 	$scope.order = 3
 	$scope.count = ->
 		Cart.items.length
+	$scope.logout = ->
+		Cart.clear()
+		$location.path('/')
+		$location.path('/logout')
 ]
 
 ChangePassCtrl = ['$scope','$http',($scope,$http)->

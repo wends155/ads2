@@ -67,11 +67,11 @@ rest.factory('Cart',['localStorageService',(localStorageService)->
 	getCartItems = ->
 		if localStorageService.get('cart')?
 			strCart = localStorageService.get('cart')
-			JSON.parse strCart
+			return JSON.parse strCart
 		else
 			localStorageService.add('cart','[]')
 			strCart = localStorageService.get('cart')
-			JSON.parse strCart
+			return JSON.parse strCart
 	cart = {
 		persist: ->
 			localStorageService.add('cart',JSON.stringify(@items))
