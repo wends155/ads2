@@ -95,7 +95,7 @@ rest.factory('Cart',['localStorageService',(localStorageService)->
 			@items[key] = value
 			@persist()
 			value
-		replace: (obj) ->
+		store: (obj) ->
 			@items = obj
 			@persist()
 		remove: (key)->

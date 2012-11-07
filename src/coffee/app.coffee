@@ -39,6 +39,10 @@ ads.config([
 			templateUrl: "#{user}/change.html",
 			controller: ChangePassCtrl
 			})
+		.when('/orders',{
+			templateUrl: "#{user}/orders.html",
+			controller: UserOrderCtrl
+			})
 		.otherwise({redirectTo: '/'})
 		])
 #admin module

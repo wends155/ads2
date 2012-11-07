@@ -12,45 +12,32 @@ UserIndexCtrl = ['$scope','$http', ($scope,$http)->
 	
 ]
 
-UserCartCtrl = ['$scope','Cart', ($scope,Cart)->
-	subt = (item) ->
-		item.subtotal = item.price * item.quantity
-	test_items = [
-		{
-			id:1
-			name:'wewe'
-			price:240.5
-			quantity:2
-
-		},
-		{
-			id:2
-			name:'imari'
-			price: 120
-			quantity:1
-		},
-		{
-			id:4
-			name:'test'
-			price: 150
-			quantity:3
-		}
-	]
-	Cart.replace(test_items)
-	subt(item) for item in Cart.items
+UserCartCtrl = ['$scope','Cart','$location', ($scope,Cart,$location)->
+			
 	$scope.items = Cart.items
 	window.cartitems = $scope.items
+	window.cart = Cart
 	$scope.total = ->
-		t = 0
-		(t+=item.subtotal for item in $scope.items)
-		console.log t
+		st = (item.price*item.quantity for item in $scope.items)
+		#console.log st
+		t=0
+		(t+=subtotal for subtotal in st)
+		#console.log t
+		Cart.store($scope.items)
 		return t
 	$scope.remove = (item)->
 		Cart.removeItem(item)
 	$scope.clear = ->
 		$scope.items = []
 		Cart.clear()
+		
 		humane.log("Cart cleared.")
+	$scope.order = ->
+		$location.path('/orders')
+]
+
+UserOrderCtrl = ['$scope',($scope)->
+
 ]
 
 UserProfileCtrl = ['$scope','$http',($scope,$http)->
@@ -66,9 +53,10 @@ UserProfileCtrl = ['$scope','$http',($scope,$http)->
 		
 ]
 
-MenuCtrl = ['$scope', ($scope)->
+MenuCtrl = ['$scope','Cart', ($scope,Cart)->
 	$scope.order = 3
-	
+	$scope.count = ->
+		Cart.items.length
 ]
 
 ChangePassCtrl = ['$scope','$http',($scope,$http)->
