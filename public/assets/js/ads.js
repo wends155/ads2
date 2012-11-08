@@ -334,6 +334,7 @@
       };
       $scope.order = function() {
         var order;
+        console.log($scope.items);
         order = new Order();
         order.date = Date.now() / 1000;
         order.items = $scope.items;
@@ -355,8 +356,8 @@
       Order.query(function(data) {
         $scope.data = data;
         $scope.orders = data;
-        $scope.predicate = 'date';
-        $scope.reverse = false;
+        $scope.predicate = '';
+        $scope.reverse = true;
         return $scope.spinner = true;
       });
       $scope.filterPaid = function() {
@@ -759,7 +760,6 @@
           key = this.items.push(obj);
           str = JSON.stringify(this.items);
           localStorageService.add('cart', str);
-          console.log(localStorageService.get('cart'));
           return key;
         },
         get: function(key) {

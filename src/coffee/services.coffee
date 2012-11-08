@@ -87,7 +87,7 @@ rest.factory('Cart',['localStorageService',(localStorageService)->
 			key = @items.push(obj)
 			str = JSON.stringify(@items)
 			localStorageService.add('cart',str)
-			console.log localStorageService.get('cart')
+			#console.log localStorageService.get('cart')
 			key
 		get: (key)->
 			@items[key]

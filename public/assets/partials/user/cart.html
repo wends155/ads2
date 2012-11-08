@@ -16,7 +16,7 @@
 			<td>{{item.name}} </td>
 			<td style="text-align:right">{{item.price | currency: " "}}</td>
 			<td><input style="width:30px" type="number" ng-model="item.quantity" min="1"> </td>
-			<td style="text-align:right">{{item.price * item.quantity | currency: "Php "}} </td>
+			<td style="text-align:right">{{item.subtotal = item.price * item.quantity | currency: "Php "}} </td>
 			<td>
 				<button class="btn btn-small" ng-click="remove(item)" ><i class="icon-remove"></i>Delete</button>
 				

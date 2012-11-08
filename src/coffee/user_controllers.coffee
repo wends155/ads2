@@ -43,6 +43,7 @@ UserCartCtrl = ['$scope','Cart','$location','Order', ($scope,Cart,$location,Orde
 		
 		humane.log("Cart cleared.")
 	$scope.order = ->
+		console.log $scope.items
 		order = new Order()
 		order.date = Date.now() / 1000
 		order.items = $scope.items
@@ -61,8 +62,8 @@ UserOrderCtrl = ['$scope','Order',($scope,Order)->
 	Order.query((data)->
 		$scope.data = data
 		$scope.orders = data
-		$scope.predicate = 'date'
-		$scope.reverse = false
+		$scope.predicate = ''
+		$scope.reverse = true
 		$scope.spinner = true
 		#console.log $scope.orders
 	)
