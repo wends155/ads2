@@ -168,6 +168,7 @@ OrderDetailCtrl = ['$scope','$routeParams',($scope,$routeParams)->
 ProfilesCtrl = ['$scope','adProfiles',($scope,profiles)->
 	profiles.query((data)->
 		$scope.profiles = data
+		$scope.spinner = true
 		#window.profiles = data
 	)
 	$scope.remove = (profile)->

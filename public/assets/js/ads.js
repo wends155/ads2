@@ -318,7 +318,8 @@
   ProfilesCtrl = [
     '$scope', 'adProfiles', function($scope, profiles) {
       profiles.query(function(data) {
-        return $scope.profiles = data;
+        $scope.profiles = data;
+        return $scope.spinner = true;
       });
       return $scope.remove = function(profile) {
         return profile.$delete(function() {
