@@ -22,7 +22,9 @@ respond('/error', function($req,$res){
 
 respond('/test', function($req,$res){
 	$res->header('Content-Type','text/plain');
-	print_r($_SERVER);
+	var_dump($req->session('admin'));
+	var_dump($req->session('username'));
+	var_dump($req->session('id'));
 });
 
 respond('/','def');
@@ -199,7 +201,7 @@ respond('GET','/product/all.json',function($req,$res){
 	
 });
 
-respond('GET', '/user/[i:user]/orders/all.json', OrderCtrl::admin_index());
+respond('GET', '/user/[i:user]/orders', OrderCtrl::admin_index());
 respond('GET', '/orders', OrderCtrl::user_index());
 respond('POST','/orders', OrderCtrl::create());
 respond('GET', '/orders/[i:id]', OrderCtrl::get());
@@ -213,5 +215,9 @@ respond('POST', '/change_password', ProfileCtrl::change_password());
 respond('GET', '/items/[i:id]',OrderItemCtrl::get());
 respond('POST', '/items/[i:id]', OrderItemCtrl::post());
 respond('GET', '/alt/[i:id]', OrderItemCtrl::alternative());
+
+respond('GET', '/profiles', ProfileCtrl::index());
+respond('GET', '/profiles/[i:id]', ProfileCtrl::show());
+respond('DELETE', '/profiles/[i:id]', ProfileCtrl::delete());
 dispatch();
 ?>

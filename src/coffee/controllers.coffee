@@ -157,10 +157,37 @@ CategoryDetailCtrl = ['$scope','$routeParams','$http',($scope,$routeParams,$http
 			$scope.caption = "Back"
 ]
 
-OrderCtrl = ['$scope',($scope)->
-
+OrderCtrl = ['$scope','adOrder',($scope,adOrder)->
+	window.order = adOrder
 ]
 
 OrderDetailCtrl = ['$scope','$routeParams',($scope,$routeParams)->
 	console.log $routeParams.id
+]
+
+ProfilesCtrl = ['$scope','adProfiles',($scope,profiles)->
+	profiles.query((data)->
+		$scope.profiles = data
+		#window.profiles = data
+	)
+	$scope.remove = (profile)->
+		profile.$delete(->
+			profiles.query((data)->
+				$scope.profiles = data
+				humane.log "dealer removed from list"
+			)
+		)
+		
+		
+]
+
+ProfilesDetailCtrl = ['$scope','adProfiles','$routeParams',($scope,profiles,$routeParams)->
+	profiles.get({id:$routeParams.id},(data)->
+		$scope.profile = data
+		window.profile = data
+	)
+]
+
+ProfileOrdersCtrl = ['$scope','adProfiles',($scope,profiles)->
+	
 ]

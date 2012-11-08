@@ -91,20 +91,26 @@ class OrderCtrl{
 
 	public static function user_index(){
 		return function($request,$response){
-			$user_id = $request->session('id');
+			if(!$request->session('admin')){
+				$user_id = $request->session('id');
 			
 			
-			$orders = Order::findByUser($user_id);
-			if(!$user_id){
-				$response->code(403);
+				$orders = Order::findByUser($user_id);
+				if(!$user_id){
+					$response->code(403);
 
-			}else {
-				if($orders){
-					$response->json($orders->as_array());
-				}else{
-					$response->json(array());
-				}
+				}else {
+					if($orders){
+						$response->json($orders->as_array());
+					}else{
+						$response->json(array());
+					}
+				}	
+			}else{
+				$order = Order::all();
+				$response->json($order->as_array());
 			}
+			
 			
 		};
 	}

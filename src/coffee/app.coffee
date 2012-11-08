@@ -78,6 +78,18 @@ admin.config(['$routeProvider',($routeProvider) ->
 	.when('/dealers')
 	.when('/reports')
 	.when('/sms')
+	.when('/profiles',{
+		templateUrl: "#{adtmpl}/profiles.html"
+		controller: ProfilesCtrl
+		})
+	.when('/profiles/:id',{
+		templateUrl: "#{adtmpl}/profiles_detail.html"
+		controller: ProfilesDetailCtrl
+		})
+	.when('/profiles/:id/orders',{
+		templateUrl: "#{adtmpl}/profile_orders.html"
+		controller: ProfileOrdersCtrl
+		})
 	.otherwise({redirectTo:'/'})
 	@
 	])

@@ -95,10 +95,21 @@ class Profile extends Model{
 		return "{$this->_orm->lname}, {$this->_orm->fname} {$this->_orm->mname[0]}.";
 	}
 
+	public function getUsername(){
+		$user = User::findById($this->_orm->user_id);
+		return $user->username;
+	}
+
+	public function getUser(){
+		$user = User::findById($this->_orm->user_id);
+		return $user;
+	}
+
 	public function as_array(){
 		$model = $this->_orm->as_array();
 		$model['birthday'] = $this->birthday;
 		$model['unix'] = $this->_orm->birthday * 1000;
+		$model['username'] = $this->username;
 		return $model;
 	}
 

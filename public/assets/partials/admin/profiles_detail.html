@@ -1,0 +1,15 @@
+<legend>Profile Detail</legend>
+<div>
+	ID <span class="input-xlarge uneditable-input">{{profile.id}} </span><br>
+	Name <span class="input-xlarge uneditable-input">{{profile.lname}}, {{profile.fname}} {{profile.mname}} </span><br>
+	Address <span class="input-xlarge uneditable-input">{{profile.address}} </span><br>
+	Birthday <span class="input-xlarge uneditable-input">{{profile.unix | date:'longDate'}} </span><br>
+	Gender <span class="input-xlarge uneditable-input">{{profile.gender}} </span><br>
+	Nationality <span class="input-xlarge uneditable-input">{{profile.nationality}} </span><br>
+	Mobile no. <span class="input-xlarge uneditable-input">{{profile.mobile}} </span><br>
+	Username <span class="input-xlarge uneditable-input">{{profile.username}} </span><br>
+	Bio <textarea name="" id="" cols="30" rows="10" disabled>{{profile.bio}} </textarea><br>
+</div>
+<div class="form-actions">
+	<a href="#/profiles" class="btn btn-primary">Back to Dealer Profiles</a>
+</div>

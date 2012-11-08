@@ -1,0 +1,24 @@
+<legend>Dealer Profiles</legend>
+<div>
+	<table class="table table-hover">
+		<thead>
+			<tr>
+				<th>ID</th>
+				<th>Name</th>
+				<th></th>
+			</tr>
+		</thead>
+		<tbody>
+			<tr ng-repeat="profile in profiles">
+				<td>{{profile.id}}</td>
+				<td>{{profile.lname}}, {{profile.fname}} {{profile.mname}} </td>
+				<td>
+					<a class="btn btn-info" ng-href="#/profiles/{{profile.id}}"><i class="icon-zoom-in"></i> View Details</a>
+					<a class="btn" ng-href="#/profiles/{{profile.user_id}}/orders"><i class="icon-list-alt"></i> View Orders</a>
+					<button class="btn btn-danger" ng-click="remove(profile)"><i class="icon-remove"></i> Remove Dealer</button>
+
+				</td>
+			</tr>
+		</tbody>
+	</table>
+</div>
