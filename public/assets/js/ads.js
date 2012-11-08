@@ -361,7 +361,8 @@
   UserProfileCtrl = [
     '$scope', '$http', function($scope, $http) {
       $http.get('/profile').success(function(data) {
-        return $scope.profile = data;
+        $scope.profile = data;
+        return $scope.spinner = true;
       });
       return $scope.submit = function() {
         return $http.post('/profile', JSON.stringify($scope.profile)).success(function(data) {

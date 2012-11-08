@@ -1,7 +1,8 @@
 <div class="alert alert-success" ng-show="saved">
 	<h4>Profile Saved!</h4>
 </div>
-<form class="form-horizontal" ng-submit="submit()" >
+<img src="/assets/img/spinner.gif" alt="" ng-show="!spinner">
+<form class="form-horizontal" ng-submit="submit()" ng-show="!!spinner">
 	<legend>Profile</legend>
 	<div class="control-group">
 		<label for="" class="control-label">First Name</label>

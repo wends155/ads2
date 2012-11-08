@@ -66,6 +66,7 @@ UserOrderCtrl = ['$scope','Order',($scope,Order)->
 UserProfileCtrl = ['$scope','$http',($scope,$http)->
 	$http.get('/profile').success (data)->
 		$scope.profile = data
+		$scope.spinner = true
 	
 	$scope.submit = ->
 		$http.post('/profile', JSON.stringify($scope.profile)).success (data)->
