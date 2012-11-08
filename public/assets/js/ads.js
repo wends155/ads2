@@ -352,6 +352,7 @@
       window.order = Order;
       return Order.query(function(data) {
         $scope.orders = data;
+        $scope.spinner = true;
         return console.log($scope.orders);
       });
     }

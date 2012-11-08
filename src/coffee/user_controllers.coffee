@@ -58,6 +58,7 @@ UserOrderCtrl = ['$scope','Order',($scope,Order)->
 	window.order = Order
 	Order.query((data)->
 		$scope.orders = data
+		$scope.spinner = true
 		console.log $scope.orders
 	)
 ]
