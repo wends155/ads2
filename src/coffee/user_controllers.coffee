@@ -57,7 +57,7 @@ UserCartCtrl = ['$scope','Cart','$location','Order', ($scope,Cart,$location,Orde
 	)
 ]
 
-UserOrderCtrl = ['$scope','Order',($scope,Order)->
+UserOrderCtrl = ['$scope','Order','$location',($scope,Order,$location)->
 	window.order = Order
 	Order.query((data)->
 		$scope.data = data
@@ -90,8 +90,9 @@ UserOrderCtrl = ['$scope','Order',($scope,Order)->
 		$scope.paid = false
 		$scope.claimed = false
 		$scope.orders = $scope.data
-	$scope.return = (order) ->
-		console.log order
+	$scope.return = (item) ->
+		console.log item
+		$location.path('/return')
 ]
 
 UserProfileCtrl = ['$scope','$http','Profile',($scope,$http,Profile)->
@@ -109,6 +110,10 @@ UserProfileCtrl = ['$scope','$http','Profile',($scope,$http,Profile)->
 			humane.log('Profile Saved')
 			console.log(data)
 		
+]
+
+UserReturnCtrl = ['$scope',($scope)->
+	
 ]
 
 MenuCtrl = ['$scope','Cart','$location','$rootScope','Order', ($scope,Cart,$location,$rootScope,Order)->
