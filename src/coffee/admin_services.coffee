@@ -5,5 +5,7 @@ adminRest.factory('adOrder',['$resource',($resource)->
 ])
 
 adminRest.factory('adProfiles',['$resource',($resource)->
-	$resource('/profiles/:id', {id:'@id'})
+	$resource('/profiles/:id/:orders', {id:'@id'},{
+		orders:{method:'GET', params: {orders:'orders'},isArray:true}
+	})
 ])

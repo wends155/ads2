@@ -1,1 +1,76 @@
 <legend>Profile Orders</legend>
+<img src="/assets/img/spinner.gif" alt="" ng-show="!spinner">
+<div>
+	<div ng-show="!!spinner">
+	<button ng-click="reset()">Reset filter</button>
+</div>
+<table class="table table-hover" ng-show="!!spinner">
+	<thead>
+		<tr>
+			<th>
+				ID
+			</th>
+			<th>
+				<a href="" ng-click="predicate='date';reverse=!reverse" >Date<i class="icon-arrow-up" ng-show="!reverse"></i><i class="icon-arrow-down" ng-show="reverse"></i> </a>
+			</th>
+			<th>
+				Items
+			</th>
+			<th>
+				<a href="" ng-click="predicate='total';reverse = !reverse" >Total<i class="icon-arrow-up" ng-show="!reverse"></i><i class="icon-arrow-down" ng-show="reverse"></i>  </a>
+			</th>
+			<th>DP(30%)</th>
+			<th><input type="checkbox" ng-model="paid" ng-click="filterPaid()"> <a href="" ng-click="paid=!paid;filterPaid()">Paid</a> </th>
+			<th><input type="checkbox" ng-model="claimed" ng-click="filterClaimed()"> <a href="" ng-click="claimed=!claimed;filterClaimed()">Claimed</a></th>
+			<th>Due</th>
+			
+		</tr>
+	</thead>
+	<tbody>
+		<tr ng-repeat="order in orders | orderBy: predicate:reverse">
+			<td>
+				{{order.id}}
+			</td>
+			<td>
+				{{order.date * 1000 | date: 'MM/d/yyyy'}}
+			</td>
+			<td>
+				<table class="table table-condensed table-bordered">
+					<thead>
+						<tr>
+							<th>Product</th>
+							<th>Price</th>
+							<th>Quantity</th>
+							<th>Subtotal</th>
+							
+						</tr>
+					</thead>
+					<tbody>
+						<tr ng-repeat="item in order.items">
+							<td>{{item.product.name}} </td>
+							<td>{{item.price | currency:""}} </td>
+							<td>{{item.quantity}} </td>
+							<td>{{item.subtotal | currency: "Php "}} </td>
+							
+						</tr>
+						
+					</tbody>
+				</table>
+			</td>
+			<td>
+				{{order.total | currency: "Php "}}
+			</td>
+			<td>{{order.total * 0.30 | currency: "Php "}}</td>
+			<td><span ng-show="order.date_paid != null">{{order.date_paid *1000 | date: 'MM/d/yyyy'}}</span><span ng-show="order.date_paid == null">No</span> </td>
+			<td><span ng-show="order.date_paid != null">{{order.date_claimed *1000 | date: 'MM/d/yyyy' }}</span><span ng-show="order.date_paid == null">No</span> </td>
+			<td>{{order.due | date: 'MM/d/yyyy'}}</td>
+			<td> </td>
+		</tr>
+	</tbody>
+
+</table>
+</div>
+
+<div class="form-actions">
+	<a href="#/profiles" class="btn btn-primary">Back to Dealer Profiles</a>
+</div>

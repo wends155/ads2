@@ -219,5 +219,6 @@ respond('GET', '/alt/[i:id]', OrderItemCtrl::alternative());
 respond('GET', '/profiles', ProfileCtrl::index());
 respond('GET', '/profiles/[i:id]', ProfileCtrl::show());
 respond('DELETE', '/profiles/[i:id]', ProfileCtrl::delete());
+respond('GET', '/profiles/[i:user]/orders', OrderCtrl::admin_index());
 dispatch();
 ?>

@@ -188,6 +188,35 @@ ProfilesDetailCtrl = ['$scope','adProfiles','$routeParams',($scope,profiles,$rou
 	)
 ]
 
-ProfileOrdersCtrl = ['$scope','adProfiles',($scope,profiles)->
-	
+ProfileOrdersCtrl = ['$scope','adProfiles','$routeParams',($scope,profiles,$routeParams)->
+	profiles.orders({id:$routeParams.id}, (data)->
+		$scope.data = data
+		$scope.orders = data
+		$scope.predicate = ''
+		$scope.reverse = true
+		$scope.spinner = true
+	)
+	$scope.filterPaid = ->
+		
+			if($scope.paid)
+				o = (ord for ord in $scope.data when ord.date_paid != null)
+				$scope.orders = o
+				
+			else 
+				o = (ord for ord in $scope.data when ord.date_paid == null)
+				$scope.orders = o
+				
+		
+	$scope.filterClaimed = ->
+		
+			if($scope.claimed)
+				o = (ord for ord in $scope.data when ord.date_claimed != null)
+				$scope.orders = o
+			else
+				o = (ord for ord in $scope.data when ord.date_claimed == null)
+				$scope.orders = o
+	$scope.reset = ->
+		$scope.paid = false
+		$scope.claimed = false
+		$scope.orders = $scope.data
 ]

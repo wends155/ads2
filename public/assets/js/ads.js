@@ -342,7 +342,88 @@
     }
   ];
 
-  ProfileOrdersCtrl = ['$scope', 'adProfiles', function($scope, profiles) {}];
+  ProfileOrdersCtrl = [
+    '$scope', 'adProfiles', '$routeParams', function($scope, profiles, $routeParams) {
+      profiles.orders({
+        id: $routeParams.id
+      }, function(data) {
+        $scope.data = data;
+        $scope.orders = data;
+        $scope.predicate = '';
+        $scope.reverse = true;
+        return $scope.spinner = true;
+      });
+      $scope.filterPaid = function() {
+        var o, ord;
+        if ($scope.paid) {
+          o = (function() {
+            var _i, _len, _ref, _results;
+            _ref = $scope.data;
+            _results = [];
+            for (_i = 0, _len = _ref.length; _i < _len; _i++) {
+              ord = _ref[_i];
+              if (ord.date_paid !== null) {
+                _results.push(ord);
+              }
+            }
+            return _results;
+          })();
+          return $scope.orders = o;
+        } else {
+          o = (function() {
+            var _i, _len, _ref, _results;
+            _ref = $scope.data;
+            _results = [];
+            for (_i = 0, _len = _ref.length; _i < _len; _i++) {
+              ord = _ref[_i];
+              if (ord.date_paid === null) {
+                _results.push(ord);
+              }
+            }
+            return _results;
+          })();
+          return $scope.orders = o;
+        }
+      };
+      $scope.filterClaimed = function() {
+        var o, ord;
+        if ($scope.claimed) {
+          o = (function() {
+            var _i, _len, _ref, _results;
+            _ref = $scope.data;
+            _results = [];
+            for (_i = 0, _len = _ref.length; _i < _len; _i++) {
+              ord = _ref[_i];
+              if (ord.date_claimed !== null) {
+                _results.push(ord);
+              }
+            }
+            return _results;
+          })();
+          return $scope.orders = o;
+        } else {
+          o = (function() {
+            var _i, _len, _ref, _results;
+            _ref = $scope.data;
+            _results = [];
+            for (_i = 0, _len = _ref.length; _i < _len; _i++) {
+              ord = _ref[_i];
+              if (ord.date_claimed === null) {
+                _results.push(ord);
+              }
+            }
+            return _results;
+          })();
+          return $scope.orders = o;
+        }
+      };
+      return $scope.reset = function() {
+        $scope.paid = false;
+        $scope.claimed = false;
+        return $scope.orders = $scope.data;
+      };
+    }
+  ];
 
   UserCatalogCtrl = [
     '$scope', 'Company', 'Category', 'Product', 'Cart', '$location', function($scope, Company, Category, Product, Cart, $location) {
@@ -922,8 +1003,16 @@
 
   adminRest.factory('adProfiles', [
     '$resource', function($resource) {
-      return $resource('/profiles/:id', {
+      return $resource('/profiles/:id/:orders', {
         id: '@id'
+      }, {
+        orders: {
+          method: 'GET',
+          params: {
+            orders: 'orders'
+          },
+          isArray: true
+        }
       });
     }
   ]);
