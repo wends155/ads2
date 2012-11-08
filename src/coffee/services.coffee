@@ -35,6 +35,14 @@ rest.factory('Order',['$resource',($resource)->
 	$resource('/orders/:id', {id:'@id'})
 ])
 
+rest.factory('Item',['$resource',($resource)->
+	$resource('/items/:id', {id: '@id'} )
+])
+
+rest.factory('Alternative',['$resource',($resource)->
+	$resource('/alt/:id')
+])
+
 rest.service('localStorageService',[->
 	return {
 		prefix: 'ads.'

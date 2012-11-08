@@ -43,7 +43,7 @@ ads.config([
 			templateUrl: "#{user}/orders.html",
 			controller: UserOrderCtrl
 			})
-		.when('/return',{
+		.when('/return/:id',{
 			templateUrl: "#{user}/return.html"
 			controller: UserReturnCtrl
 			})
@@ -54,8 +54,9 @@ ads.config([
 #
 #module used for administration pages
 #
-admin = angular.module('admin',['restService'])
+admin = angular.module('admin',['restService','AdminServices'])
 admin.config(['$routeProvider',($routeProvider) -> 
+	adtmpl = "/assets/partials/admin"
 	$routeProvider.when('/',{templateUrl: '/assets/partials/admin-index.html'})
 	.when('/products', {templateUrl:'/assets/partials/products.html', controller: ProductCtrl})
 	.when('/product/:id',{templateUrl:'/assets/partials/product-detail.html', controller: ProductDetailCtrl})
@@ -66,7 +67,14 @@ admin.config(['$routeProvider',($routeProvider) ->
 	.when('/category',{templateUrl: '/assets/partials/category.html', controller: CategoryCtrl})
 	.when('/category/:id',{templateUrl:'/assets/partials/category-detail.html', controller: CategoryDetailCtrl})
 	.when('/catalog')
-	.when('/orders')
+	.when('/orders',{
+		templateUrl:"#{adtmpl}/orders.html"
+		controller: OrderCtrl
+		})
+	.when('/order/:id',{
+		templateUrl: "#{adtmpl}/order_details.html"
+		controller: OrderDetailCtrl
+		})
 	.when('/dealers')
 	.when('/reports')
 	.when('/sms')

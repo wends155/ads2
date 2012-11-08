@@ -210,5 +210,8 @@ respond('GET', '/profile', ProfileCtrl::profile());
 respond('POST', '/profile', ProfileCtrl::update());
 respond('POST', '/verify_password', ProfileCtrl::verify_password());
 respond('POST', '/change_password', ProfileCtrl::change_password());
+respond('GET', '/items/[i:id]',OrderItemCtrl::get());
+respond('POST', '/items/[i:id]', OrderItemCtrl::post());
+respond('GET', '/alt/[i:id]', OrderItemCtrl::alternative());
 dispatch();
 ?>

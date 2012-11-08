@@ -1,0 +1,1 @@
+adminRest = angular.module('AdminServices',['ngResource'])

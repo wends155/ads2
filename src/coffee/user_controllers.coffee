@@ -91,8 +91,8 @@ UserOrderCtrl = ['$scope','Order','$location',($scope,Order,$location)->
 		$scope.claimed = false
 		$scope.orders = $scope.data
 	$scope.return = (item) ->
-		console.log item
-		$location.path('/return')
+		#console.log item
+		$location.path("/return/#{item.id}")
 ]
 
 UserProfileCtrl = ['$scope','$http','Profile',($scope,$http,Profile)->
@@ -108,12 +108,23 @@ UserProfileCtrl = ['$scope','$http','Profile',($scope,$http,Profile)->
 			$scope.profile = data
 			$scope.saved=true
 			humane.log('Profile Saved')
-			console.log(data)
+			#console.log(data)
 		
 ]
 
-UserReturnCtrl = ['$scope',($scope)->
-	
+UserReturnCtrl = ['$scope','$location','$routeParams','Item','Alternative',($scope,$location,$routeParams,Item,Alternative)->
+	Item.get({id:$routeParams.id}, (data)->
+		console.log data
+		$scope.item = data
+		
+		Alternative.query({id:$scope.item.product.id},(data)->
+			$scope.alts = data
+			#console.log data
+		)
+	)
+	$scope.submit = ->
+		$scope.item.$save()
+
 ]
 
 MenuCtrl = ['$scope','Cart','$location','$rootScope','Order', ($scope,Cart,$location,$rootScope,Order)->

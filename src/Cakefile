@@ -8,7 +8,7 @@ JS_PATH = "#{ASSETS_PATH}/js"
 CSS_PATH = "#{ASSETS_PATH}/css"
 COFFEE_SRC = "coffee/"
 LESS_SRC = "less/"
-FILES = ['app','filters','controllers','user_controllers','services']
+FILES = ['app','filters','controllers','user_controllers','services','admin_services']
 IN_FILES = ("#{COFFEE_SRC}#{file}.coffee" for file in FILES).join ' '
 
 PATH = '/usr/local/bin'

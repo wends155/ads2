@@ -156,3 +156,11 @@ CategoryDetailCtrl = ['$scope','$routeParams','$http',($scope,$routeParams,$http
 			$scope.saved = true
 			$scope.caption = "Back"
 ]
+
+OrderCtrl = ['$scope',($scope)->
+
+]
+
+OrderDetailCtrl = ['$scope','$routeParams',($scope,$routeParams)->
+	console.log $routeParams.id
+]
