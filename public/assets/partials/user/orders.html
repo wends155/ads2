@@ -10,13 +10,13 @@
 				Order ID
 			</th>
 			<th>
-				<a href="" ng-click="predicate='date';reverse=!reverse" >Date</a>
+				<a href="" ng-click="predicate='date';reverse=!reverse" >Date<i class="icon-arrow-up" ng-show="!reverse"></i><i class="icon-arrow-down" ng-show="reverse"></i> </a>
 			</th>
 			<th>
 				Items
 			</th>
 			<th>
-				<a href="" ng-click="predicate='total';reverse = !reverse" >Total</a>
+				<a href="" ng-click="predicate='total';reverse = !reverse" >Total<i class="icon-arrow-up" ng-show="!reverse"></i><i class="icon-arrow-down" ng-show="reverse"></i>  </a>
 			</th>
 			<th>DP(30%)</th>
 			<th><input type="checkbox" ng-model="paid" ng-click="filterPaid()"> Paid</th>
@@ -33,7 +33,7 @@
 				{{order.date * 1000 | date: 'mediumDate'}}
 			</td>
 			<td>
-				<table class="table table-condensed">
+				<table class="table table-condensed table-bordered">
 					<thead>
 						<tr>
 							<th>Product</th>
