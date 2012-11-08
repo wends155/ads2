@@ -42,10 +42,10 @@ UserCartCtrl = ['$scope','Cart','$location','Order', ($scope,Cart,$location,Orde
 		humane.log("Cart cleared.")
 	$scope.order = ->
 		order = new Order()
-		order.date = Date.now()/1000
+		order.date = Date.now() / 1000
 		order.items = $scope.items
 		order.$save()
-		
+		$scope.clear()
 		$location.path('/orders')
 	$scope.$on('logout',(event)->
 		$scope.clear()
@@ -73,10 +73,14 @@ UserProfileCtrl = ['$scope','$http',($scope,$http)->
 		
 ]
 
-MenuCtrl = ['$scope','Cart','$location','$rootScope', ($scope,Cart,$location,$rootScope)->
-	$scope.order = 3
+MenuCtrl = ['$scope','Cart','$location','$rootScope','Order', ($scope,Cart,$location,$rootScope,Order)->
+	Order.query((data)->
+		$scope.order = data.length
+		)
+	
 	$scope.count = ->
 		Cart.items.length
+
 	$scope.logout = ->
 		#$location.path('/')
 		$rootScope.$broadcast('logout',{})

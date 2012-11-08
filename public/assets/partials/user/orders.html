@@ -26,7 +26,7 @@
 				{{order.id}}
 			</td>
 			<td>
-				{{order.date}}
+				{{order.date * 1000 | date: 'mediumDate'}}
 			</td>
 			<td>
 				<table class="table table-condensed">
@@ -41,21 +41,21 @@
 					<tbody>
 						<tr ng-repeat="item in order.items">
 							<td>{{item.product.name}} </td>
-							<td>{{item.price}} </td>
+							<td>{{item.price | currency:""}} </td>
 							<td>{{item.quantity}} </td>
-							<td>{{item.subtotal}} </td>
+							<td>{{item.subtotal | currency: "Php "}} </td>
 						</tr>
 						
 					</tbody>
 				</table>
 			</td>
 			<td>
-				{{order.total}}
+				{{order.total | currency: "Php "}}
 			</td>
-			<td>{{order.downpayment}}</td>
-			<td>{{order.date_paid}} </td>
-			<td>{{order.date_claimed}} </td>
-			<td>{{order.due}} </td>
+			<td>{{order.total * 0.20 | currency: "Php "}}</td>
+			<td>{{order.date_paid | date: 'mediumDate'}} </td>
+			<td>{{order.date_claimed | date: 'mediumDate' }} </td>
+			<td>{{order.due }} </td>
 		</tr>
 	</tbody>
 

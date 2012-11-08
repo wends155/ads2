@@ -339,6 +339,7 @@
         order.date = Date.now() / 1000;
         order.items = $scope.items;
         order.$save();
+        $scope.clear();
         return $location.path('/orders');
       };
       return $scope.$on('logout', function(event) {
@@ -374,8 +375,10 @@
   ];
 
   MenuCtrl = [
-    '$scope', 'Cart', '$location', '$rootScope', function($scope, Cart, $location, $rootScope) {
-      $scope.order = 3;
+    '$scope', 'Cart', '$location', '$rootScope', 'Order', function($scope, Cart, $location, $rootScope, Order) {
+      Order.query(function(data) {
+        return $scope.order = data.length;
+      });
       $scope.count = function() {
         return Cart.items.length;
       };
