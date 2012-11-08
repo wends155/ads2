@@ -28,8 +28,8 @@
 			<td colspan="2"><strong>{{total() | currency: "Php "}}</strong></td>
 		</tr>
 		<tr ng-hide="total() == 0" >
-			<td colspan="4" style="text-align:right">Downpayment</td>
-			<td colspan="2"><strong>{{total() * .20 | currency: "Php "}}</strong></td>
+			<td colspan="4" style="text-align:right">Downpayment(30%)</td>
+			<td colspan="2"><strong>{{total() * 0.30 | currency: "Php "}}</strong></td>
 		</tr>
 	</tbody>
 </table>

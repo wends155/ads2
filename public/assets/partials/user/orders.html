@@ -14,7 +14,7 @@
 			<th>
 				Total
 			</th>
-			<th>DP</th>
+			<th>DP(30%)</th>
 			<th>Paid</th>
 			<th>Claimed</th>
 			<th>Due</th>
@@ -52,7 +52,7 @@
 			<td>
 				{{order.total | currency: "Php "}}
 			</td>
-			<td>{{order.total * 0.20 | currency: "Php "}}</td>
+			<td>{{order.total * 0.30 | currency: "Php "}}</td>
 			<td>{{order.date_paid | date: 'mediumDate'}} </td>
 			<td>{{order.date_claimed | date: 'mediumDate' }} </td>
 			<td>{{order.due }} </td>
