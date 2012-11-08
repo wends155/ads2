@@ -423,16 +423,22 @@
           return $scope.orders = o;
         }
       };
-      return $scope.reset = function() {
+      $scope.reset = function() {
         $scope.paid = false;
         $scope.claimed = false;
         return $scope.orders = $scope.data;
+      };
+      return $scope["return"] = function(order) {
+        return console.log(order);
       };
     }
   ];
 
   UserProfileCtrl = [
-    '$scope', '$http', function($scope, $http) {
+    '$scope', '$http', 'Profile', function($scope, $http, Profile) {
+      Profile.get(function(data) {
+        return window.profile = data;
+      });
       $http.get('/profile').success(function(data) {
         $scope.profile = data;
         return $scope.spinner = true;
@@ -661,6 +667,12 @@
           isArray: true
         }
       });
+    }
+  ]);
+
+  rest.factory('Profile', [
+    '$resource', function($resource) {
+      return $resource('/profile', {});
     }
   ]);
 

@@ -89,9 +89,14 @@ UserOrderCtrl = ['$scope','Order',($scope,Order)->
 		$scope.paid = false
 		$scope.claimed = false
 		$scope.orders = $scope.data
+	$scope.return = (order) ->
+		console.log order
 ]
 
-UserProfileCtrl = ['$scope','$http',($scope,$http)->
+UserProfileCtrl = ['$scope','$http','Profile',($scope,$http,Profile)->
+	Profile.get((data)->
+		window.profile = data
+		)
 	$http.get('/profile').success (data)->
 		$scope.profile = data
 		$scope.spinner = true

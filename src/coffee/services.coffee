@@ -27,6 +27,9 @@ rest.factory('Category',['$resource',($resource)->
 		products: {method:'GET', params: {products: 'products'}, isArray: true}
 		})
 	])
+rest.factory('Profile',['$resource',($resource)->
+	$resource('/profile',{})
+	])
 
 rest.factory('Order',['$resource',($resource)->
 	$resource('/orders/:id', {id:'@id'})

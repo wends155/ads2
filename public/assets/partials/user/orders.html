@@ -7,7 +7,7 @@
 	<thead>
 		<tr>
 			<th>
-				Order ID
+				ID
 			</th>
 			<th>
 				<a href="" ng-click="predicate='date';reverse=!reverse" >Date<i class="icon-arrow-up" ng-show="!reverse"></i><i class="icon-arrow-down" ng-show="reverse"></i> </a>
@@ -19,9 +19,10 @@
 				<a href="" ng-click="predicate='total';reverse = !reverse" >Total<i class="icon-arrow-up" ng-show="!reverse"></i><i class="icon-arrow-down" ng-show="reverse"></i>  </a>
 			</th>
 			<th>DP(30%)</th>
-			<th><input type="checkbox" ng-model="paid" ng-click="filterPaid()"> Paid</th>
-			<th><input type="checkbox" ng-model="claimed" ng-click="filterClaimed()"> Claimed</th>
+			<th><input type="checkbox" ng-model="paid" ng-click="filterPaid()"> <a href="" ng-click="paid=!paid;filterPaid()">Paid</a> </th>
+			<th><input type="checkbox" ng-model="claimed" ng-click="filterClaimed()"> <a href="" ng-click="claimed=!claimed;filterClaimed()">Claimed</a></th>
 			<th>Due</th>
+			<th></th>
 		</tr>
 	</thead>
 	<tbody>
@@ -30,7 +31,7 @@
 				{{order.id}}
 			</td>
 			<td>
-				{{order.date * 1000 | date: 'mediumDate'}}
+				{{order.date * 1000 | date: 'MM/d/yyyy'}}
 			</td>
 			<td>
 				<table class="table table-condensed table-bordered">
@@ -57,9 +58,10 @@
 				{{order.total | currency: "Php "}}
 			</td>
 			<td>{{order.total * 0.30 | currency: "Php "}}</td>
-			<td><span ng-show="order.date_paid != null">{{order.date_paid *1000 | date: 'mediumDate'}}</span><span ng-show="order.date_paid == null">No</span> </td>
-			<td><span ng-show="order.date_paid != null">{{order.date_claimed *1000 | date: 'mediumDate' }}</span><span ng-show="order.date_paid == null">No</span> </td>
-			<td>{{order.due }}</td>
+			<td><span ng-show="order.date_paid != null">{{order.date_paid *1000 | date: 'MM/d/yyyy'}}</span><span ng-show="order.date_paid == null">No</span> </td>
+			<td><span ng-show="order.date_paid != null">{{order.date_claimed *1000 | date: 'MM/d/yyyy' }}</span><span ng-show="order.date_paid == null">No</span> </td>
+			<td>{{order.due | date: 'MM/d/yyyy'}}</td>
+			<td><button class="btn" ng-click="return(order)" >Return/Exch</button> </td>
 		</tr>
 	</tbody>
 
