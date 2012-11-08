@@ -20,7 +20,7 @@ UserIndexCtrl = ['$scope','$http', ($scope,$http)->
 	
 ]
 
-UserCartCtrl = ['$scope','Cart','$location', ($scope,Cart,$location)->
+UserCartCtrl = ['$scope','Cart','$location','Order', ($scope,Cart,$location,Order)->
 	
 	$scope.items = Cart.items
 	#window.cartitems = $scope.items
@@ -41,14 +41,23 @@ UserCartCtrl = ['$scope','Cart','$location', ($scope,Cart,$location)->
 		
 		humane.log("Cart cleared.")
 	$scope.order = ->
+		order = new Order()
+		order.date = Date.now()/1000
+		order.items = $scope.items
+		order.$save()
+		
 		$location.path('/orders')
 	$scope.$on('logout',(event)->
 		$scope.clear()
-		)
+	)
 ]
 
-UserOrderCtrl = ['$scope',($scope)->
-
+UserOrderCtrl = ['$scope','Order',($scope,Order)->
+	window.order = Order
+	Order.query((data)->
+		$scope.orders = data
+		console.log $scope.orders
+	)
 ]
 
 UserProfileCtrl = ['$scope','$http',($scope,$http)->

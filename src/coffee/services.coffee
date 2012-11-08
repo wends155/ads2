@@ -28,6 +28,10 @@ rest.factory('Category',['$resource',($resource)->
 		})
 	])
 
+rest.factory('Order',['$resource',($resource)->
+	$resource('/orders/:id', {id:'@id'})
+])
+
 rest.service('localStorageService',[->
 	return {
 		prefix: 'ads.'

@@ -302,7 +302,7 @@
   UserIndexCtrl = ['$scope', '$http', function($scope, $http) {}];
 
   UserCartCtrl = [
-    '$scope', 'Cart', '$location', function($scope, Cart, $location) {
+    '$scope', 'Cart', '$location', 'Order', function($scope, Cart, $location, Order) {
       $scope.items = Cart.items;
       window.cart = Cart;
       $scope.total = function() {
@@ -334,6 +334,11 @@
         return humane.log("Cart cleared.");
       };
       $scope.order = function() {
+        var order;
+        order = new Order();
+        order.date = Date.now() / 1000;
+        order.items = $scope.items;
+        order.$save();
         return $location.path('/orders');
       };
       return $scope.$on('logout', function(event) {
@@ -342,7 +347,15 @@
     }
   ];
 
-  UserOrderCtrl = ['$scope', function($scope) {}];
+  UserOrderCtrl = [
+    '$scope', 'Order', function($scope, Order) {
+      window.order = Order;
+      return Order.query(function(data) {
+        $scope.orders = data;
+        return console.log($scope.orders);
+      });
+    }
+  ];
 
   UserProfileCtrl = [
     '$scope', '$http', function($scope, $http) {
@@ -570,6 +583,14 @@
           },
           isArray: true
         }
+      });
+    }
+  ]);
+
+  rest.factory('Order', [
+    '$resource', function($resource) {
+      return $resource('/orders/:id', {
+        id: '@id'
       });
     }
   ]);
