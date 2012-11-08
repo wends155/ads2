@@ -355,6 +355,8 @@
       Order.query(function(data) {
         $scope.data = data;
         $scope.orders = data;
+        $scope.predicate = 'date';
+        $scope.reverse = false;
         return $scope.spinner = true;
       });
       $scope.filterPaid = function() {
@@ -422,6 +424,8 @@
         }
       };
       return $scope.reset = function() {
+        $scope.paid = false;
+        $scope.claimed = false;
         return $scope.orders = $scope.data;
       };
     }

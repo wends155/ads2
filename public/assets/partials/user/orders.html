@@ -10,13 +10,13 @@
 				Order ID
 			</th>
 			<th>
-				Date
+				<a href="" ng-click="predicate='date';reverse=!reverse" >Date</a>
 			</th>
 			<th>
 				Items
 			</th>
 			<th>
-				Total
+				<a href="" ng-click="predicate='total';reverse = !reverse" >Total</a>
 			</th>
 			<th>DP(30%)</th>
 			<th><input type="checkbox" ng-model="paid" ng-click="filterPaid()"> Paid</th>
@@ -25,7 +25,7 @@
 		</tr>
 	</thead>
 	<tbody>
-		<tr ng-repeat="order in orders | filter: predicate">
+		<tr ng-repeat="order in orders | orderBy: predicate:reverse">
 			<td>
 				{{order.id}}
 			</td>

@@ -61,6 +61,8 @@ UserOrderCtrl = ['$scope','Order',($scope,Order)->
 	Order.query((data)->
 		$scope.data = data
 		$scope.orders = data
+		$scope.predicate = 'date'
+		$scope.reverse = false
 		$scope.spinner = true
 		#console.log $scope.orders
 	)
@@ -84,6 +86,8 @@ UserOrderCtrl = ['$scope','Order',($scope,Order)->
 				o = (ord for ord in $scope.data when ord.date_claimed == null)
 				$scope.orders = o
 	$scope.reset = ->
+		$scope.paid = false
+		$scope.claimed = false
 		$scope.orders = $scope.data
 ]
 
