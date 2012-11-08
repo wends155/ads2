@@ -287,10 +287,9 @@
     '$scope', 'Company', 'Category', 'Product', 'Cart', '$location', function($scope, Company, Category, Product, Cart, $location) {
       $scope.companies = Company.query();
       $scope.categories = Category.query();
-      $scope.products = Product.query();
-      console.log($scope.categories);
-      console.log($scope.companies);
-      console.log($scope.products);
+      $scope.products = Product.query(function(data) {
+        return $scope.spinner = true;
+      });
       return $scope.add = function(product) {
         product.quantity = 1;
         Cart.add(product);

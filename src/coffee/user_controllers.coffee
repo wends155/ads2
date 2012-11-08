@@ -2,11 +2,13 @@ UserCatalogCtrl = ['$scope','Company','Category','Product','Cart','$location',
 ($scope,Company, Category,Product,Cart,$location)->
 	$scope.companies = Company.query()
 	$scope.categories = Category.query()
-	$scope.products = Product.query()
+	$scope.products = Product.query((data)->
+		$scope.spinner = true
+		)
 
-	console.log $scope.categories
-	console.log $scope.companies
-	console.log $scope.products
+	#console.log $scope.categories
+	#console.log $scope.companies
+	#console.log $scope.products
 
 	$scope.add = (product)->
 		product.quantity = 1
