@@ -337,6 +337,8 @@
         order = new Order();
         order.date = Date.now() / 1000;
         order.items = $scope.items;
+        order.date_paid = false;
+        order.date_claimed = false;
         order.$save();
         $scope.clear();
         return $location.path('/orders');
@@ -350,11 +352,78 @@
   UserOrderCtrl = [
     '$scope', 'Order', function($scope, Order) {
       window.order = Order;
-      return Order.query(function(data) {
+      Order.query(function(data) {
+        $scope.data = data;
         $scope.orders = data;
-        $scope.spinner = true;
-        return console.log($scope.orders);
+        return $scope.spinner = true;
       });
+      $scope.filterPaid = function() {
+        var o, ord;
+        if ($scope.paid) {
+          o = (function() {
+            var _i, _len, _ref, _results;
+            _ref = $scope.data;
+            _results = [];
+            for (_i = 0, _len = _ref.length; _i < _len; _i++) {
+              ord = _ref[_i];
+              if (ord.date_paid !== null) {
+                _results.push(ord);
+              }
+            }
+            return _results;
+          })();
+          return $scope.orders = o;
+        } else {
+          o = (function() {
+            var _i, _len, _ref, _results;
+            _ref = $scope.data;
+            _results = [];
+            for (_i = 0, _len = _ref.length; _i < _len; _i++) {
+              ord = _ref[_i];
+              if (ord.date_paid === null) {
+                _results.push(ord);
+              }
+            }
+            return _results;
+          })();
+          return $scope.orders = o;
+        }
+      };
+      $scope.filterClaimed = function() {
+        var o, ord;
+        if ($scope.claimed) {
+          o = (function() {
+            var _i, _len, _ref, _results;
+            _ref = $scope.data;
+            _results = [];
+            for (_i = 0, _len = _ref.length; _i < _len; _i++) {
+              ord = _ref[_i];
+              if (ord.date_claimed !== null) {
+                _results.push(ord);
+              }
+            }
+            return _results;
+          })();
+          return $scope.orders = o;
+        } else {
+          o = (function() {
+            var _i, _len, _ref, _results;
+            _ref = $scope.data;
+            _results = [];
+            for (_i = 0, _len = _ref.length; _i < _len; _i++) {
+              ord = _ref[_i];
+              if (ord.date_claimed === null) {
+                _results.push(ord);
+              }
+            }
+            return _results;
+          })();
+          return $scope.orders = o;
+        }
+      };
+      return $scope.reset = function() {
+        return $scope.orders = $scope.data;
+      };
     }
   ];
 

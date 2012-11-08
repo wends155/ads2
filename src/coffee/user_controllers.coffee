@@ -46,6 +46,8 @@ UserCartCtrl = ['$scope','Cart','$location','Order', ($scope,Cart,$location,Orde
 		order = new Order()
 		order.date = Date.now() / 1000
 		order.items = $scope.items
+		order.date_paid = false
+		order.date_claimed = false
 		order.$save()
 		$scope.clear()
 		$location.path('/orders')
@@ -57,10 +59,32 @@ UserCartCtrl = ['$scope','Cart','$location','Order', ($scope,Cart,$location,Orde
 UserOrderCtrl = ['$scope','Order',($scope,Order)->
 	window.order = Order
 	Order.query((data)->
+		$scope.data = data
 		$scope.orders = data
 		$scope.spinner = true
-		console.log $scope.orders
+		#console.log $scope.orders
 	)
+	$scope.filterPaid = ->
+		
+			if($scope.paid)
+				o = (ord for ord in $scope.data when ord.date_paid != null)
+				$scope.orders = o
+				#console.log o
+			else 
+				o = (ord for ord in $scope.data when ord.date_paid == null)
+				$scope.orders = o
+				#console.log o
+		
+	$scope.filterClaimed = ->
+		
+			if($scope.claimed)
+				o = (ord for ord in $scope.data when ord.date_claimed != null)
+				$scope.orders = o
+			else
+				o = (ord for ord in $scope.data when ord.date_claimed == null)
+				$scope.orders = o
+	$scope.reset = ->
+		$scope.orders = $scope.data
 ]
 
 UserProfileCtrl = ['$scope','$http',($scope,$http)->

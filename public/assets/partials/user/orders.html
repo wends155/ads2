@@ -1,5 +1,8 @@
 <legend>Orders</legend>
 <img src="/assets/img/spinner.gif" alt="" ng-show="!spinner">
+<div ng-show="!!spinner">
+	<button ng-click="reset()">Reset filter</button>
+</div>
 <table class="table table-hover" ng-show="!!spinner">
 	<thead>
 		<tr>
@@ -16,13 +19,13 @@
 				Total
 			</th>
 			<th>DP(30%)</th>
-			<th>Paid</th>
-			<th>Claimed</th>
+			<th><input type="checkbox" ng-model="paid" ng-click="filterPaid()"> Paid</th>
+			<th><input type="checkbox" ng-model="claimed" ng-click="filterClaimed()"> Claimed</th>
 			<th>Due</th>
 		</tr>
 	</thead>
 	<tbody>
-		<tr ng-repeat="order in orders">
+		<tr ng-repeat="order in orders | filter: predicate">
 			<td>
 				{{order.id}}
 			</td>
@@ -54,9 +57,9 @@
 				{{order.total | currency: "Php "}}
 			</td>
 			<td>{{order.total * 0.30 | currency: "Php "}}</td>
-			<td>{{order.date_paid | date: 'mediumDate'}} </td>
-			<td>{{order.date_claimed | date: 'mediumDate' }} </td>
-			<td>{{order.due }} </td>
+			<td><span ng-show="order.date_paid != null">{{order.date_paid *1000 | date: 'mediumDate'}}</span><span ng-show="order.date_paid == null">None</span> </td>
+			<td><span ng-show="order.date_paid != null">{{order.date_claimed *1000 | date: 'mediumDate' }}</span><span ng-show="order.date_paid == null">None</span> </td>
+			<td>{{order.due }}</td>
 		</tr>
 	</tbody>
 

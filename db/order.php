@@ -174,7 +174,7 @@ class Order extends Model{
 	}
 
 	public static function findByUser($user_id){
-		$orders = ORM::for_table(static::$_table)->where('user_id', $user_id)->find_many();
+		$orders = ORM::for_table(static::$_table)->where('user_id', $user_id)->order_by_desc('date')->find_many();
 		
 		if($orders){
 			$models = array();
