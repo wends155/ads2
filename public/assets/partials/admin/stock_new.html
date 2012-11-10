@@ -1,0 +1,22 @@
+<legend>Add new Stock</legend>
+
+<div>
+	<form action="" class="form-horizontal" ng-submit="submit()">
+		<div class="control-group">
+			<label for="" class="control-label">Product</label>
+			<div class="controls">
+				<select required ng-model="stock.product" ng-options="p.name for p in products" ng-change="stock.quantity=1"></select>
+			</div>
+		</div>
+		<div class="control-group">
+			<label for="" class="control-label">Quantity</label>
+			<div class="controls">
+				<input type="number" ng-model="stock.quantity" min="1" required>
+			</div>
+		</div>
+		<div class="form-actions">
+			<button type="submit" class="btn btn-primary">Add Stock</button>
+			<a href="#/stocks" class="btn">Cancel</a>
+		</div>
+	</form>
+</div>

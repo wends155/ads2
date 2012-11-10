@@ -221,3 +221,38 @@ ProfileOrdersCtrl = ['$scope','adProfiles','$routeParams',($scope,profiles,$rout
 		$scope.claimed = false
 		$scope.orders = $scope.data
 ]
+
+StockCtrl = ['$scope','Stock','Product',($scope,Stock,Product)->
+	Stock.query((data)->
+		$scope.stocks = data
+		window.stocks = data
+	)
+]
+
+StockAddCtrl = ['$scope','Stock','Product','$location',($scope,Stock,Product,$location)->
+	Product.query((products)->
+		#$scope.products = data
+		Stock.query((stocks)->
+			stock_ids = (s.product.id for s in stocks)
+			console.log stock_ids
+			data = (s for s in products when s.id not in stock_ids)
+			console.log data
+			$scope.products = data
+		)
+	)
+	$scope.stock = new Stock()
+
+	$scope.submit = ->
+		stock_selected = $scope.stock.product
+		$scope.stock.$save(
+			->
+				st = (s for s in $scope.products when s.id != stock_selected.id)	
+				$scope.products = st
+				humane.log "Stock '#{stock_selected.name}'' added"
+				$location.path('/stocks')
+			-> 
+				humane.log "failed" 
+
+		)
+
+]

@@ -50,6 +50,7 @@ abstract class Model{
 		return $this->_orm->id();
 	} 
 
+	
 	public function isModified($name){
 		return $this->_orm->is_dirty($name);
 	}

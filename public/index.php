@@ -220,5 +220,9 @@ respond('GET', '/profiles', ProfileCtrl::index());
 respond('GET', '/profiles/[i:id]', ProfileCtrl::show());
 respond('DELETE', '/profiles/[i:id]', ProfileCtrl::delete());
 respond('GET', '/profiles/[i:user]/orders', OrderCtrl::admin_index());
+respond('/stocks',StockCtrl::index());
+respond('/stocks/[i:id]', StockCtrl::show());
+respond('/stocks/[i:product]/inc/[i:value]',StockCtrl::increment());
+respond('/stocks/[i:product]/dec/[i:value]', StockCtrl::decrement());
 dispatch();
 ?>

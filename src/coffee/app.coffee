@@ -90,6 +90,14 @@ admin.config(['$routeProvider',($routeProvider) ->
 		templateUrl: "#{adtmpl}/profile_orders.html"
 		controller: ProfileOrdersCtrl
 		})
+	.when('/stocks',{
+		templateUrl: "#{adtmpl}/stocks.html"
+		controller: StockCtrl
+		})
+	.when('/stocks/new',{
+		templateUrl: "#{adtmpl}/stock_new.html"
+		controller: StockAddCtrl
+		})
 	.otherwise({redirectTo:'/'})
 	@
 	])

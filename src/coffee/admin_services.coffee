@@ -9,3 +9,7 @@ adminRest.factory('adProfiles',['$resource',($resource)->
 		orders:{method:'GET', params: {orders:'orders'},isArray:true}
 	})
 ])
+
+adminRest.factory('Stock',['$resource',($resource)->
+	$resource('/stocks/:id', {id:'@id'})
+])
