@@ -322,4 +322,8 @@ StockDecCtrl = ['$scope','$routeParams','Stock','$http','$location',($scope,$rou
 
 ]
 
+StockReportCtrl = ['$scope',($scope)->
+
+]
+
 admin.controller('MenuCtrl',MenuCtrl)

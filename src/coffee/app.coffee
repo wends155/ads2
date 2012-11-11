@@ -106,6 +106,10 @@ admin.config(['$routeProvider','$locationProvider',($routeProvider,$locationProv
 		templateUrl: "#{adtmpl}/stock_dec.html"
 		controller: StockDecCtrl
 		})
+	.when('/stocks/report',{
+		templateUrl: "#{adtmpl}/stock_report.html"
+		controller: StockReportCtrl
+		})
 	.otherwise({redirectTo:'/'})
 	#$locationProvider.html5Mode(true)
 	@
