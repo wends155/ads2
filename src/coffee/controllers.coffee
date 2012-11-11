@@ -226,7 +226,19 @@ StockCtrl = ['$scope','Stock','Product',($scope,Stock,Product)->
 	Stock.query((data)->
 		$scope.stocks = data
 		window.stocks = data
+		$scope.spinner = true
 	)
+	$scope.delete = (stock)->
+		ok = confirm("Do you want to delete #{stock.product.name}")
+		if (ok)
+			stock.$delete(->
+				$scope.spinner =false
+				Stock.query((data)->
+					$scope.stocks = data
+					$scope.spinner = true
+					humane.log "#{stock.product.name} removed from list"
+				)
+			)
 ]
 
 StockAddCtrl = ['$scope','Stock','Product','$location',($scope,Stock,Product,$location)->
@@ -238,6 +250,7 @@ StockAddCtrl = ['$scope','Stock','Product','$location',($scope,Stock,Product,$lo
 			data = (s for s in products when s.id not in stock_ids)
 			console.log data
 			$scope.products = data
+			$scope.spinner = true
 		)
 	)
 	$scope.stock = new Stock()

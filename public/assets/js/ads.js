@@ -435,10 +435,25 @@
 
   StockCtrl = [
     '$scope', 'Stock', 'Product', function($scope, Stock, Product) {
-      return Stock.query(function(data) {
+      Stock.query(function(data) {
         $scope.stocks = data;
-        return window.stocks = data;
+        window.stocks = data;
+        return $scope.spinner = true;
       });
+      return $scope["delete"] = function(stock) {
+        var ok;
+        ok = confirm("Do you want to delete " + stock.product.name);
+        if (ok) {
+          return stock.$delete(function() {
+            $scope.spinner = false;
+            return Stock.query(function(data) {
+              $scope.stocks = data;
+              $scope.spinner = true;
+              return humane.log("" + stock.product.name + " removed from list");
+            });
+          });
+        }
+      };
     }
   ];
 
@@ -469,7 +484,8 @@
             return _results;
           })();
           console.log(data);
-          return $scope.products = data;
+          $scope.products = data;
+          return $scope.spinner = true;
         });
       });
       $scope.stock = new Stock();

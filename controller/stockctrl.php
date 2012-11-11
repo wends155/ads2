@@ -76,12 +76,13 @@ class StockCtrl{
 		return function($request,$response){
 			if($request->session('admin')){
 				$id = $request->id;
-				$stock = $id;      #Stock::findById($id);
+				$stock = Stock::findById($id);
 				if($stock){
 					switch ($request->method()) {
 						case 'GET':
 							# code...
-							echo "GET " . $id;
+							#echo "GET " . $id;
+							$response->json($stock->as_array());
 							break;
 						case 'POST':
 							# code...
@@ -89,7 +90,9 @@ class StockCtrl{
 							break;
 						case 'DELETE':
 							# code...
-							echo "DELETE";
+							#echo "DELETE";
+							$stock->delete();
+							$response->code(200);
 							break;	
 						case 'PUT':
 							# code...
