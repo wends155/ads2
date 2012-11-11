@@ -224,5 +224,6 @@ respond('/stocks',StockCtrl::index());
 respond('/stocks/[i:id]', StockCtrl::show());
 respond('/stocks/[i:product]/inc/[i:value]',StockCtrl::increment());
 respond('/stocks/[i:product]/dec/[i:value]', StockCtrl::decrement());
+respond('/test.pdf', ReportCtrl::test());
 dispatch();
 ?>
