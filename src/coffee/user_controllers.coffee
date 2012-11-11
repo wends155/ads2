@@ -140,6 +140,10 @@ MenuCtrl = ['$scope','Cart','$location','$rootScope','Order', ($scope,Cart,$loca
 		$rootScope.$broadcast('logout',{})
 		$location.path('/logout')
 		Cart.clear()
+	$scope.$on('$routeChangeSuccess',->
+		$scope.activePath = $location.path()
+		console.log $scope.activePath
+	)
 ]
 
 ChangePassCtrl = ['$scope','$http',($scope,$http)->

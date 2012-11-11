@@ -55,7 +55,7 @@ ads.config([
 #module used for administration pages
 #
 admin = angular.module('admin',['restService','AdminServices'])
-admin.config(['$routeProvider',($routeProvider) -> 
+admin.config(['$routeProvider','$locationProvider',($routeProvider,$locationProvider) -> 
 	adtmpl = "/assets/partials/admin"
 	$routeProvider.when('/',{templateUrl: '/assets/partials/admin-index.html'})
 	.when('/products', {templateUrl:'/assets/partials/products.html', controller: ProductCtrl})
@@ -98,6 +98,15 @@ admin.config(['$routeProvider',($routeProvider) ->
 		templateUrl: "#{adtmpl}/stock_new.html"
 		controller: StockAddCtrl
 		})
+	.when('/stocks/:id/inc',{
+		templateUrl: "#{adtmpl}/stock_inc.html"
+		controller: StockIncCtrl
+		})
+	.when('/stocks/:id/dec',{
+		templateUrl: "#{adtmpl}/stock_dec.html"
+		controller: StockDecCtrl
+		})
 	.otherwise({redirectTo:'/'})
+	#$locationProvider.html5Mode(true)
 	@
 	])

@@ -27,6 +27,25 @@ PhoneDetailCtrl = ['$scope','$routeParams', ($scope,$routeParams) ->
 	
 ]
 
+MenuCtrl = ['$scope','Cart','$location','$rootScope','Order', ($scope,Cart,$location,$rootScope,Order)->
+	Order.query((data)->
+		$scope.order = data.length
+		)
+	
+	$scope.count = ->
+		Cart.items.length
+
+	$scope.logout = ->
+		#$location.path('/')
+		$rootScope.$broadcast('logout',{})
+		$location.path('/logout')
+		Cart.clear()
+	$scope.$on('$routeChangeSuccess',->
+		$scope.activePath = $location.path()
+		#console.log $scope.activePath
+	)
+]
+
 ProductCtrl = ['$scope','$http',($scope, $http)->
 	$http.get('/product/all.json').success (data)->
 		$scope.products = data
@@ -269,3 +288,38 @@ StockAddCtrl = ['$scope','Stock','Product','$location',($scope,Stock,Product,$lo
 		)
 
 ]
+
+StockIncCtrl = ['$scope','$routeParams','Stock','$http','$location',($scope,$routeParams,Stock,$http,$location)->
+	id = $routeParams.id
+	Stock.get({id:id},(data)->
+		$scope.stock = data
+		console.log data
+	)
+	$scope.submit = ->
+		$http.get("/stocks/#{id}/inc/#{$scope.stock.value}").success(->
+			humane.log "'#{$scope.stock.product.name}'' Stock increased by #{$scope.stock.value}"
+			$location.path('/stocks')
+		).error(->
+			humane.log "failed"
+		)
+
+]
+
+StockDecCtrl = ['$scope','$routeParams','Stock','$http','$location',($scope,$routeParams,Stock,$http,$location)->
+	id = $routeParams.id
+	Stock.get({id:id},(data)->
+		$scope.stock = data
+		console.log data
+	)
+	$scope.submit = ->
+		$http.get("/stocks/#{id}/dec/#{$scope.stock.value}").success(->
+			humane.log "'#{$scope.stock.product.name}'' Stock decreased by #{$scope.stock.value}"
+			$location.path('/stocks')
+		).error(->
+			humane.log "failed"
+		)
+		
+
+]
+
+admin.controller('MenuCtrl',MenuCtrl)

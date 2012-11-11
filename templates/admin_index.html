@@ -2,23 +2,23 @@
 <% block title %><%= title %><% endblock %>
 <% block content %>
 <br><br>
-      <div class="row-fluid">
+      <div class="row-fluid" ng-controller="MenuCtrl">
         <div class="span3">
 			  
 		  <!-- side bar for share the love -->
 		  <div class="well sidebar-nav"> <!-- other side bar start here-->
             <ul class="nav nav-list">
 				<li class="nav-header">Products</li>
-              <li ><a href="#/products">Products</a></li>
-              <li><a href="#/company">Companies</a></li>
-              <li><a href="#/category">Categories</a></li>
-              <li><a href="#/brand">Brands</a></li>
-              <li><a href="#/stocks">Product Stocks</a></li>
+              <li ng-class="{active: activePath == '/products'}"><a href="#/products">Products</a></li>
+              <li ng-class="{active: activePath == '/company'}"><a href="#/company">Companies</a></li>
+              <li ng-class="{active: activePath == '/category'}"><a href="#/category">Categories</a></li>
+              <li ng-class="{active: activePath == '/brand'}"><a href="#/brand">Brands</a></li>
+              <li ng-class="{active: activePath == '/stocks'}"><a href="#/stocks">Product Stocks</a></li>
               <li class="divider"></li> 
               	<li class="nav-header">Orders</li>  
-              	<li><a href="#/orders">Orders</a></li>   
+              	<li ng-class="{active: activePath == '/orders'}" ><a href="#/orders">Orders</a></li>   
               	<li class="nav-header">Dealers</li>
-              	<li><a href="#/profiles">Dealer List</a></li>
+              	<li ng-class="{active: activePath == '/profiles'}"><a href="#/profiles">Dealer List</a></li>
             </ul>
           </div><!-- other side bar end here! -->
 		  

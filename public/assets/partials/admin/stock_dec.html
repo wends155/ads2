@@ -1,0 +1,22 @@
+<legend>Remove Stock</legend>
+<div>
+	<form ng-submit="submit()" class="form-horizontal">
+		<div class="control-group">
+			<label for="" class="control-label">Stock:</label>
+			<div class="controls">
+				<input type="text"  value="{{stock.product.name}}" disabled>
+			</div>
+
+		</div>
+		<div class="control-group">
+			<label for="" class="control-label">Quantity to remove:</label>
+			<div class="controls">
+				<input type="number" ng-model="stock.value" required>
+			</div>
+		</div>
+		<div class="form-actions">
+			<button type="submit" class="btn btn-primary">Remove Stock</button>
+			<a href="#/stocks" class="btn">Cancel</a>
+		</div>
+	</form>
+</div>

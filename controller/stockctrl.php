@@ -115,26 +115,36 @@ class StockCtrl{
 	public static function increment(){
 		return function($request,$response){
 			if($request->session('admin')){
-				switch ($request->method()) {
-					case 'GET':
-						# code...
-						echo "GET";
-						break;
-					case 'POST':
-						# code...
-						echo "POST";
-						break;
-					case 'DELETE':
-						# code...
-						echo "DELETE";
-						break;	
-					case 'PUT':
-						# code...
-						echo "PUT";
-						break;
-					default:
-						# code...
-						break;
+				$id = $request->product;
+				$stock = Stock::findById($id);
+				if($stock){
+					switch ($request->method()) {
+						case 'GET':
+							# code...
+							#echo "GET " . $id;
+							$value = $request->value;
+							$stock->increment($value);
+							$response->json($stock->as_array());
+							break;
+						case 'POST':
+							# code...
+							echo "POST " . $id;
+							break;
+						case 'DELETE':
+							# code...
+							echo "DELETE";
+							
+							break;	
+						case 'PUT':
+							# code...
+							echo "PUT";
+							break;
+						default:
+							# code...
+							break;
+					}
+				}else{
+					$response->code(404);
 				}
 
 			}else{
@@ -146,26 +156,35 @@ class StockCtrl{
 	public static function decrement(){
 		return function($request,$response){
 			if($request->session('admin')){
-				switch ($request->method()) {
-					case 'GET':
-						# code...
-						echo "GET";
-						break;
-					case 'POST':
-						# code...
-						echo "POST";
-						break;
-					case 'DELETE':
-						# code...
-						echo "DELETE";
-						break;	
-					case 'PUT':
-						# code...
-						echo "PUT";
-						break;
-					default:
-						# code...
-						break;
+				$id = $request->product;
+				$stock = Stock::findById($id);
+				if($stock){
+					switch ($request->method()) {
+						case 'GET':
+							$value = $request->value;
+							$stock->decrement($value);
+							$response->json($stock->as_array());
+							break;
+						case 'POST':
+							# code...
+							echo "POST " . $id;
+							break;
+						case 'DELETE':
+							# code...
+							#echo "DELETE";
+							$stock->delete();
+							$response->code(200);
+							break;	
+						case 'PUT':
+							# code...
+							echo "PUT";
+							break;
+						default:
+							# code...
+							break;
+					}
+				}else{
+					$response->code(404);
 				}
 
 			}else{

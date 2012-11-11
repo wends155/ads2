@@ -51,6 +51,7 @@ class Stock extends Model{
 		$add->date = time();
 		$add->save();
 		#echo "_orm: " . $this->_orm->product_id;
+		$this->save();
 		return $newValue;
 
 	}
@@ -67,6 +68,7 @@ class Stock extends Model{
 		$rem->date = time();
 		$rem->save();
 
+		$this->save();
 		return $newValue;
 	}
 
