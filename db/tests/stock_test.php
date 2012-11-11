@@ -1,15 +1,8 @@
 <?php 
-require_once '../stock.php';
+require_once '../general.php';
 
-$stock = Stock::findByProduct(2);
-#$stock->quantity = 2;
-
-#print_r($stock->as_array());
-$stock->increment(2);
-#print_r($stock->as_array());
-$stock->decrement(1);
-print_r($stock->as_array());
-
-
-
+$stocks = Stock::all()->as_array();
+print_r($stocks);
+echo date(time()) . "\n";
+echo Time::unixToDate(time());
 ?>

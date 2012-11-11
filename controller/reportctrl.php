@@ -22,17 +22,24 @@ class ReportCtrl{
 			if($request->session('admin')){
 				$response->header('Content-Type','application/pdf');
 				
-				$stocks = Zend_Pdf::load('../pdf/inventory.pdf');
-				$page = $stocks->pages[0];
+				$stocks_report = Zend_Pdf::load('../pdf/inventory.pdf');
+				$page = $stocks_report->pages[0];
 				$font = Zend_Pdf_Font::fontWithName(Zend_Pdf_Font::FONT_TIMES);
 				$page->setFont($font,11);
 				//echo "Height = {$page->getHeight()} \n";
 				//echo "Width  = {$page->getWidth()} \n";
-				$date = 'Date: 9/19/2012';
-				$name = 'Jellene Q. Pastoral';
+				$row = 476;
+				$stocks = Stock::all();
+				foreach ($stocks as $stock) {
+					$page->drawText($stock->product->name, 100, $row);
+					$page->drawText($stock->product->description, 300, $row);
+					$page->drawText($stock->quantity, 610, $row);
+					
+					$row -= 15;
+				}
+				$page->drawText("as of " . Time::unixToDate(time()), 355, 525);
 				
-				$page->drawText($name, 100, 100);
-				echo $stocks->render();
+				echo $stocks_report->render();
 
 			}else{
 				$response->code(403);
@@ -42,6 +49,7 @@ class ReportCtrl{
 
 	
 }
+
 
 
 
