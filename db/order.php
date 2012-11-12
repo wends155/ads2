@@ -99,7 +99,11 @@ class Order extends Model{
 			);
 		$model['total'] = $this->total;
 		$model['downpayment'] = $this->total * 0.30;
-
+		if($model['date_claimed']){
+			$model['due'] = intval($model['date_claimed']) + (3600*24*30); 
+	
+		}
+		
 		return $model;
 	}
 

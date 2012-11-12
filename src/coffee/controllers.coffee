@@ -200,8 +200,25 @@ OrderDetailCtrl = ['$scope','$routeParams','adOrder',($scope,$routeParams,Order)
 	)
 ]
 
-OrderClaimCtrl = ['$scope','$routeParams','adOrder',($scope,$routeParams,Order)->
+OrderClaimCtrl = ['$scope','$routeParams','adOrder','Sales','$location',($scope,$routeParams,Order,Sales,$location)->
 	console.log $routeParams.id
+	Order.get({id:$routeParams.id},(data)->
+		$scope.order = data
+		console.log data
+		$scope.spinner = true
+	)
+	$scope.submit = ->
+		current_date = Math.round(Date.now()/1000)
+		$scope.order.date_claimed = current_date
+		$scope.order.balance = $scope.order.total - $scope.order.downpayment
+		$scope.order.$save()
+		sales = new Sales()
+		sales.date = current_date
+		sales.order_id = $scope.order.id
+		sales.amount = $scope.order.downpayment
+		sales.$save()
+		$location.path('/orders')
+
 ]
 
 OrderPayCtrl = ['$scope','$routeParams','adOrder',($scope,$routeParams,Order)->
@@ -348,6 +365,10 @@ StockDecCtrl = ['$scope','$routeParams','Stock','$http','$location',($scope,$rou
 
 StockReportCtrl = ['$scope',($scope)->
 
+]
+
+SalesCtrl = ['$scope','Sales',($scope,Sales)->
+	window.sales = Sales
 ]
 
 admin.controller('MenuCtrl',MenuCtrl)

@@ -17,14 +17,14 @@
 		</thead>
 		<tbody>
 			<tr ng-repeat="order in orders">
-				<td><a ng-href="#/orders/{{order.id}}" class="btn btn-small">{{order.id}}</a> </td>
+				<td><a ng-href="#/orders/{{order.id}}" class="btn btn-small btn-primary">{{order.id}}</a> </td>
 				<td>{{order.user.fullname}} </td>
 				<td>{{order.date * 1000 | date:'MM/dd/yyyy'}} </td>
 				<td>{{order.total | currency: 'Php '}} </td>
 				<td>{{order.downpayment | currency: 'Php '}} </td>
 				<td><span ng-show="order.date_claimed != null">{{order.date_claimed *1000 | date: 'MM/dd/yyyy'}} </span><span ng-show="order.date_claimed == null"><a ng-href="#/orders/claim/{{order.id}}" class="btn btn-small">claim </a></span> </td>
 				<td><span ng-show="order.date_paid != null">{{order.date_paid *1 | date: 'MM/dd/yyyy'}} </span ng-show="order.date_paid == null"><span><a ng-href="#/orders/pay/{{order.id}}" class="btn btn-small">pay</a> </span> </td>
-				<td><span ng-show="order.date_due != null">{{order.due *1 | date: 'MM/dd/yyyy'}} </span><span ng-show="order.due == null">None</span> </td>
+				<td><span ng-show="order.due != null">{{order.due *1000 | date: 'MM/dd/yyyy'}} </span><span ng-show="order.due == null">None</span> </td>
 				
 			</tr>
 		</tbody>

@@ -13,3 +13,7 @@ adminRest.factory('adProfiles',['$resource',($resource)->
 adminRest.factory('Stock',['$resource',($resource)->
 	$resource('/stocks/:id', {id:'@id'})
 ])
+
+adminRest.factory('Sales',['$resource',($resource)->
+	$resource('/sales/:id', {id:'@id'})
+])

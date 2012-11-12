@@ -57,8 +57,8 @@
 		<div class="control-group">
 			<label for="" class="control-label">Date Claimed</label>
 			<div class="controls">
-				<input type="text" ng-show="order.date_claimed != null" value="{{order.date_claimed * 1 | date:'MM/dd/yyyy' }}" disabled> 
-			    <span ng-show="order.date_claimed == null"><a href="" class="btn">Claim Order</a> </span>
+				<input type="text" ng-show="order.date_claimed != null" value="{{order.date_claimed * 1000 | date:'mediumDate' }}" disabled> 
+			    <span ng-show="order.date_claimed == null"><a ng-href="#/orders/claim/{{order.id}}" class="btn">Claim Order</a> </span>
 			</div>
 		</div>
 		<div class="control-group">
@@ -71,8 +71,8 @@
 		<div class="control-group">
 			<label for="" class="control-label">Due</label>
 			<div class="controls">
-				<input type="text" ng-show="order.due != null" value="{{order.due *1 | date:'MM/dd/yyyy' " disabled>
-				<span ng-show="order.due == null">Not yet Claimed </span>
+				<input type="text" ng-show="order.date_claimed != null" value="{{order.due * 1000 | date:'mediumDate'}}" disabled>
+				<span ng-show="order.date_claimed == null">Not yet Claimed </span>
 			</div>
 		</div>
 		<div class="form-actions">

@@ -33,7 +33,7 @@ class OrderCtrl{
 
 				if($order){
 					$data = $request->data();
-					$data->user_id = $user_id;
+					$data->user_id = $data->user->id;
 					$order->update($data);
 					$response->json($order->as_array());
 
