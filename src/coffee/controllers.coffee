@@ -176,11 +176,35 @@ CategoryDetailCtrl = ['$scope','$routeParams','$http',($scope,$routeParams,$http
 			$scope.caption = "Back"
 ]
 
-OrderCtrl = ['$scope','adOrder',($scope,adOrder)->
-	window.order = adOrder
+OrderCtrl = ['$scope','adOrder',($scope,Order)->
+	#window.order = Order
+	Order.query((data)->
+		#console.log data
+		$scope.orders = data
+		$scope.spinner = true
+	)
+	$scope.claim = (order)->
+		order.date_claimed = Date.now() / 1000
+		console.log order.total - order.downpayment
+		order.balance = order.total - order.downpayment
+		order.$save()
+		humane.log "Order claimed"
 ]
 
-OrderDetailCtrl = ['$scope','$routeParams',($scope,$routeParams)->
+OrderDetailCtrl = ['$scope','$routeParams','adOrder',($scope,$routeParams,Order)->
+	console.log $routeParams.id
+	Order.get({id:$routeParams.id},(data)->
+		$scope.order = data
+		$scope.spinner = true
+		console.log data
+	)
+]
+
+OrderClaimCtrl = ['$scope','$routeParams','adOrder',($scope,$routeParams,Order)->
+	console.log $routeParams.id
+]
+
+OrderPayCtrl = ['$scope','$routeParams','adOrder',($scope,$routeParams,Order)->
 	console.log $routeParams.id
 ]
 

@@ -71,9 +71,17 @@ admin.config(['$routeProvider','$locationProvider',($routeProvider,$locationProv
 		templateUrl:"#{adtmpl}/orders.html"
 		controller: OrderCtrl
 		})
-	.when('/order/:id',{
+	.when('/orders/:id',{
 		templateUrl: "#{adtmpl}/order_details.html"
 		controller: OrderDetailCtrl
+		})
+	.when('/orders/claim/:id',{
+		templateUrl: "#{adtmpl}/order_claim.html"
+		controller: OrderClaimCtrl
+		})
+	.when('/orders/pay/:id',{
+		templateUrl: "#{adtmpl}/order_pay.html"
+		controller: OrderPayCtrl
 		})
 	.when('/dealers')
 	.when('/reports')

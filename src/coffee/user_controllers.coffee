@@ -49,6 +49,7 @@ UserCartCtrl = ['$scope','Cart','$location','Order', ($scope,Cart,$location,Orde
 		order.items = $scope.items
 		order.date_paid = false
 		order.date_claimed = false
+		
 		order.$save()
 		$scope.clear()
 		$location.path('/orders')

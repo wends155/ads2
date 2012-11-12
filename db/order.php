@@ -19,11 +19,6 @@ class Order extends Model{
 		return $this->_orm->downpayment;
 	}
 
-	public function getBalance(){
-		$balance = $this->total - $this->downpayment;
-		return $balance;
-	}
-
 	public function getItems(){
 		$items = OrderItem::findByOrder($this->id);
 		if($items){
@@ -58,6 +53,10 @@ class Order extends Model{
 		return $total;
 	}
 
+	public function getBalance(){
+		return $this->_orm->balance;
+	}
+
 	//************************//
 	//**** SETTERS  **********//
 	//************************//
@@ -86,6 +85,10 @@ class Order extends Model{
 		$this->_orm->due = $value;
 	}
 
+	public function setBalance($value){
+		$this->_orm->balance = $value;
+	}
+
 	public function as_array(){
 		$model = $this->_orm->as_array();
 		unset($model['user_id']);
@@ -95,6 +98,7 @@ class Order extends Model{
 				'fullname' => $this->user->profile->fullname
 			);
 		$model['total'] = $this->total;
+		$model['downpayment'] = $this->total * 0.30;
 
 		return $model;
 	}
@@ -141,6 +145,7 @@ class Order extends Model{
 		$this->date_paid 	=	$data->date_paid ? $data->date_paid : $this->date_paid;
 		$this->date_claimed =	$data->date_claimed ? $data->date_claimed : $this->date_claimed;
 		$this->due 		=	$data->due ? $data->due : $this->due;
+		$this->balance = $data->balance ? $data->balance : $this->balance;
 
 		$this->save(); 
 	}
@@ -185,6 +190,16 @@ class Order extends Model{
 			return new Collection($models);
 		}
 		return null;
+	}
+
+	public static function all(){
+		self::configure();
+		$all = ORM::for_table(static::$_table)->order_by_desc('date')->find_many();
+		$models = array();
+		foreach ($all as $model) {
+			$models[] = new static::$class($model);
+		}
+		return new Collection($models);
 	}
 
 }

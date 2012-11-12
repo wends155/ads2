@@ -61,7 +61,7 @@
 			</td>
 			<td>{{order.total * 0.30 | currency: "Php "}}</td>
 			<td><span ng-show="order.date_paid != null">{{order.date_paid *1000 | date: 'MM/d/yyyy'}}</span><span ng-show="order.date_paid == null">No</span> </td>
-			<td><span ng-show="order.date_paid != null">{{order.date_claimed *1000 | date: 'MM/d/yyyy' }}</span><span ng-show="order.date_paid == null">No</span> </td>
+			<td><span ng-show="order.date_claimed != null">{{order.date_claimed *1000 | date: 'MM/d/yyyy' }}</span><span ng-show="order.date_paid == null">No</span> </td>
 			<td>{{order.due | date: 'MM/d/yyyy'}}</td>
 			<td> </td>
 		</tr>

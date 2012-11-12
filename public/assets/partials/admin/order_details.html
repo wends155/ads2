@@ -1,1 +1,82 @@
 <legend>Order Details</legend>
+<img src="/assets/img/spinner.gif" alt="" ng-show="!spinner">
+<div ng-show="!!spinner">
+	<form class="form-horizontal">
+		<div class="control-group">
+			<label for="" class="control-label">Order #</label>
+			<div class="controls">
+				<input type="text" ng-model="order.id" disabled>
+			</div>
+		</div>
+		<div class="control-group">
+			<label for="" class="control-label">Date</label>
+			<div class="controls">
+				<input type="text" value="{{order.date * 1000 | date: 'MM/dd/yyyy'}}" disabled>
+			</div>
+		</div>
+		<div class="control-group">
+			<label for="" class="control-label">Dealer</label>
+			<div class="controls">
+				<input type="text" value="{{order.user.fullname}}" disabled>
+			</div>
+		</div>
+		<div class="control-group">
+			<label for="" class="control-label">Total</label>
+			<div class="controls">
+				<input type="text" value="{{order.total | currency: 'Php '}}" disabled>
+			</div>
+		</div>
+		<div class="control-group">
+			<label for="" class="control-label">Downpayment (30%)</label>
+			<div class="controls">
+				<input type="text" value="{{order.downpayment | currency: 'Php '}}" disabled>
+			</div>
+		</div>
+		<div class="control-group">
+			<label for="" class="control-label">Items</label>
+			<div class="controls">
+				<table class="table table-hover table-bordered">
+					<thead>
+						<tr>
+							<th>Product</th>
+							<th>Quantity</th>
+							<th>Subtotal</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr ng-repeat="item in order.items">
+							<td>{{item.product.name}} </td>
+							<td>{{item.quantity}} </td>
+							<td>{{item.subtotal | currency: 'Php '}}</td>
+						</tr>
+
+					</tbody>
+				</table>
+			</div>
+		</div>
+		<div class="control-group">
+			<label for="" class="control-label">Date Claimed</label>
+			<div class="controls">
+				<input type="text" ng-show="order.date_claimed != null" value="{{order.date_claimed * 1 | date:'MM/dd/yyyy' }}" disabled> 
+			    <span ng-show="order.date_claimed == null"><a href="" class="btn">Claim Order</a> </span>
+			</div>
+		</div>
+		<div class="control-group">
+			<label for="" class="control-label">Date Paid</label>
+			<div class="controls">
+				<input type="text" ng-show="order.date_paid != null" value="{{order.date_paid * 1 | date:'MM/dd/yyyy' }}" disabled> 
+			    <span ng-show="order.date_paid == null"><a href="" class="btn">Pay Order</a> </span>
+			</div>
+		</div>
+		<div class="control-group">
+			<label for="" class="control-label">Due</label>
+			<div class="controls">
+				<input type="text" ng-show="order.due != null" value="{{order.due *1 | date:'MM/dd/yyyy' " disabled>
+				<span ng-show="order.due == null">Not yet Claimed </span>
+			</div>
+		</div>
+		<div class="form-actions">
+			<a href="#/orders" class="btn btn-primary">Back to Orders</a>
+		</div>
+	</form>
+</div>
