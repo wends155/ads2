@@ -41,6 +41,7 @@
 							<th>Product</th>
 							<th>Quantity</th>
 							<th>Subtotal</th>
+							<th></th>
 						</tr>
 					</thead>
 					<tbody>
@@ -48,6 +49,7 @@
 							<td>{{item.product.name}} </td>
 							<td>{{item.quantity}} </td>
 							<td>{{item.subtotal | currency: 'Php '}}</td>
+							<td><button ng-click="return(item.id)" class="btn" >Return/Exchange</button> </td>
 						</tr>
 
 					</tbody>

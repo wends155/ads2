@@ -122,6 +122,14 @@ admin.config(['$routeProvider','$locationProvider',($routeProvider,$locationProv
 		templateUrl: "#{adtmpl}/sales.html"
 		controller: SalesCtrl
 		})
+	.when('/retex',{
+		templateUrl: "#{adtmpl}/retex.html"
+		controller: RetExCtrl
+		})
+	.when('/return/:id',{
+			templateUrl: "#{adtmpl}/return.html"
+			controller: UserReturnCtrl
+			})
 	.otherwise({redirectTo:'/'})
 	#$locationProvider.html5Mode(true)
 	@

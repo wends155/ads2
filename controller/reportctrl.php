@@ -55,28 +55,40 @@ class ReportCtrl{
 				$id = $request->id;
 				
 				$order = Order::findById($id);
-				$report = Zend_Pdf::load('../pdf/TrustReceipt.pdf');
+				$report = Zend_Pdf::load('../pdf/trustrec.pdf');
 				$page = $report->pages[0];
 				$font = Zend_Pdf_Font::fontWithName(Zend_Pdf_Font::FONT_TIMES);
 				$page->setFont($font,11);
 				
-				$page->drawText(Time::unixToDate($order->date),480,710);
-				$page->drawText($order->id,110,697);
-				$page->drawText($order->user->profile->fullname,110,685);
-				$page->drawText($order->user->profile->address,110,670);
+				$page->drawText(Time::unixToDate(time()),460,900);
+				$page->drawText(Time::unixToDate(time()),460,455);
+				$page->drawText('Order#: ' . $order->id,400,910);
+				$page->drawText('Order#: ' . $order->id,400,465);
+				$page->drawText($order->user->profile->fullname,100,900);
+				$page->drawText($order->user->profile->fullname,100,455);
+				$page->drawText($order->user->profile->address,440,530);
+				$page->drawText($order->user->profile->address,440,85);
+				$page->drawText($order->user->profile->fullname,445,555);
+				$page->drawText($order->user->profile->fullname,445,109);
 
-				$row = 620;
+				$row = 850;
+
 				foreach ($order->items as $item) {
 					# code...
-					$page->drawText($item->product->name,60,$row);
-					$page->drawText($item->quantity,200,$row);
-					$page->drawText( money_format('Php %5.2n', $item->product->price),320,$row);
-					$page->drawText( money_format('Php %5.2n', $item->subtotal),450,$row);
+					$page->drawText($item->product->name,80,$row);
+					$page->drawText($item->product->name,80,$row-446);
+					$page->drawText($item->quantity,45,$row);
+					$page->drawText($item->quantity,45,$row-446);
+					$page->drawText( money_format('%5.2n', $item->product->price),315,$row);
+					$page->drawText( money_format('Php %5.2n', $item->subtotal),370,$row);
+					$page->drawText( money_format('%5.2n', $item->product->price),315,$row-446);
+					$page->drawText( money_format('Php %5.2n', $item->subtotal),370,$row-446);
 
-					$row -= 20;
+					$row -= 17;
 				}
-				$page->drawText( money_format('Php %5.2n', $order->total),450,505);
-				$page->drawText( money_format('Php %5.2n', $order->total * 0.30),450,485);
+				$page->drawText( money_format('Php %5.2n', $order->total),370,562);
+				$page->drawText( money_format('Php %5.2n', $order->total),370,118);
+				#$page->drawText( money_format('Php %5.2n', $order->total * 0.30),450,485);
 
 				echo $report->render();
 				

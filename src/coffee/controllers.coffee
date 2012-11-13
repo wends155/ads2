@@ -231,6 +231,8 @@ OrderDetailCtrl = ['$scope','$routeParams','adOrder','$location',($scope,$routeP
 	)
 	$scope.pay = (id)->
 		$location.path("/orders/pay/#{id}")
+	$scope.return = (id) ->
+		$location.path("/return/#{id}")
 
 ]
 
@@ -420,6 +422,10 @@ StockReportCtrl = ['$scope',($scope)->
 
 SalesCtrl = ['$scope','Sales',($scope,Sales)->
 	window.sales = Sales
+]
+
+RetExCtrl = ['$scope',($scope)->
+
 ]
 
 admin.controller('MenuCtrl',MenuCtrl)
