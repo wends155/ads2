@@ -763,6 +763,7 @@
         $scope.data = data;
         $scope.products = data;
         $scope.spinner = true;
+        $scope.search = "";
         return console.log(data);
       });
       $scope.add = function(product) {
@@ -770,7 +771,108 @@
         Cart.add(product);
         return $location.path('/cart');
       };
-      $scope.filterCompany = function() {};
+      $scope.filterCompany = function() {
+        var category_id, company_id, fcat, filtered, o;
+        console.log($scope.option.company.id);
+        company_id = $scope.option.company.id;
+        if (($scope.option.category != null)) {
+          category_id = $scope.option.category.id;
+          fcat = (function() {
+            var _i, _len, _ref, _results;
+            _ref = $scope.data;
+            _results = [];
+            for (_i = 0, _len = _ref.length; _i < _len; _i++) {
+              o = _ref[_i];
+              if (o.category_id === category_id) {
+                _results.push(o);
+              }
+            }
+            return _results;
+          })();
+          console.log(fcat);
+          filtered = (function() {
+            var _i, _len, _results;
+            _results = [];
+            for (_i = 0, _len = fcat.length; _i < _len; _i++) {
+              o = fcat[_i];
+              if (o.company_id === company_id) {
+                _results.push(o);
+              }
+            }
+            return _results;
+          })();
+          return $scope.products = filtered;
+        } else {
+          filtered = (function() {
+            var _i, _len, _ref, _results;
+            _ref = $scope.data;
+            _results = [];
+            for (_i = 0, _len = _ref.length; _i < _len; _i++) {
+              o = _ref[_i];
+              if (o.company_id === company_id) {
+                _results.push(o);
+              }
+            }
+            return _results;
+          })();
+          console.log(filtered);
+          return $scope.products = filtered;
+        }
+      };
+      $scope.filterCategory = function() {
+        var company_id, fcomp, filtered, id, o;
+        console.log($scope.option.category.id);
+        id = $scope.option.category.id;
+        if (($scope.option.company != null)) {
+          company_id = $scope.option.company.id;
+          fcomp = (function() {
+            var _i, _len, _ref, _results;
+            _ref = $scope.data;
+            _results = [];
+            for (_i = 0, _len = _ref.length; _i < _len; _i++) {
+              o = _ref[_i];
+              if (o.company_id === company_id) {
+                _results.push(o);
+              }
+            }
+            return _results;
+          })();
+          console.log(fcomp);
+          filtered = (function() {
+            var _i, _len, _results;
+            _results = [];
+            for (_i = 0, _len = fcomp.length; _i < _len; _i++) {
+              o = fcomp[_i];
+              if (o.category_id === id) {
+                _results.push(o);
+              }
+            }
+            return _results;
+          })();
+          console.log(filtered);
+          return $scope.products = filtered;
+        } else {
+          filtered = (function() {
+            var _i, _len, _ref, _results;
+            _ref = $scope.data;
+            _results = [];
+            for (_i = 0, _len = _ref.length; _i < _len; _i++) {
+              o = _ref[_i];
+              if (o.category_id === id) {
+                _results.push(o);
+              }
+            }
+            return _results;
+          })();
+          return $scope.products = filtered;
+        }
+      };
+      $scope.reset = function() {
+        $scope.products = $scope.data;
+        $scope.option.company = null;
+        $scope.option.category = null;
+        return $scope.search = "";
+      };
       return window.test = function() {
         return console.log($scope.option);
       };

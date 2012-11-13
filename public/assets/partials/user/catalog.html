@@ -6,12 +6,13 @@
 	</div>
 	
 	<div class="controls controls-row">
-		<select ng-model="option.company" ng-options="c.name for c in companies" ng-change="" >
+		<select ng-model="option.company" ng-options="c.name for c in companies" ng-change="filterCompany()">
 			<option value="">Filter By Company</option>
 		</select>
-		<select ng-model="option.category" ng-options="c.name for c in categories"  >
+		<select ng-model="option.category" ng-options="c.name for c in categories" ng-change="filterCategory()" >
 			<option value="">Filter By Category</option>
 		</select>
+		<button class="btn" ng-click="reset()">Reset Search Options</button>
 	</div>
 	
 <div>
@@ -24,7 +25,7 @@
 			</tr>
 		</thead>
 		<tbody>
-			<tr ng-repeat="product in products | filter: search">
+			<tr ng-repeat="product in products | filter: {name:search}">
 				<td>{{product.name}} </td>
 				<td><button class="btn btn-small" ng-click="add(product)"><i class="icon-shopping-cart"></i> Add to Cart</button> </td>
 			</tr>

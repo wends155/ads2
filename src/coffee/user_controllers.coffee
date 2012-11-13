@@ -10,6 +10,7 @@ UserCatalogCtrl = ['$scope','Company','Category','Product','Cart','$location',
 		$scope.data = data
 		$scope.products = data
 		$scope.spinner = true
+		$scope.search = ""
 		console.log data
 	)
 
@@ -20,7 +21,42 @@ UserCatalogCtrl = ['$scope','Company','Category','Product','Cart','$location',
 		$location.path('/cart')
 
 	$scope.filterCompany = ->
+		console.log  $scope.option.company.id
+		company_id = $scope.option.company.id
 		
+		if($scope.option.category?)
+			category_id = $scope.option.category.id
+			fcat = (o for o in $scope.data when o.category_id == category_id)
+			console.log fcat
+			filtered = (o for o in fcat when o.company_id == company_id)
+			$scope.products = filtered
+		else
+			filtered = (o for o in $scope.data when o.company_id == company_id )
+			console.log  filtered
+			$scope.products = filtered
+
+	$scope.filterCategory = ->
+		console.log $scope.option.category.id
+		id = $scope.option.category.id
+		
+		if($scope.option.company?)
+			company_id = $scope.option.company.id
+			#console.log company_id
+			fcomp = (o for o in $scope.data when o.company_id == company_id )
+			console.log fcomp
+			filtered = (o for o in fcomp when o.category_id == id)
+			console.log filtered
+			$scope.products = filtered
+
+		else
+			filtered = (o for o in $scope.data when o.category_id == id)
+			$scope.products = filtered
+		
+	$scope.reset = ->
+		$scope.products = $scope.data
+		$scope.option.company = null
+		$scope.option.category = null
+		$scope.search = ""
 
 	window.test = ->
 		console.log $scope.option
