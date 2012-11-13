@@ -180,6 +180,7 @@ OrderCtrl = ['$scope','adOrder',($scope,Order)->
 	#window.order = Order
 	Order.query((data)->
 		#console.log data
+		$scope.data = data
 		$scope.orders = data
 		$scope.spinner = true
 	)
@@ -189,6 +190,32 @@ OrderCtrl = ['$scope','adOrder',($scope,Order)->
 		order.balance = order.total - order.downpayment
 		order.$save()
 		humane.log "Order claimed"
+
+	$scope.filterClaim = ->
+		console.log "claim: #{$scope.claimed}"
+		if($scope.claimed)
+			filter = (o for o in $scope.data when o.date_claimed != null)
+			#console.log filter
+			$scope.orders = filter
+		else
+			filter = (o for o in $scope.data when o.date_claimed == null)
+			$scope.orders = filter
+			#console.log filter
+		
+	$scope.filterPay = ->
+		#console.log "pay: #{$scope.paid}"
+		if($scope.paid)
+			filter = (p for p in $scope.data when p.date_paid != null)
+			$scope.orders = filter
+		else
+			filter = (p for p in $scope.data when p.date_paid == null)
+			$scope.orders = filter
+
+
+	$scope.reset = ->
+		$scope.orders = $scope.data
+		$scope.claimed = false
+		$scope.paid = false
 ]
 
 OrderDetailCtrl = ['$scope','$routeParams','adOrder',($scope,$routeParams,Order)->
@@ -198,6 +225,7 @@ OrderDetailCtrl = ['$scope','$routeParams','adOrder',($scope,$routeParams,Order)
 		$scope.spinner = true
 		console.log data
 	)
+
 ]
 
 OrderClaimCtrl = ['$scope','$routeParams','adOrder','Sales','$location',($scope,$routeParams,Order,Sales,$location)->
@@ -221,8 +249,25 @@ OrderClaimCtrl = ['$scope','$routeParams','adOrder','Sales','$location',($scope,
 
 ]
 
-OrderPayCtrl = ['$scope','$routeParams','adOrder',($scope,$routeParams,Order)->
-	console.log $routeParams.id
+OrderPayCtrl = ['$scope','$routeParams','adOrder','Sales','$location',($scope,$routeParams,Order,Sales,$location)->
+	Order.get({id:$routeParams.id},(data)->
+		$scope.order = data
+		$scope.spinner = true
+	)
+	$scope.submit = ->
+		current_date = Math.round(Date.now()/1000)
+		amount = parseFloat( $scope.order.balance)
+		$scope.order.date_paid = current_date
+		$scope.order.balance = parseFloat($scope.order.balance) - amount
+		console.log $scope.order.balance
+		$scope.order.$save()
+
+		sales = new Sales()
+		sales.date = current_date
+		sales.order_id = $scope.order.id
+		sales.amount = amount
+		sales.$save()
+		$location.path('/orders')
 ]
 
 ProfilesCtrl = ['$scope','adProfiles',($scope,profiles)->

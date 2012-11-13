@@ -1,6 +1,50 @@
 <legend>Pay Remaining Balance of Order</legend>
-<div>
-	<form class="form-horizontal">
+<img src="/assets/img/spinner.gif" alt="" ng-show="!spinner">
+<div ng-show="!!spinner">
+	<form ng-submit="submit()" class="form-horizontal">
+		<div class="control-group">
+			<label for="" class="control-label">Order ID</label>
+			<div class="controls">
+				<input type="text" value="{{order.id}}" disabled>
+			</div>
+		</div>
+		<div class="control-group">
+			<label for="" class="control-label">Order Date</label>
+			<div class="controls">
+				<input type="text" value="{{order.date * 1000 | date:'mediumDate'}}" disabled>
+			</div>
+		</div>
+		<div class="control-group">
+			<label for="" class="control-label">Dealer ID</label>
+			<div class="controls">
+				<input type="text" value="{{order.user.id}}" disabled>
+			</div>
+		</div>
+		<div class="control-group">
+			<label for="" class="control-label">Dealer Name</label>
+			<div class="controls">
+				<input type="text" value="{{order.user.fullname}}" disabled>
+			</div>
+		</div>
+		<div class="control-group">
+			<label for="" class="control-label">Order Total</label>
+			<div class="controls">
+				<input type="text" value="{{order.total | currency: 'Php '}}" disabled>
+			</div>
+		</div>
+		<div class="control-group">
+			<label for="" class="control-label">Order Balance</label>
+			<div class="controls">
+				<input ng-show="order.balance != null" type="text" value="{{order.balance | currency: 'Php '}}" disabled>
+				<input type="text" ng-show="order.balance == null" value="{{order.total | currency: 'Php '}}" disabled>
+			</div>
+		</div>
+		<div class="control-group">
+			<label for="" class="control-label">Amount to be paid</label>
+			<div class="controls">
+				<span class="input-xxlarge uneditable-input"><strong>{{order.balance | currency:'Php '}}</strong> </span>
+			</div>
+		</div>
 		<div class="form-actions">
 			<input type="submit" class="btn btn-primary btn-large" value="Pay" />
 			<a href="#/orders" class="btn btn-large">Cancel</a>

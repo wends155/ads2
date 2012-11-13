@@ -350,15 +350,86 @@
   OrderCtrl = [
     '$scope', 'adOrder', function($scope, Order) {
       Order.query(function(data) {
+        $scope.data = data;
         $scope.orders = data;
         return $scope.spinner = true;
       });
-      return $scope.claim = function(order) {
+      $scope.claim = function(order) {
         order.date_claimed = Date.now() / 1000;
         console.log(order.total - order.downpayment);
         order.balance = order.total - order.downpayment;
         order.$save();
         return humane.log("Order claimed");
+      };
+      $scope.filterClaim = function() {
+        var filter, o;
+        console.log("claim: " + $scope.claimed);
+        if ($scope.claimed) {
+          filter = (function() {
+            var _i, _len, _ref, _results;
+            _ref = $scope.data;
+            _results = [];
+            for (_i = 0, _len = _ref.length; _i < _len; _i++) {
+              o = _ref[_i];
+              if (o.date_claimed !== null) {
+                _results.push(o);
+              }
+            }
+            return _results;
+          })();
+          return $scope.orders = filter;
+        } else {
+          filter = (function() {
+            var _i, _len, _ref, _results;
+            _ref = $scope.data;
+            _results = [];
+            for (_i = 0, _len = _ref.length; _i < _len; _i++) {
+              o = _ref[_i];
+              if (o.date_claimed === null) {
+                _results.push(o);
+              }
+            }
+            return _results;
+          })();
+          return $scope.orders = filter;
+        }
+      };
+      $scope.filterPay = function() {
+        var filter, p;
+        if ($scope.paid) {
+          filter = (function() {
+            var _i, _len, _ref, _results;
+            _ref = $scope.data;
+            _results = [];
+            for (_i = 0, _len = _ref.length; _i < _len; _i++) {
+              p = _ref[_i];
+              if (p.date_paid !== null) {
+                _results.push(p);
+              }
+            }
+            return _results;
+          })();
+          return $scope.orders = filter;
+        } else {
+          filter = (function() {
+            var _i, _len, _ref, _results;
+            _ref = $scope.data;
+            _results = [];
+            for (_i = 0, _len = _ref.length; _i < _len; _i++) {
+              p = _ref[_i];
+              if (p.date_paid === null) {
+                _results.push(p);
+              }
+            }
+            return _results;
+          })();
+          return $scope.orders = filter;
+        }
+      };
+      return $scope.reset = function() {
+        $scope.orders = $scope.data;
+        $scope.claimed = false;
+        return $scope.paid = false;
       };
     }
   ];
@@ -403,8 +474,28 @@
   ];
 
   OrderPayCtrl = [
-    '$scope', '$routeParams', 'adOrder', function($scope, $routeParams, Order) {
-      return console.log($routeParams.id);
+    '$scope', '$routeParams', 'adOrder', 'Sales', '$location', function($scope, $routeParams, Order, Sales, $location) {
+      Order.get({
+        id: $routeParams.id
+      }, function(data) {
+        $scope.order = data;
+        return $scope.spinner = true;
+      });
+      return $scope.submit = function() {
+        var amount, current_date, sales;
+        current_date = Math.round(Date.now() / 1000);
+        amount = parseFloat($scope.order.balance);
+        $scope.order.date_paid = current_date;
+        $scope.order.balance = parseFloat($scope.order.balance) - amount;
+        console.log($scope.order.balance);
+        $scope.order.$save();
+        sales = new Sales();
+        sales.date = current_date;
+        sales.order_id = $scope.order.id;
+        sales.amount = amount;
+        sales.$save();
+        return $location.path('/orders');
+      };
     }
   ];
 

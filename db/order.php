@@ -100,7 +100,7 @@ class Order extends Model{
 		$model['total'] = $this->total;
 		$model['downpayment'] = $this->total * 0.30;
 		if($model['date_claimed']){
-			$model['due'] = intval($model['date_claimed']) + (3600*24*30); 
+			$model['due'] = strtotime('+30 days',intval($model['date_claimed'])); 
 	
 		}
 		
@@ -149,7 +149,7 @@ class Order extends Model{
 		$this->date_paid 	=	$data->date_paid ? $data->date_paid : $this->date_paid;
 		$this->date_claimed =	$data->date_claimed ? $data->date_claimed : $this->date_claimed;
 		$this->due 		=	$data->due ? $data->due : $this->due;
-		$this->balance = $data->balance ? $data->balance : $this->balance;
+		$this->balance = $data->balance;
 
 		$this->save(); 
 	}
