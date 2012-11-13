@@ -6,7 +6,7 @@
 	</div>
 	
 	<div class="controls controls-row">
-		<select ng-model="option.company" ng-options="c.name for c in companies" >
+		<select ng-model="option.company" ng-options="c.name for c in companies" ng-change="" >
 			<option value="">Filter By Company</option>
 		</select>
 		<select ng-model="option.category" ng-options="c.name for c in categories"  >

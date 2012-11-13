@@ -747,15 +747,24 @@
 
   UserCatalogCtrl = [
     '$scope', 'Company', 'Category', 'Product', 'Cart', '$location', function($scope, Company, Category, Product, Cart, $location) {
-      $scope.companies = Company.query();
-      $scope.categories = Category.query();
-      $scope.products = Product.query(function(data) {
-        return $scope.spinner = true;
+      Company.query(function(data) {
+        return $scope.companies = data;
       });
-      return $scope.add = function(product) {
+      Category.query(function(data) {
+        return $scope.categories = data;
+      });
+      Product.query(function(data) {
+        $scope.products = data;
+        $scope.spinner = true;
+        return console.log(data);
+      });
+      $scope.add = function(product) {
         product.quantity = 1;
         Cart.add(product);
         return $location.path('/cart');
+      };
+      return window.test = function() {
+        return console.log($scope.option);
       };
     }
   ];

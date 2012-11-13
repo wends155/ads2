@@ -22,7 +22,7 @@
 			<th><input type="checkbox" ng-model="paid" ng-click="filterPaid()"> <a href="" ng-click="paid=!paid;filterPaid()">Paid</a> </th>
 			<th><input type="checkbox" ng-model="claimed" ng-click="filterClaimed()"> <a href="" ng-click="claimed=!claimed;filterClaimed()">Claimed</a></th>
 			<th>Due</th>
-			<th>TR</th>
+			
 		</tr>
 	</thead>
 	<tbody>
@@ -63,14 +63,14 @@
 			<td><span ng-show="order.date_paid != null">{{order.date_paid *1000 | date: 'MM/d/yyyy'}}</span><span ng-show="order.date_paid == null">No</span> </td>
 			<td><span ng-show="order.date_claimed != null">{{order.date_claimed *1000 | date: 'MM/d/yyyy' }}</span><span ng-show="order.date_claimed == null">No</span> </td>
 			<td><span ng-show="order.due != null">{{order.date_claimed *1000 | date: 'MM/d/yyyy' }}</span><span ng-show="order.due == null">Not Yet</span> </td>
-			<td><a target="_blank" ng-href="/order/{{order.id}}/receipt.pdf" class="btn">Receipt</a> </td>
+			
 		</tr>
 		<tr>
 			<td colspan="2"></td>
 			<td align="right">Total: </td>
 			<td><strong>{{total | currency: 'Php '}}</strong> </td>
 			<td><strong>{{dptotal | currency: 'Php '}}</strong> </td>
-			<td colspan="4"></td>
+			<td colspan="3"></td>
 		</tr>
 	</tbody>
 

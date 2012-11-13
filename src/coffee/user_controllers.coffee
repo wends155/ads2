@@ -1,19 +1,29 @@
 UserCatalogCtrl = ['$scope','Company','Category','Product','Cart','$location', 
 ($scope,Company, Category,Product,Cart,$location)->
-	$scope.companies = Company.query()
-	$scope.categories = Category.query()
-	$scope.products = Product.query((data)->
+	Company.query((data)->
+		$scope.companies = data
+	)
+	Category.query((data)->
+		$scope.categories = data
+	)
+	Product.query((data)->
+		$scope.data = data
+		$scope.products = data
 		$scope.spinner = true
-		)
+		console.log data
+	)
 
-	#console.log $scope.categories
-	#console.log $scope.companies
-	#console.log $scope.products
-
+	
 	$scope.add = (product)->
 		product.quantity = 1
 		Cart.add(product)
 		$location.path('/cart')
+
+	$scope.filterCompany = ->
+		
+
+	window.test = ->
+		console.log $scope.option
 
 ]
 
