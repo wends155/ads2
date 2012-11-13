@@ -59,6 +59,19 @@ UserCartCtrl = ['$scope','Cart','$location','Order', ($scope,Cart,$location,Orde
 ]
 
 UserOrderCtrl = ['$scope','Order','$location',($scope,Order,$location)->
+	$scope.getTotal = ->
+		total = 0
+		total += o.total for o in $scope.orders
+
+		dptotal = 0
+		dptotal += o.downpayment for o in $scope.orders
+
+		console.log total
+		console.log dptotal
+
+		$scope.total = total
+		$scope.dptotal = dptotal
+	
 	window.order = Order
 	Order.query((data)->
 		$scope.data = data
@@ -67,16 +80,20 @@ UserOrderCtrl = ['$scope','Order','$location',($scope,Order,$location)->
 		$scope.reverse = true
 		$scope.spinner = true
 		#console.log $scope.orders
+		$scope.getTotal()
+		console.log $scope.total
 	)
 	$scope.filterPaid = ->
 		
 			if($scope.paid)
 				o = (ord for ord in $scope.data when ord.date_paid != null)
 				$scope.orders = o
+				$scope.getTotal()
 				#console.log o
 			else 
 				o = (ord for ord in $scope.data when ord.date_paid == null)
 				$scope.orders = o
+				$scope.getTotal()
 				#console.log o
 		
 	$scope.filterClaimed = ->
@@ -84,16 +101,24 @@ UserOrderCtrl = ['$scope','Order','$location',($scope,Order,$location)->
 			if($scope.claimed)
 				o = (ord for ord in $scope.data when ord.date_claimed != null)
 				$scope.orders = o
+				$scope.getTotal()
 			else
 				o = (ord for ord in $scope.data when ord.date_claimed == null)
 				$scope.orders = o
+				$scope.getTotal()
 	$scope.reset = ->
 		$scope.paid = false
 		$scope.claimed = false
 		$scope.orders = $scope.data
+		$scope.getTotal()
+		
 	$scope.return = (item) ->
 		#console.log item
 		$location.path("/return/#{item.id}")
+	$scope.total = ->
+		
+
+
 ]
 
 UserProfileCtrl = ['$scope','$http','Profile',($scope,$http,Profile)->

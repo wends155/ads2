@@ -50,7 +50,7 @@
 							<td>{{item.price | currency:""}} </td>
 							<td>{{item.quantity}} </td>
 							<td>{{item.subtotal | currency: "Php "}} </td>
-							<td><button class="btn" ng-click="return(item)" >Return/Exch</button></td>
+							<td><button class="btn" ng-click="return(item)" >Ret/Exch</button></td>
 						</tr>
 						
 					</tbody>
@@ -64,6 +64,13 @@
 			<td><span ng-show="order.date_claimed != null">{{order.date_claimed *1000 | date: 'MM/d/yyyy' }}</span><span ng-show="order.date_claimed == null">No</span> </td>
 			<td><span ng-show="order.due != null">{{order.date_claimed *1000 | date: 'MM/d/yyyy' }}</span><span ng-show="order.due == null">Not Yet</span> </td>
 			<td><a target="_blank" ng-href="/order/{{order.id}}/receipt.pdf" class="btn">Receipt</a> </td>
+		</tr>
+		<tr>
+			<td colspan="2"></td>
+			<td align="right">Total: </td>
+			<td><strong>{{total | currency: 'Php '}}</strong> </td>
+			<td><strong>{{dptotal | currency: 'Php '}}</strong> </td>
+			<td colspan="4"></td>
 		</tr>
 	</tbody>
 

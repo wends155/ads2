@@ -814,13 +814,34 @@
 
   UserOrderCtrl = [
     '$scope', 'Order', '$location', function($scope, Order, $location) {
+      $scope.getTotal = function() {
+        var dptotal, o, total, _i, _j, _len, _len1, _ref, _ref1;
+        total = 0;
+        _ref = $scope.orders;
+        for (_i = 0, _len = _ref.length; _i < _len; _i++) {
+          o = _ref[_i];
+          total += o.total;
+        }
+        dptotal = 0;
+        _ref1 = $scope.orders;
+        for (_j = 0, _len1 = _ref1.length; _j < _len1; _j++) {
+          o = _ref1[_j];
+          dptotal += o.downpayment;
+        }
+        console.log(total);
+        console.log(dptotal);
+        $scope.total = total;
+        return $scope.dptotal = dptotal;
+      };
       window.order = Order;
       Order.query(function(data) {
         $scope.data = data;
         $scope.orders = data;
         $scope.predicate = '';
         $scope.reverse = true;
-        return $scope.spinner = true;
+        $scope.spinner = true;
+        $scope.getTotal();
+        return console.log($scope.total);
       });
       $scope.filterPaid = function() {
         var o, ord;
@@ -837,7 +858,8 @@
             }
             return _results;
           })();
-          return $scope.orders = o;
+          $scope.orders = o;
+          return $scope.getTotal();
         } else {
           o = (function() {
             var _i, _len, _ref, _results;
@@ -851,7 +873,8 @@
             }
             return _results;
           })();
-          return $scope.orders = o;
+          $scope.orders = o;
+          return $scope.getTotal();
         }
       };
       $scope.filterClaimed = function() {
@@ -869,7 +892,8 @@
             }
             return _results;
           })();
-          return $scope.orders = o;
+          $scope.orders = o;
+          return $scope.getTotal();
         } else {
           o = (function() {
             var _i, _len, _ref, _results;
@@ -883,17 +907,20 @@
             }
             return _results;
           })();
-          return $scope.orders = o;
+          $scope.orders = o;
+          return $scope.getTotal();
         }
       };
       $scope.reset = function() {
         $scope.paid = false;
         $scope.claimed = false;
-        return $scope.orders = $scope.data;
+        $scope.orders = $scope.data;
+        return $scope.getTotal();
       };
-      return $scope["return"] = function(item) {
+      $scope["return"] = function(item) {
         return $location.path("/return/" + item.id);
       };
+      return $scope.total = function() {};
     }
   ];
 
