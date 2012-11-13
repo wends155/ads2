@@ -9,8 +9,7 @@ require '../order.php';
 #$order->update($data);
 #print_r($order->as_array());
 #print_r($data);
-$order = Order::findById(1);
-$order->balance = 90;
-print_r($order->as_array());
+$order = Order::findById(6);
+print_r($order->items->as_array());
 
 ?>
