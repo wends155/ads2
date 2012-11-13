@@ -65,7 +65,7 @@
 			<label for="" class="control-label">Date Paid</label>
 			<div class="controls">
 				<input type="text" ng-show="order.date_paid != null" value="{{order.date_paid * 1000 | date:'MM/dd/yyyy' }}" disabled> 
-			    <span ng-show="order.date_paid == null"><a href="" class="btn">Pay Order</a> </span>
+			    <span ng-show="order.date_paid == null"><button ng-click="pay(order.id)" class="btn" ng-disabled="order.date_claimed == null">Pay Order</button> </span>
 			</div>
 		</div>
 		<div class="control-group">

@@ -24,7 +24,7 @@
 				<td>{{order.total | currency: 'Php '}} </td>
 				<td>{{order.downpayment | currency: 'Php '}} </td>
 				<td><span ng-show="order.date_claimed != null">{{order.date_claimed *1000 | date: 'MM/dd/yyyy'}} </span><span ng-show="order.date_claimed == null"><a ng-href="#/orders/claim/{{order.id}}" class="btn btn-small">claim </a></span> </td>
-				<td><span ng-show="order.date_paid != null">{{order.date_paid *1000 | date: 'MM/dd/yyyy'}} </span><span  ng-show="order.date_paid == null"><a ng-href="#/orders/pay/{{order.id}}" class="btn btn-small">pay</a> </span> </td>
+				<td><span ng-show="order.date_paid != null">{{order.date_paid *1000 | date: 'MM/dd/yyyy'}} </span><span  ng-show="order.date_paid == null"><button ng-click="pay(order.id)" class="btn btn-small" ng-disabled="order.date_claimed == null">pay</button> </span> </td>
 				<td><span ng-show="order.due != null">{{order.due *1000 | date: 'MM/dd/yyyy'}} </span><span ng-show="order.due == null">None</span> </td>
 				<td><span ng-show="order.date_claimed != null"><a target="_blank" ng-href="/order/{{order.id}}/receipt.pdf" class="btn">Receipt</a></span> </td>
 			</tr>

@@ -348,7 +348,7 @@
   ];
 
   OrderCtrl = [
-    '$scope', 'adOrder', function($scope, Order) {
+    '$scope', 'adOrder', '$location', function($scope, Order, $location) {
       Order.query(function(data) {
         $scope.data = data;
         $scope.orders = data;
@@ -426,24 +426,30 @@
           return $scope.orders = filter;
         }
       };
-      return $scope.reset = function() {
+      $scope.reset = function() {
         $scope.orders = $scope.data;
         $scope.claimed = false;
         return $scope.paid = false;
+      };
+      return $scope.pay = function(id) {
+        return $location.path("/orders/pay/" + id);
       };
     }
   ];
 
   OrderDetailCtrl = [
-    '$scope', '$routeParams', 'adOrder', function($scope, $routeParams, Order) {
+    '$scope', '$routeParams', 'adOrder', '$location', function($scope, $routeParams, Order, $location) {
       console.log($routeParams.id);
-      return Order.get({
+      Order.get({
         id: $routeParams.id
       }, function(data) {
         $scope.order = data;
         $scope.spinner = true;
         return console.log(data);
       });
+      return $scope.pay = function(id) {
+        return $location.path("/orders/pay/" + id);
+      };
     }
   ];
 
@@ -754,6 +760,7 @@
         return $scope.categories = data;
       });
       Product.query(function(data) {
+        $scope.data = data;
         $scope.products = data;
         $scope.spinner = true;
         return console.log(data);
@@ -763,6 +770,7 @@
         Cart.add(product);
         return $location.path('/cart');
       };
+      $scope.filterCompany = function() {};
       return window.test = function() {
         return console.log($scope.option);
       };

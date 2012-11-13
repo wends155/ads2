@@ -176,7 +176,7 @@ CategoryDetailCtrl = ['$scope','$routeParams','$http',($scope,$routeParams,$http
 			$scope.caption = "Back"
 ]
 
-OrderCtrl = ['$scope','adOrder',($scope,Order)->
+OrderCtrl = ['$scope','adOrder','$location',($scope,Order,$location)->
 	#window.order = Order
 	Order.query((data)->
 		#console.log data
@@ -216,15 +216,21 @@ OrderCtrl = ['$scope','adOrder',($scope,Order)->
 		$scope.orders = $scope.data
 		$scope.claimed = false
 		$scope.paid = false
+
+	$scope.pay = (id)->
+		
+		$location.path("/orders/pay/#{id}")
 ]
 
-OrderDetailCtrl = ['$scope','$routeParams','adOrder',($scope,$routeParams,Order)->
+OrderDetailCtrl = ['$scope','$routeParams','adOrder','$location',($scope,$routeParams,Order,$location)->
 	console.log $routeParams.id
 	Order.get({id:$routeParams.id},(data)->
 		$scope.order = data
 		$scope.spinner = true
 		console.log data
 	)
+	$scope.pay = (id)->
+		$location.path("/orders/pay/#{id}")
 
 ]
 
