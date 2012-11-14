@@ -21,7 +21,7 @@ while True:
 			
 			rep = "%s \nbalance: %s\ndue: %s" % (localtime,order.balance,order.due)
 			snd.send_sms(sender,rep)
-			#print rep
+			print rep
 			#print out
 		else:
 			print 'command error'
