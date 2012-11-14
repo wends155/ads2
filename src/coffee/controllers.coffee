@@ -436,11 +436,11 @@ WeeklyCtrl = ['$scope','Sales',($scope,Sales)->
 	Sales.query((data)->
 		$scope.data = data
 		console.log data
-		$scope.sales = data
-		total = 0
-		total += parseFloat(s.amount) for s in $scope.sales
-		$scope.total = total
-		
+		#$scope.sales = data
+		#total = 0
+		#total += parseFloat(s.amount) for s in $scope.sales
+		#$scope.total = total
+		$scope.spinner = true
 	)
 
 	$scope.submit = ->
@@ -470,7 +470,7 @@ MonthlyCtrl = ['$scope','Sales',($scope,Sales)->
 		console.log total
 		$scope.sales = f
 		$scope.total = total
-		typeof $scope.year
+		$scope.spinner = true
 	)
 
 	$scope.changeMonth = ->

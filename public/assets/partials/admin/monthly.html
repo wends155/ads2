@@ -1,5 +1,6 @@
 <legend>Monthly Sales</legend>
-<div>
+<img src="/assets/img/spinner.gif" alt="" ng-show="!spinner">
+<div ng-show="!!spinner">
 	For the month of <select ng-model="month" ng-change="changeMonth()">
 		<option value="0">January</option>
 		<option value="1">February</option>

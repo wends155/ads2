@@ -777,17 +777,9 @@
   WeeklyCtrl = [
     '$scope', 'Sales', function($scope, Sales) {
       Sales.query(function(data) {
-        var s, total, _i, _len, _ref;
         $scope.data = data;
         console.log(data);
-        $scope.sales = data;
-        total = 0;
-        _ref = $scope.sales;
-        for (_i = 0, _len = _ref.length; _i < _len; _i++) {
-          s = _ref[_i];
-          total += parseFloat(s.amount);
-        }
-        return $scope.total = total;
+        return $scope.spinner = true;
       });
       return $scope.submit = function() {
         var a, f, from, s, to, total, _i, _len, _ref;
@@ -858,7 +850,7 @@
         console.log(total);
         $scope.sales = f;
         $scope.total = total;
-        return typeof $scope.year;
+        return $scope.spinner = true;
       });
       return $scope.changeMonth = function() {
         var f, s, total, _i, _len;
