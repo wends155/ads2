@@ -184,7 +184,7 @@ UserProfileCtrl = ['$scope','$http','Profile',($scope,$http,Profile)->
 		
 ]
 
-UserReturnCtrl = ['$scope','$location','$routeParams','Item','Alternative',($scope,$location,$routeParams,Item,Alternative)->
+UserReturnCtrl = ['$scope','$location','$routeParams','Item','Alternative','Retex',($scope,$location,$routeParams,Item,Alternative,Retex)->
 	Item.get({id:$routeParams.id}, (data)->
 		console.log data
 		$scope.item = data
@@ -196,6 +196,13 @@ UserReturnCtrl = ['$scope','$location','$routeParams','Item','Alternative',($sco
 	)
 	$scope.submit = ->
 		$scope.item.$save()
+		retex = new Retex()
+		retex.old_product_id = $scope.item.product.id
+		retex.new_product_id = $scope.item.new_product.id
+		retex.date = Math.round(Date.now()/1000)
+		retex.item_id = $scope.item.id
+		retex.done = false
+		retex.$save()
 
 ]
 

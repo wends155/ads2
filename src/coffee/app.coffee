@@ -130,6 +130,14 @@ admin.config(['$routeProvider','$locationProvider',($routeProvider,$locationProv
 			templateUrl: "#{adtmpl}/return.html"
 			controller: UserReturnCtrl
 			})
+	.when('/weekly',{
+		templateUrl: "#{adtmpl}/weekly.html"
+		controller: WeeklyCtrl
+		})
+	.when('/monthly',{
+		templateUrl: "#{adtmpl}/monthly.html"
+		controller: MonthlyCtrl
+		})
 	.otherwise({redirectTo:'/'})
 	#$locationProvider.html5Mode(true)
 	@

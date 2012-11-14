@@ -230,5 +230,8 @@ respond('/order/[i:id]/receipt.pdf',ReportCtrl::user_order_receipt());
 
 respond('/sales',SalesCtrl::index());
 respond('/sales/[i:id]',SalesCtrl::show());
+
+respond('/return', RetExCtrl::index());
+respond('/return/[i:id]', RetExCtrl::show());
 dispatch();
 ?>

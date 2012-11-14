@@ -1,0 +1,38 @@
+<legend>Monthly Sales</legend>
+<div>
+	<select ng-model="month" ng-change="changeMonth()">
+		<option value="0">January</option>
+		<option value="1">February</option>
+		<option value="2">March</option>
+		<option value="3">April</option>
+		<option value="4">May</option>
+		<option value="5">June</option>
+		<option value="6">July</option>
+		<option value="7">August</option>
+		<option value="8">September</option>
+		<option value="9">October</option>
+		<option value="10" ng-selected="currMonth == 10">November</option>
+		<option value="11" ng-selected="currMonth == 11">December</option>
+	</select>
+
+	<table class="table table-hover">
+		<thead>
+			<tr>
+				<th>Date</th>
+				<th>Order #</th>
+				<th>Amount</th>
+			</tr>
+		</thead>
+		<tbody>
+			<tr ng-repeat="sale in sales">
+				<td>{{sale.date*1000 | date:'MM/dd/yyyy' }} </td>
+				<td>{{sale.order_id}} </td>
+				<td>{{sale.amount | currency: 'Php '}} </td>
+			</tr>
+			<tr>
+				<td colspan="2">Total</td>
+				<td><strong>{{total | currency: 'Php '}}</strong> </td>
+			</tr>
+		</tbody>
+	</table>
+</div>

@@ -1,0 +1,42 @@
+<legend>Weeky Sales</legend>
+<div>
+	<form ng-submit="submit()" class="form-horizontal">
+		<div class="control-group">
+		<label for="" class="control-label">From:</label>
+		<div class="controls">
+			<input type="text" ng-model="dateFrom" placeholder="mm/dd/yyyy" required autofocus>
+		</div>
+	</div>
+	<div class="control-group">
+		<label for="" class="control-label">To:</label>
+		<div class="controls">
+			<input type="text" ng-model="dateTo" placeholder="mm/dd/yyyy" required>
+		</div>
+	</div>
+	<div class="form-actions">
+		<button class="btn" type="submit">Show</button>
+	</div>
+	</form>
+	<div>
+		<table class="table table-hover">
+		<thead>
+			<tr>
+				<th>Date</th>
+				<th>Order #</th>
+				<th>Amount</th>
+			</tr>
+		</thead>
+		<tbody>
+			<tr ng-repeat="sale in sales">
+				<td>{{sale.date*1000 | date:'MM/dd/yyyy' }} </td>
+				<td>{{sale.order_id}} </td>
+				<td>{{sale.amount | currency: 'Php '}} </td>
+			</tr>
+			<tr>
+				<td colspan="2">Total</td>
+				<td><strong>{{total | currency: 'Php '}} </strong> </td>
+			</tr>
+		</tbody>
+	</table>
+	</div>
+</div>

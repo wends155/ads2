@@ -17,3 +17,4 @@ adminRest.factory('Stock',['$resource',($resource)->
 adminRest.factory('Sales',['$resource',($resource)->
 	$resource('/sales/:id', {id:'@id'})
 ])
+

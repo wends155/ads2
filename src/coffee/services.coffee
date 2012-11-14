@@ -30,6 +30,9 @@ rest.factory('Category',['$resource',($resource)->
 rest.factory('Profile',['$resource',($resource)->
 	$resource('/profile',{})
 	])
+rest.factory('Retex',['$resource',($resource)->
+	$resource('/return/:id', {id:'@id'})
+])
 
 rest.factory('Order',['$resource',($resource)->
 	$resource('/orders/:id', {id:'@id'})

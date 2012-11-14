@@ -424,7 +424,63 @@ SalesCtrl = ['$scope','Sales',($scope,Sales)->
 	window.sales = Sales
 ]
 
-RetExCtrl = ['$scope',($scope)->
+RetExCtrl = ['$scope','Retex',($scope,Retex)->
+	Retex.query((data)->
+		$scope.data = data
+		$scope.items = data
+		console.log data
+	)
+]
+
+WeeklyCtrl = ['$scope','Sales',($scope,Sales)->
+	Sales.query((data)->
+		$scope.data = data
+		console.log data
+		$scope.sales = data
+		total = 0
+		total += parseFloat(s.amount) for s in $scope.sales
+		$scope.total = total
+		
+	)
+
+	$scope.submit = ->
+		from = (new Date($scope.dateFrom)).valueOf()
+		console.log 'from: ' + from
+		to = (new Date($scope.dateTo)).valueOf()
+		console.log 'to: ' + to
+		a = (s for s in $scope.data when (s.date*1000)>=from)
+		f = (s for s in a when (s.date*1000 <= (to+86400000) ))
+		console.log f
+		$scope.sales = f
+		
+		total = 0
+		total += parseFloat(s.amount) for s in $scope.sales
+		$scope.total = total
+]
+
+MonthlyCtrl = ['$scope','Sales',($scope,Sales)->
+	$scope.currMonth = (new Date()).getMonth()
+	Sales.query((data)->
+		$scope.data = data
+		f = (s for s in data when ((new Date(s.date*1000)).getMonth() == $scope.currMonth))
+		total = 0
+		total += parseFloat(s.amount) for s in f
+		console.log  f
+		console.log total
+		$scope.sales = f
+		$scope.total = total
+	)
+
+	$scope.changeMonth = ->
+		#console.log $scope.month
+		#console.log $scope.data
+		f = (s for s in $scope.data when ((new Date(s.date*1000)).getMonth() == parseInt($scope.month)))
+		console.log  f
+		total = 0
+		total += parseFloat(s.amount) for s in f
+		console.log total
+		$scope.sales = f
+		$scope.total = total
 
 ]
 
