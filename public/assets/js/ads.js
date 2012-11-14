@@ -834,6 +834,7 @@
   MonthlyCtrl = [
     '$scope', 'Sales', function($scope, Sales) {
       $scope.currMonth = (new Date()).getMonth();
+      $scope.year = (new Date()).getFullYear();
       Sales.query(function(data) {
         var f, s, total, _i, _len;
         $scope.data = data;
@@ -856,7 +857,8 @@
         console.log(f);
         console.log(total);
         $scope.sales = f;
-        return $scope.total = total;
+        $scope.total = total;
+        return typeof $scope.year;
       });
       return $scope.changeMonth = function() {
         var f, s, total, _i, _len;
@@ -866,7 +868,7 @@
           _results = [];
           for (_i = 0, _len = _ref.length; _i < _len; _i++) {
             s = _ref[_i];
-            if ((new Date(s.date * 1000)).getMonth() === parseInt($scope.month)) {
+            if (((new Date(s.date * 1000)).getMonth() === parseInt($scope.month)) && (new Date(s.date * 1000)).getFullYear() === $scope.year) {
               _results.push(s);
             }
           }

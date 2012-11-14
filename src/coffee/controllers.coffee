@@ -460,6 +460,7 @@ WeeklyCtrl = ['$scope','Sales',($scope,Sales)->
 
 MonthlyCtrl = ['$scope','Sales',($scope,Sales)->
 	$scope.currMonth = (new Date()).getMonth()
+	$scope.year = (new Date()).getFullYear()
 	Sales.query((data)->
 		$scope.data = data
 		f = (s for s in data when ((new Date(s.date*1000)).getMonth() == $scope.currMonth))
@@ -469,12 +470,13 @@ MonthlyCtrl = ['$scope','Sales',($scope,Sales)->
 		console.log total
 		$scope.sales = f
 		$scope.total = total
+		typeof $scope.year
 	)
 
 	$scope.changeMonth = ->
 		#console.log $scope.month
 		#console.log $scope.data
-		f = (s for s in $scope.data when ((new Date(s.date*1000)).getMonth() == parseInt($scope.month)))
+		f = (s for s in $scope.data when ((new Date(s.date*1000)).getMonth() == parseInt($scope.month)) and (new Date(s.date*1000)).getFullYear() == $scope.year )
 		console.log  f
 		total = 0
 		total += parseFloat(s.amount) for s in f

@@ -1,6 +1,6 @@
 <legend>Monthly Sales</legend>
 <div>
-	<select ng-model="month" ng-change="changeMonth()">
+	For the month of <select ng-model="month" ng-change="changeMonth()">
 		<option value="0">January</option>
 		<option value="1">February</option>
 		<option value="2">March</option>
@@ -14,6 +14,7 @@
 		<option value="10" ng-selected="currMonth == 10">November</option>
 		<option value="11" ng-selected="currMonth == 11">December</option>
 	</select>
+	 of <input type="number" ng-model="year" ng-change="changeMonth()" required>
 
 	<table class="table table-hover">
 		<thead>
