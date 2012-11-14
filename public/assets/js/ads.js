@@ -482,6 +482,7 @@
         var current_date, sales;
         current_date = Math.round(Date.now() / 1000);
         $scope.order.date_claimed = current_date;
+        $scope.order.due = current_date + (3600 * 24 * 30);
         $scope.order.balance = $scope.order.total - $scope.order.downpayment;
         $scope.order.$save();
         sales = new Sales();

@@ -10,6 +10,8 @@ require '../order.php';
 #print_r($order->as_array());
 #print_r($data);
 $order = Order::findById(6);
-print_r($order->items->as_array());
+$order->due = $order->date_claimed;
+$order->save();
+print_r($order->as_array());
 
 ?>
