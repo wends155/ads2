@@ -26,6 +26,5 @@ while True:
 		else:
 			print 'command error'
 			snd.send_sms(sender,'command error')
-	except:
-		print 'order does not exist'
-		snd.send_sms(sender,'order does not exist')
+	except SystemExit:
+		print "closed"
