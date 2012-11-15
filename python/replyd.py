@@ -10,7 +10,7 @@ class ReplyDaemon(GeventDaemon):
 		import time
 		snd = client.Sender()
 		recv = client.Receiver()
-		#from peewee import *
+		from peewee import DoesNotExist
 
 		while True:
 			msg = recv.recv_json()
@@ -18,23 +18,24 @@ class ReplyDaemon(GeventDaemon):
 			message = msg['message']
 			token = message.split()
 			command = token[1]
-			user = token[2]
-			id = token[3]
+			id = token[2]
+			
 			try:
-				order = Orders.get(Orders.user_id == user and Orders.id == id)
-				if command == 'info':
+				order = Orders.get(Orders.id == id)
+				if command == 'order':
 					
 					localtime = time.asctime( time.localtime(time.time()) )
-					
-					rep = "%s \nbalance: %s\ndue: %s" % (localtime,order.balance,order.due)
+					u = order.due
+					due = time.strftime('%m/%d/%Y',time.localtime(u))
+					rep = "%s \nOrder#: %s\nbalance: Php %s\ndue: %s" % (localtime,id,order.balance,due)
 					snd.send_sms(sender,rep)
 					print rep
 					#print out
 				else:
 					print 'command error'
 					snd.send_sms(sender,'command error')
-			except SystemExit:
-				print "closed"
+			except DoesNotExist:
+				snd.send_sms(sender,'No order with id of %s' % id)
 
 
 if __name__ == "__main__":
