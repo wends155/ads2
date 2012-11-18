@@ -27,11 +27,13 @@ PhoneDetailCtrl = ['$scope','$routeParams', ($scope,$routeParams) ->
 	
 ]
 
-MenuCtrl = ['$scope','Cart','$location','$rootScope','Order', ($scope,Cart,$location,$rootScope,Order)->
+MenuCtrl = ['$scope','Cart','$location','$rootScope','Order','$timeout', 
+($scope,Cart,$location,$rootScope,Order,$timeout)->
 	Order.query((data)->
 		$scope.order = data.length
 		)
-	
+	$scope.orderCount = 0
+
 	$scope.count = ->
 		Cart.items.length
 
@@ -44,6 +46,12 @@ MenuCtrl = ['$scope','Cart','$location','$rootScope','Order', ($scope,Cart,$loca
 		$scope.activePath = $location.path()
 		#console.log $scope.activePath
 	)
+	checkOrders = ->
+		$scope.orderCount++
+		timeout = $timeout(checkOrders,1000)
+	timeout = $timeout(checkOrders,1000)
+	$scope.stop = ->
+		$timeout.cancel(timeout)
 ]
 
 ProductCtrl = ['$scope','$http',($scope, $http)->
