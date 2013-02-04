@@ -266,7 +266,7 @@ ChangePassCtrl = ['$scope','$http',($scope,$http)->
 		console.log pack
 ]
 
-RegisterCtrl = ['$scope','$http',($scope,$http)->
+RegisterCtrl = ['$scope','$http','$location',($scope,$http,$location)->
 	$scope.login = false
 	$scope.check_username = ()->
 
@@ -314,6 +314,7 @@ RegisterCtrl = ['$scope','$http',($scope,$http)->
 			$scope.user = {}
 			$scope.profile = {}
 			$scope.login = true
+			
 		).error(->
 			$scope.failed = true
 		)

@@ -6,10 +6,11 @@
     <div class="span12">
 		<div class="alert alert-info" ng-show="login">
 			  <button type="button" class="close" data-dismiss="alert">&times;</button>
-			  <strong>Congratularion! you may now <a href="/login">LOGIN HERE</a> </strong>
+			  <strong>Congratulation! you may now <a href="/login">LOGIN HERE</a> </strong>
 		</div>
 	<h2>Signing Up...</h2>
 	<hr>
+		<div ng-show="!login">
 			<form class="form-horizontal" ng-submit="submit()" >
 					<legend>Basic Information:</legend>
 				  
@@ -256,7 +257,7 @@
 				 </p>
 			</form>
 
-			
+			</div>
 
 	</div>
 </div><!--/row-->

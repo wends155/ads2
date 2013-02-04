@@ -182,7 +182,6 @@
       });
       checkOrders = function() {
         var timeout;
-        $scope.orderCount++;
         return timeout = $timeout(checkOrders, 1000);
       };
       timeout = $timeout(checkOrders, 1000);
@@ -1298,7 +1297,7 @@
   ];
 
   RegisterCtrl = [
-    '$scope', '$http', function($scope, $http) {
+    '$scope', '$http', '$location', function($scope, $http, $location) {
       $scope.login = false;
       $scope.check_username = function() {
         var $uname;

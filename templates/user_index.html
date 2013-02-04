@@ -5,15 +5,15 @@
     <div class="row-fluid">
 		<div class="span3" ng-controller="MenuCtrl">
 				<ul class="nav nav-tabs nav-stacked">
-					<li><a href="#/"><i class="icon-home"></i> Home</a> </li>
-					<li><a href="#/profile"><i class="icon-user"></i> Profile</a> </li>
-					<li><a href="#/change"><i class="icon-lock"></i> Change Password</a> </li>
+					<li ng-class="{active: activePath == '/'}"><a href="#/"><i class="icon-home"></i> Home</a> </li>
+					<li ng-class="{active: activePath == '/profile'}"><a href="#/profile"><i class="icon-user"></i> Profile</a> </li>
+					<li ng-class="{active: activePath == '/change'}"><a href="#/change"><i class="icon-lock"></i> Change Password</a> </li>
 					
 					
 				</ul>
 				<ul class="nav nav-tabs nav-stacked">
-					<li><a href="#/cart"><i class="icon-shopping-cart"></i> Cart <span class="badge badge-info">{{count()}}</span> </a></li>
-					<li><a href="#/orders"><i class="icon-list-alt"></i> Orders</a> </li>
+					<li ng-class="{active: activePath == '/cart'}"><a href="#/cart"><i class="icon-shopping-cart"></i> Cart <span class="badge badge-info">{{count()}}</span> </a></li>
+					<li ng-class="{active: activePath == '/orders'}"><a href="#/orders"><i class="icon-list-alt"></i> Orders</a> </li>
 				</ul>	
 		</div><!--/.span -->
         		  

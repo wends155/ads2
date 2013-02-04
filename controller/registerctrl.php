@@ -35,7 +35,8 @@ class RegisterCtrl{
 			$profile->id = $new_user->id;
 			$new_profile = Profile::create($profile);
 
-			$res->json($new_profile->as_array()); 
+			//$res->json($new_profile->as_array());
+			$res->redirect('/login'); 
 		};
 	}
 }
