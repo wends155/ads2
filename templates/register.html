@@ -8,7 +8,31 @@
 			  <button type="button" class="close" data-dismiss="alert">&times;</button>
 			  <strong>Congratulation! you may now <a href="/login">LOGIN HERE</a> </strong>
 		</div>
-	<h2>Signing Up...</h2>
+		<div id="dealerlogin" ng-show="login">	
+				<form class="form-horizontal" action="/login" method="POST" name="logform" id="logform">
+					<div class="modal-header">
+					  <a class="close" data-dismiss="modal" >&times;</a>
+					  <h3>Sign in to ADSell as dealer</h3>
+					</div>
+					<br>
+					<div>
+						<div class="control-group">
+							<div class="controls">
+							  <input type='text' class='input-large' name='username' placeholder='Username' autofocus>
+							</div>
+						</div>
+						<div class="control-group">
+							<div class="controls">
+							  <input type='password' class='input-large' name='password' placeholder='Password'>
+							</div>
+						</div><hr>
+						<center>								
+						<button type='submit' class='btn btn-primary btn-large'><b>Sign in</b></button>
+						</center>
+					</div>			
+				</form>		
+			</div>
+	<h2 ng-show="!login">Signing Up...</h2>
 	<hr>
 		<div ng-show="!login">
 			<form class="form-horizontal" ng-submit="submit()" >
