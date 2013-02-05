@@ -9,9 +9,25 @@ require '../order.php';
 #$order->update($data);
 #print_r($order->as_array());
 #print_r($data);
-$order = Order::findById(6);
-$order->due = $order->date_claimed;
-$order->save();
-print_r($order->as_array());
+#$order = Order::findById(6);
+#$order->due = $order->date_claimed;
+#$order->save();
+#print_r($order->as_array());
 
+function change_claim($id){
+	$order = Order::findById($id);
+	#echo $order->date;
+	$days = 3600*24*5;
+	$due = 3600*24*30;
+	$claim = $order->date;
+	#echo $claim;
+	$order->date_claimed = $claim + $days;
+	echo $order->date_claimed;
+	$order->due = $order->date_claimed + $due;
+	$order->save();
+}
+$ids = array(51,52,53,54,55,56,57,59,60,61,62,63,64,65,66,67,68,69,70,71,72,73,74);
+foreach($ids as $i){
+	change_claim($i);
+}
 ?>
