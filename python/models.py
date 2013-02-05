@@ -30,3 +30,7 @@ class Items(BaseModel):
 
 	def subtotal(self):
 		return self.quantity * self.price
+
+class Stock(BaseModel):
+	id = peewee.PrimaryKeyField()
+	quantity = peewee.IntegerField()
