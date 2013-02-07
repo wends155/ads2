@@ -233,5 +233,16 @@ respond('/sales/[i:id]',SalesCtrl::show());
 
 respond('/return', RetExCtrl::index());
 respond('/return/[i:id]', RetExCtrl::show());
+respond('/dues',function($req,$res){
+	$dues = Dues::all();
+	$res->json($dues->as_array());
+});
+respond('/new_orders', function($req,$res){
+	$n = Metrics::all();
+	$n = $n[0];
+	//echo $n->count;
+	$count = array('count' => $n->count);
+	$res->json($count);
+});
 dispatch();
 ?>

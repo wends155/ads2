@@ -138,6 +138,10 @@ admin.config(['$routeProvider','$locationProvider',($routeProvider,$locationProv
 		templateUrl: "#{adtmpl}/monthly.html"
 		controller: MonthlyCtrl
 		})
+	.when('/dues',{
+		templateUrl: "#{adtmpl}/dues.html"
+		controller: DuesCtrl
+		})
 	.otherwise({redirectTo:'/'})
 	#$locationProvider.html5Mode(true)
 	@

@@ -1,0 +1,28 @@
+<legend>Dealer Due Dates</legend>
+<img src="/assets/img/spinner.gif" alt="" ng-show="!spinner">
+<div ng-show="!!spinner">
+	<table class="table table-hover">
+		<thead>
+			<tr>
+				<th>Order #</th>
+				<th>Dealer</th>
+				<th>Cell #</th>
+				<th>Downpayment</th>
+				<th>Due Date</th>
+				<th>Balance</th>
+				<th>TR</th>
+			</tr>
+		</thead>
+		<tbody>
+			<tr ng-repeat="order in orders">
+				<td><a ng-href="#/orders/{{order.id}}" class="btn btn-small btn-primary">{{order.id}}</a> </td>
+				<td>{{order.name}} </td>
+				<td>{{order.mobile}}</td>
+				<td>{{order.downpayment | currency: 'Php '}} </td>
+				<td>{{order.due * 1000 | date:'MM/dd/yyyy'}} </td>
+				<td>{{order.balance | currency: 'Php '}} </td>
+				
+			</tr>
+		</tbody>
+	</table>
+</div>

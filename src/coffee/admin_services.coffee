@@ -18,3 +18,7 @@ adminRest.factory('Sales',['$resource',($resource)->
 	$resource('/sales/:id', {id:'@id'})
 ])
 
+adminRest.factory('Dues',['$resource',($resource) ->
+	$resource('/dues')
+])
+

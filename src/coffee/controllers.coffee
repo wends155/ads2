@@ -495,4 +495,12 @@ MonthlyCtrl = ['$scope','Sales',($scope,Sales)->
 
 ]
 
+DuesCtrl = ['$scope', 'Dues', ($scope,Dues) -> 
+	Dues.query((data)->
+		console.log data
+		$scope.orders = data
+		$scope.spinner = true
+	)
+]
+
 admin.controller('MenuCtrl',MenuCtrl)

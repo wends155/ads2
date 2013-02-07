@@ -71,7 +71,8 @@ abstract class Model{
 		return $this->as_json();
 
 	}
-	
+
+		
 	//STATIC
 	public static function findById($id){
 		self::configure();
