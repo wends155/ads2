@@ -517,7 +517,7 @@ DuesCtrl = ['$scope', 'Dues','sms', ($scope,Dues,sms) ->
 		send.number = m_no
 		send.message = "your due date for order##{order.id} is on #{ddate}"
 		send.$save()
-
+		alert "notification sent to #{m_no}"
 		order.notified = true
 ]
 

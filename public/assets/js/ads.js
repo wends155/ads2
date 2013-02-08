@@ -911,8 +911,9 @@
         console.log(send);
         console.log(parseInt(order.due));
         send.number = m_no;
-        send.message = "your due date for order " + order.id + " is on " + ddate;
+        send.message = "your due date for order#" + order.id + " is on " + ddate;
         send.$save();
+        alert("notification sent to " + m_no);
         return order.notified = true;
       };
     }
