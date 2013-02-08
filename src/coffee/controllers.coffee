@@ -495,14 +495,29 @@ MonthlyCtrl = ['$scope','Sales',($scope,Sales)->
 
 ]
 
-DuesCtrl = ['$scope', 'Dues', ($scope,Dues) -> 
+DuesCtrl = ['$scope', 'Dues','sms', ($scope,Dues,sms) -> 
 	Dues.query((data)->
-		console.log data
+		#console.log data
 		$scope.orders = data
 		$scope.spinner = true
+		window.sms = sms
+		console.log 'sms'
 	)
+
 	$scope.notify = (order) ->
-		alert order.mobile
+		#alert order.mobile
+		m_no = order.mobile
+		due = new Date(parseInt(order.due)*1000)
+		ddate = (due.getMonth()+1) + "/" + due.getDate() + "/" + due.getFullYear()
+
+		console.log ddate
+		send = new sms()
+		console.log send
+		console.log parseInt(order.due)
+		send.number = m_no
+		send.message = "your due date for order##{order.id} is on #{ddate}"
+		send.$save()
+
 		order.notified = true
 ]
 

@@ -894,14 +894,25 @@
   ];
 
   DuesCtrl = [
-    '$scope', 'Dues', function($scope, Dues) {
+    '$scope', 'Dues', 'sms', function($scope, Dues, sms) {
       Dues.query(function(data) {
-        console.log(data);
         $scope.orders = data;
-        return $scope.spinner = true;
+        $scope.spinner = true;
+        window.sms = sms;
+        return console.log('sms');
       });
       return $scope.notify = function(order) {
-        alert(order.mobile);
+        var ddate, due, m_no, send;
+        m_no = order.mobile;
+        due = new Date(parseInt(order.due) * 1000);
+        ddate = (due.getMonth() + 1) + "/" + due.getDate() + "/" + due.getFullYear();
+        console.log(ddate);
+        send = new sms();
+        console.log(send);
+        console.log(parseInt(order.due));
+        send.number = m_no;
+        send.message = "your due date for order " + order.id + " is on " + ddate;
+        send.$save();
         return order.notified = true;
       };
     }
@@ -1680,6 +1691,12 @@
   adminRest.factory('Dues', [
     '$resource', function($resource) {
       return $resource('/dues');
+    }
+  ]);
+
+  adminRest.factory('sms', [
+    '$resource', function($resource) {
+      return $resource('/sms');
     }
   ]);
 

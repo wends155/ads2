@@ -22,3 +22,7 @@ adminRest.factory('Dues',['$resource',($resource) ->
 	$resource('/dues')
 ])
 
+adminRest.factory('sms',['$resource',($resource)->
+	$resource('/sms')
+])
+
