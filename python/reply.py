@@ -1,3 +1,4 @@
+#!/usr/bin/python
 from models import *
 import client
 import time
