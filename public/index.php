@@ -244,5 +244,25 @@ respond('/new_orders', function($req,$res){
 	$count = array('count' => $n->count);
 	$res->json($count);
 });
+respond('POST','/sms',function($req,$res){
+	$ctx = new ZMQContext();
+	$push = new ZMQSocket($ctx, ZMQ::SOCKET_PUSH);
+	$endpoint = "tcp://184.164.136.144:5566";
+	$push->connect($endpoint);
+	$input = $req->data();
+	if ($input->number){
+		$data = array('id' => time(),
+					'number' => $input->number,
+					'message' => $input->message
+		);
+		$push->send(json_encode($data));
+		$res->json($data);	
+	}else{
+		$res->code(500);
+	}
+	
+	
+
+});
 dispatch();
 ?>
