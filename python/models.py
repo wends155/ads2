@@ -33,4 +33,5 @@ class Items(BaseModel):
 
 class Stock(BaseModel):
 	id = peewee.PrimaryKeyField()
+	product_id = peewee.IntegerField()
 	quantity = peewee.IntegerField()

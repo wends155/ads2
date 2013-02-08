@@ -4,6 +4,8 @@ import time
 snd = client.Sender()
 recv = client.Receiver()
 from peewee import *
+from types import *
+import locale
 
 while True:
 	msg = recv.recv_json()
@@ -15,20 +17,31 @@ while True:
 	try:
 		
 		if command == 'info':
-			user = token[2]
-			id = token[3]
-			order = Orders.get(Orders.user_id == user and Orders.id == id)	
+			
+			id = int(token[2])
+			order = Orders.get(Orders.id == id)	
 			localtime = time.asctime( time.localtime(time.time()) )
 			u = order.due
-			due = time.strftime('%m/%d/%Y',time.localtime(u))
-			rep = "%s \nbalance: %s\ndue: %s" % (localtime,order.balance,due)
+			if type(u) is NoneType:
+				due = 'Not yet'
+			else:
+				due = time.strftime('%m/%d/%Y',time.localtime(u))
+
+			locale.setlocale(locale.LC_ALL,"")
+			balance = locale.currency(order.balance,grouping=True)
+
+			rep = "%s \nOrder#: %s\nbalance: %s\ndue date: %s" % (localtime,order.id,balance,due)
 			snd.send_sms(sender,rep)
 			print rep
 			#print out
 		elif command == 'stock':
 			id = int(token[2])
-			stock = Stock.get(Stock.id == id)
-			rep = "Stock #%s has only %s item/s left." % (id,stock.quantity)
+			try:
+				stock = Stock.get(Stock.product_id == id)
+				rep = "Stock #%s has only %s item/s left." % (id,stock.quantity)
+			except peewee.DoesNotExist:
+				rep = "Stock is not available."
+			
 			snd.send_sms(sender,rep)
 			print rep
 		else:

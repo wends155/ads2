@@ -895,11 +895,15 @@
 
   DuesCtrl = [
     '$scope', 'Dues', function($scope, Dues) {
-      return Dues.query(function(data) {
+      Dues.query(function(data) {
         console.log(data);
         $scope.orders = data;
         return $scope.spinner = true;
       });
+      return $scope.notify = function(order) {
+        alert(order.mobile);
+        return order.notified = true;
+      };
     }
   ];
 

@@ -10,7 +10,7 @@
 				<th>Downpayment</th>
 				<th>Due Date</th>
 				<th>Balance</th>
-				<th>TR</th>
+				<th></th>
 			</tr>
 		</thead>
 		<tbody>
@@ -21,7 +21,7 @@
 				<td>{{order.downpayment | currency: 'Php '}} </td>
 				<td>{{order.due * 1000 | date:'MM/dd/yyyy'}} </td>
 				<td>{{order.balance | currency: 'Php '}} </td>
-				
+				<td><a ng-click="notify(order)" class="btn btn-small">Notify</a> <span ng-show="order.notified">*</span> </td>
 			</tr>
 		</tbody>
 	</table>

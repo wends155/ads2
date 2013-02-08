@@ -501,6 +501,9 @@ DuesCtrl = ['$scope', 'Dues', ($scope,Dues) ->
 		$scope.orders = data
 		$scope.spinner = true
 	)
+	$scope.notify = (order) ->
+		alert order.mobile
+		order.notified = true
 ]
 
 admin.controller('MenuCtrl',MenuCtrl)
