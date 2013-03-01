@@ -63,12 +63,13 @@ class ReportCtrl{
 					$stocks = Stock::all();
 					foreach ($stocks as $stock) {
 						$page->drawText($stock->product->name, 50, $row);
-						$page->drawText($stock->product->description, 300, $row);
-						$page->drawText($stock->quantity, 610, $row);
+						$page->drawText($stock->product->description, 280, $row);
+						$page->drawText($stock->quantity, 550, $row);
 					
 						$row -= 15;
 					}
-				
+					$page->drawText("Prepared by:",300,80);
+					$page->drawText("________________________________", 300, 50);
 
 					echo $stocks_report->render();
 				} catch(Exception $e){
