@@ -225,8 +225,12 @@ respond('/stocks/[i:id]', StockCtrl::show());
 respond('/stocks/[i:product]/inc/[i:value]',StockCtrl::increment());
 respond('/stocks/[i:product]/dec/[i:value]', StockCtrl::decrement());
 
-respond('/report/inventory.pdf', ReportCtrl::test());
+//respond('/report/inventory.pdf', ReportCtrl::test());
+respond('/report/inventory.pdf', ReportCtrl::inventory());
+respond('/report/monthly.pdf', ReportCtrl::monthly());
+respond('/report/weekly.pdf', ReportCtrl::weekly());
 respond('/order/[i:id]/receipt.pdf',ReportCtrl::user_order_receipt());
+
 
 respond('/sales',SalesCtrl::index());
 respond('/sales/[i:id]',SalesCtrl::show());

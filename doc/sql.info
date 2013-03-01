@@ -1,0 +1,8 @@
+select 
+products.id,products.name, products.description, products.price,
+categories.name as category, companies.name as company, brands.name as brand
+ from products join categories on products.category_id = categories.id
+join companies on products.company_id = companies.id
+join brands on products.brand_id = brands.id
+
+

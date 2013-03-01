@@ -47,6 +47,84 @@ class ReportCtrl{
 		};
 	}
 
+	public static function inventory(){
+		return function($request,$response){
+			if($request->session('admin')){
+				try{
+					$response->header('Content-Type','application/pdf');
+					
+					$stocks_report = Zend_Pdf::load('../pdf/inv.pdf');
+					$page = $stocks_report->pages[0];
+					$font = Zend_Pdf_Font::fontWithName(Zend_Pdf_Font::FONT_TIMES);
+					$page->setFont($font,11);
+					$page->drawText(Time::unixToDate(time()), 290, 818);
+
+					$row = 765;
+					$stocks = Stock::all();
+					foreach ($stocks as $stock) {
+						$page->drawText($stock->product->name, 50, $row);
+						$page->drawText($stock->product->description, 300, $row);
+						$page->drawText($stock->quantity, 610, $row);
+					
+						$row -= 15;
+					}
+				
+
+					echo $stocks_report->render();
+				} catch(Exception $e){
+					$response->header('Content-Type','text/plain');
+					echo $e->getMessage();
+				}
+			}else{
+				$response->code(403);
+			}
+		};
+	}
+	
+	public static function monthly(){
+		return function($request,$response){
+			if($request->session('admin')){
+				try{
+					$response->header('Content-Type','application/pdf');
+					
+					$stocks_report = Zend_Pdf::load('../pdf/monthly.pdf');
+					$page = $stocks_report->pages[0];
+					$font = Zend_Pdf_Font::fontWithName(Zend_Pdf_Font::FONT_TIMES);
+					$page->setFont($font,11);
+					$page->drawText(Time::unixToDate(time()), 290, 818);				
+					echo $stocks_report->render();
+				} catch(Exception $e){
+					$response->header('Content-Type','text/plain');
+					echo $e->getMessage();
+				}
+			}else{
+				$response->code(403);
+			}
+		};
+	}
+	
+	public static function weekly(){
+		return function($request,$response){
+			if($request->session('admin')){
+				try{
+					$response->header('Content-Type','application/pdf');
+					
+					$stocks_report = Zend_Pdf::load('../pdf/weekly.pdf');
+					$page = $stocks_report->pages[0];
+					$font = Zend_Pdf_Font::fontWithName(Zend_Pdf_Font::FONT_TIMES);
+					$page->setFont($font,11);
+					$page->drawText(Time::unixToDate(time()), 290, 818);				
+					echo $stocks_report->render();
+				} catch(Exception $e){
+					$response->header('Content-Type','text/plain');
+					echo $e->getMessage();
+				}
+			}else{
+				$response->code(403);
+			}
+		};
+	}
+
 	public static function user_order_receipt(){
 		return function($request,$response){
 			$user_id = $request->session('id'); 

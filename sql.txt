@@ -1,0 +1,5 @@
+create view ondue as select * from orders where due < (strftime('%s','now')+172800) and date_paid is NULL order by due asc;
+
+select * from orders join profiles on orders.user_id = profiles.id where due < (strftime('%s','now')+172800) and date_paid is NULL order by due asc;
+
+select orders.id,profiles.fname || ' '|| substr(profiles.mname,1,1)||'. ' || profiles.lname as name, profiles.mobile  ,orders.downpayment, orders.balance, orders.due from orders join profiles on orders.user_id = profiles.id where orders.due < (strftime('%s','now')+172800) and orders.date_paid is NULL order by orders.due asc;
