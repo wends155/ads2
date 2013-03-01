@@ -3,37 +3,37 @@
 <div ng-show="!!spinner">
 	<button ng-click="reset()">Reset filter</button>
 </div>
-<table class="table table-hover" ng-show="!!spinner">
-	<thead>
+<table  class="table table-hover" ng-show="!!spinner" >
+	<thead id="ot">
 		<tr>
-			<th>
+			<th class="thID">
 				ID
 			</th>
-			<th>
+			<th class="thDate">
 				<a href="" ng-click="predicate='date';reverse=!reverse" >Date<i class="icon-arrow-up" ng-show="!reverse"></i><i class="icon-arrow-down" ng-show="reverse"></i> </a>
 			</th>
-			<th>
+			<th class="thItem">
 				Items
 			</th>
-			<th>
+			<th class="thTotal">
 				<a href="" ng-click="predicate='total';reverse = !reverse" >Total<i class="icon-arrow-up" ng-show="!reverse"></i><i class="icon-arrow-down" ng-show="reverse"></i>  </a>
 			</th>
-			<th>DP(30%)</th>
-			<th><input type="checkbox" ng-model="paid" ng-click="filterPaid()"> <a href="" ng-click="paid=!paid;filterPaid()">Paid</a> </th>
-			<th><input type="checkbox" ng-model="claimed" ng-click="filterClaimed()"> <a href="" ng-click="claimed=!claimed;filterClaimed()">Claimed</a></th>
-			<th>Due</th>
-			<th>Paid</th>
+			<th class="thDP">DP(30%)</th>
+			<th class="thPAID"><input type="checkbox" ng-model="paid" ng-click="filterPaid()"> <a href="" ng-click="paid=!paid;filterPaid()">Paid</a> </th>
+			<th class="thClaimed"><input type="checkbox" ng-model="claimed" ng-click="filterClaimed()"> <a href="" ng-click="claimed=!claimed;filterClaimed()">Claimed</a></th>
+			<th class="thDue">Due</th>
+			<th class="thPaid" >Paid</th>
 		</tr>
 	</thead>
-	<tbody>
+	<tbody id="orderst">
 		<tr ng-repeat="order in orders | orderBy: predicate:reverse">
-			<td>
+			<td class="thID">
 				{{order.id}}
 			</td>
-			<td>
+			<td class="thDate">
 				{{order.date * 1000 | date: 'MM/d/yyyy'}}
 			</td>
-			<td>
+			<td class="thItem">
 				<table class="table table-condensed table-bordered">
 					<thead>
 						<tr>
@@ -56,15 +56,15 @@
 					</tbody>
 				</table>
 			</td>
-			<td>
+			<td class = "thTotal">
 				{{order.total | currency: "Php "}}
 			</td>
-			<td>{{order.total * 0.30 | currency: "Php "}}</td>
-			<td><span ng-show="order.date_paid != null">{{order.date_paid *1000 | date: 'MM/d/yyyy'}}</span><span ng-show="order.date_paid == null">No</span> </td>
-			<td><span ng-show="order.date_claimed != null">{{order.date_claimed *1000 | date: 'MM/d/yyyy' }}</span><span ng-show="order.date_claimed == null">No</span> </td>
-			<td><span ng-show="order.due != null">{{order.due *1000 | date: 'MM/d/yyyy' }}</span><span ng-show="order.due == null">Not Yet</span> </td>
+			<td class="thDP">{{order.total * 0.30 | currency: "Php "}}</td>
+			<td class="thPAID"><span ng-show="order.date_paid != null">{{order.date_paid *1000 | date: 'MM/d/yyyy'}}</span><span ng-show="order.date_paid == null">No</span> </td>
+			<td class="thClaimed"><span ng-show="order.date_claimed != null">{{order.date_claimed *1000 | date: 'MM/d/yyyy' }}</span><span ng-show="order.date_claimed == null">No</span> </td>
+			<td class="thDue"><span ng-show="order.due != null">{{order.due *1000 | date: 'MM/d/yyyy' }}</span><span ng-show="order.due == null">Not Yet</span> </td>
 
-			<td><span ng-show="order.date_paid != null">{{order.date_paid *1000 | date: 'MM/dd/yyyy'}} </span><span  ng-show="order.date_paid == null">None </td>
+			<td class="thPaid"><span ng-show="order.date_paid != null">{{order.date_paid *1000 | date: 'MM/dd/yyyy'}} </span><span  ng-show="order.date_paid == null">None </td>
 		</tr>
 		<tr>
 			<td colspan="2"></td>
