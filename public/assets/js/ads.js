@@ -183,13 +183,12 @@
         return $scope.activePath = $location.path();
       });
       checkOrders = function() {
-        var timeout;
         console.log("checked orders");
-        return timeout = $timeout(checkOrders, 1000);
+        return $scope.timeout = $timeout(checkOrders, 1000);
       };
       checkOrders();
       return $scope.stop = function() {
-        return $timeout.cancel(timeout);
+        return $timeout.cancel($scope.timeout);
       };
     }
   ];

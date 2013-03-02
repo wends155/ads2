@@ -11,10 +11,10 @@ LESS_SRC = "less/"
 FILES = ['app','filters','controllers','user_controllers','services','admin_services']
 IN_FILES = ("#{COFFEE_SRC}#{file}.coffee" for file in FILES).join ' '
 
-PATH = '/usr/local/bin'
-COFFEE ='/usr/local/bin/coffee'
-UGLIFY = '/usr/local/bin/uglifyjs'
-RECESS = '/usr/local/bin/recess'
+PATH = "/usr/local/bin"
+COFFEE = "/usr/local/bin/coffee"
+UGLIFY = "/usr/local/bin/uglifyjs"
+RECESS = "/usr/local/bin/recess"
 
 exerr  = (err, sout,  serr)->
   process.stdout.write err  if err
