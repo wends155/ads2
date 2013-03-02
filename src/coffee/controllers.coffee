@@ -48,10 +48,11 @@ MenuCtrl = ['$scope','Cart','$location','$rootScope','Order','$timeout',
 	)
 	checkOrders = ->
 		#$scope.orderCount++
-		timeout = $timeout(checkOrders,1000)
-	timeout = $timeout(checkOrders,1000)
+		console.log "checked orders"
+		$scope.timeout = $timeout(checkOrders,1000)
+	checkOrders()
 	$scope.stop = ->
-		$timeout.cancel(timeout)
+		$timeout.cancel($scope.timeout)
 ]
 
 ProductCtrl = ['$scope','$http',($scope, $http)->

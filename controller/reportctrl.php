@@ -55,16 +55,16 @@ class ReportCtrl{
 					
 					$stocks_report = Zend_Pdf::load('../pdf/inv.pdf');
 					$page = $stocks_report->pages[0];
-					$font = Zend_Pdf_Font::fontWithName(Zend_Pdf_Font::FONT_TIMES);
-					$page->setFont($font,11);
+					$font = Zend_Pdf_Font::fontWithName(Zend_Pdf_Font::FONT_COURIER);
+					$page->setFont($font,10);
 					$page->drawText(Time::unixToDate(time()), 290, 818);
 
 					$row = 765;
 					$stocks = Stock::all();
 					foreach ($stocks as $stock) {
-						$page->drawText($stock->product->name, 50, $row);
+						$page->drawText(sprintf("%10.39s",$stock->product->name), 32, $row);
 						$page->drawText($stock->product->description, 280, $row);
-						$page->drawText($stock->quantity, 550, $row);
+						$page->drawText(sprintf("%4u", $stock->quantity), 550, $row);
 					
 						$row -= 15;
 					}
