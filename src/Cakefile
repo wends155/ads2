@@ -1,5 +1,6 @@
 {exec} = require 'child_process'
 path = require 'path'
+zlib = require 'zlib'
 
 ASSETS_PATH = '../public/assets'
 PRODUCT = 'ads'
