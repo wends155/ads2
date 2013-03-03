@@ -37,6 +37,9 @@ task 'minify', "minify generated #{PRODUCT}.js", ->
 	exec "#{UGLIFY} --no-copyright --output #{JS_PATH}/#{PRODUCT}.min.js #{JS_PATH}/#{PRODUCT}.js",exerr
 	console.log "output: #{JS_PATH}/#{PRODUCT}.min.js"
 
+
 task "deploy", "builds and minifies #{PRODUCT}", ->
 	invoke 'build'
 	invoke 'minify'
+	console.log "gzipping"
+	exec "gzip -c #{JS_PATH}/#{PRODUCT}.min.js > #{JS_PATH}/#{PRODUCT}.min.js.gz", exerr

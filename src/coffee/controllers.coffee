@@ -47,8 +47,8 @@ MenuCtrl = ['$scope','Cart','$location','$rootScope','Order','$timeout',
 		#console.log $scope.activePath
 	)
 	checkOrders = ->
-		#$scope.orderCount++
-		console.log "checked orders"
+		clearTimeout($scope.$timeout)
+		console.log "code change"
 		$scope.timeout = $timeout(checkOrders,1000)
 	checkOrders()
 	$scope.stop = ->

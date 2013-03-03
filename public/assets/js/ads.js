@@ -183,7 +183,8 @@
         return $scope.activePath = $location.path();
       });
       checkOrders = function() {
-        console.log("checked orders");
+        clearTimeout($scope.$timeout);
+        console.log("code change");
         return $scope.timeout = $timeout(checkOrders, 1000);
       };
       checkOrders();
