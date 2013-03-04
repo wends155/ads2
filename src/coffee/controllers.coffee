@@ -29,6 +29,7 @@ PhoneDetailCtrl = ['$scope','$routeParams', ($scope,$routeParams) ->
 
 MenuCtrl = ['$scope','Cart','$location','$rootScope','Order','$timeout', 
 ($scope,Cart,$location,$rootScope,Order,$timeout)->
+	checker = null
 	Order.query((data)->
 		$scope.order = data.length
 		)
@@ -47,9 +48,10 @@ MenuCtrl = ['$scope','Cart','$location','$rootScope','Order','$timeout',
 		#console.log $scope.activePath
 	)
 	checkOrders = ->
-		clearTimeout($scope.$timeout)
-		console.log "code change"
-		$scope.timeout = $timeout(checkOrders,1000)
+		clearTimeout(checker)
+		console.log "code change 2"
+		checker = $timeout(checkOrders,1000)
+		@
 	checkOrders()
 	$scope.stop = ->
 		$timeout.cancel($scope.timeout)

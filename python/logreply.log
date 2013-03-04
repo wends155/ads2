@@ -1,0 +1,20 @@
+INFO:root:04Mar2013,10:29: Starting daemon
+INFO:root:04Mar2013,10:29: Starting reply
+INFO:root:04Mar2013,10:31: Starting daemon
+INFO:root:04Mar2013,10:31: Starting reply
+INFO:root:04Mar2013,10:33: Starting daemon
+INFO:root:04Mar2013,10:33: Starting reply
+INFO:root:04Mar2013,10:35: Starting daemon
+INFO:root:04Mar2013,10:35: Starting reply
+INFO:root:Mon Mar  4 10:35:46 2013 
+Order#: 10
+balance: Php3,685.50
+due date: 03/08/2013
+INFO:root:Order does not exist
+INFO:root:Order does not exist
+INFO:root:Mon Mar  4 10:37:17 2013 
+Order#: 81
+balance: 483.6
+due date: Unclaimed
+INFO:root:Stock #15 has only 5 item/s left.
+INFO:root:Stock #600 has only 30 item/s left.

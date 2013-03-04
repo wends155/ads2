@@ -166,7 +166,8 @@
 
   MenuCtrl = [
     '$scope', 'Cart', '$location', '$rootScope', 'Order', '$timeout', function($scope, Cart, $location, $rootScope, Order, $timeout) {
-      var checkOrders;
+      var checkOrders, checker;
+      checker = null;
       Order.query(function(data) {
         return $scope.order = data.length;
       });
@@ -183,9 +184,10 @@
         return $scope.activePath = $location.path();
       });
       checkOrders = function() {
-        clearTimeout($scope.$timeout);
-        console.log("code change");
-        return $scope.timeout = $timeout(checkOrders, 1000);
+        clearTimeout(checker);
+        console.log("code change 2");
+        checker = $timeout(checkOrders, 1000);
+        return this;
       };
       checkOrders();
       return $scope.stop = function() {
